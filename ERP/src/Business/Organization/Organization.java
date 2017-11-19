@@ -6,6 +6,7 @@
 package Business.Organization;
 
 import Business.Employee.EmployeeDirectory;
+import Business.Role.Role;
 import Business.UserAccount.UserAccountDirectory;
 //import Business.WorkQueue.WorkQueue;
 //import Business.Role.*;
@@ -67,17 +68,11 @@ public abstract class Organization {
         return name;
     }
 
-    public WorkQueue getWorkQueue() {
-        return workQueue;
-    }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setWorkQueue(WorkQueue workQueue) {
-        this.workQueue = workQueue;
-    }
 
     @Override
     public String toString() {
