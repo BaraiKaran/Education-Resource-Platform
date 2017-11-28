@@ -56,6 +56,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jSplitPane1.setPreferredSize(new java.awt.Dimension(900, 600));
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         loginJButton.setBackground(new java.awt.Color(51, 153, 255));
