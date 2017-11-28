@@ -10,7 +10,7 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import Interface.ProgramDirector.ProgramDirectorWorkAreaJPanel;
+import Interface.ProgramDirectorRole.ProgramDirectorWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**

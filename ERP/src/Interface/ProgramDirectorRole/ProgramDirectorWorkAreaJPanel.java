@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interface.ProgramDirector;
+package Interface.ProgramDirectorRole;
 
 import Business.EcoSystem;
 import javax.swing.JPanel;
