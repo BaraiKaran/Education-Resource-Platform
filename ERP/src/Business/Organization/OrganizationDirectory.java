@@ -31,9 +31,11 @@ public class OrganizationDirectory {
         if (type.getValue().equals(Type.Admin.getValue())){
             organization = new AdminOrganization();
             organizationList.add(organization);
+        } else 
+        if(type.getValue().equals(Type.College.getValue())){
+            organization = new CollegeOrganization();
+            organizationList.add(organization);
         }
-       
-        
         return organization;
     }
 }
