@@ -10,21 +10,24 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import Interface.RARole.RAWorkAreaJPanel;
+import Interface.CollegeAdmin.CollegeAdminWorkAreaJPanel;
+import Interface.ProfessorRole.ProfessorWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**
  *
  * @author aakas
  */
-public class RARole extends Role{
-    
+public class CollegeAdminRole extends Role{
+   
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system,Network network) {
-        return new RAWorkAreaJPanel(userProcessContainer, system);   
-}
+        return new CollegeAdminWorkAreaJPanel(userProcessContainer, organization);
+    }
+    
+    
     @Override
     public String toString(){
-        return "Research Assistant";
+        return "College Administration";
     }
 }

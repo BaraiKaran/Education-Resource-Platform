@@ -24,4 +24,8 @@ public class StudentRole extends Role{
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system,Network network) {
         return new StudentWorkAreaJPanel(userProcessContainer, system);
 }
+    @Override
+    public String toString(){
+        return "Student";
+    }
 }

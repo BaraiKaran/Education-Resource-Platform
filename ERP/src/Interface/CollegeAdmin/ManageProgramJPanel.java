@@ -2,8 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interface.AdministrativeRole;
+package Interface.CollegeAdmin;
 
+import Business.College.Program;
+import Business.College.ProgramDirectory;
+import Business.Organization.CollegeOrganization;
+import Interface.AdministrativeRole.*;
 import Business.Organization.Organization;
 import Business.Organization.Organization.Type;
 import Business.Organization.OrganizationDirectory;
@@ -17,19 +21,20 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author krunal
  */
-public class ManageOrganizationJPanel extends javax.swing.JPanel {
+public class ManageProgramJPanel extends javax.swing.JPanel {
 
-    private OrganizationDirectory directory;
+    private Organization org;
     private JPanel userProcessContainer;
-    
+    private ProgramDirectory pdir;
     /**
      * Creates new form ManageOrganizationJPanel
      */
-    public ManageOrganizationJPanel(JPanel userProcessContainer,OrganizationDirectory directory) {
+    public ManageProgramJPanel(JPanel userProcessContainer,Organization org) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.directory = directory;
-        
+        this.org = org;
+         CollegeOrganization corg = (CollegeOrganization)org;
+        this.pdir = corg.getPD();
         populateTable();
         
     }
@@ -40,11 +45,11 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) organizationJTable.getModel();
         
         model.setRowCount(0);
-        
-        for (Organization organization : directory.getOrganizationList()){
+       
+        for (Program program : pdir.getDirectory()){
             Object[] row = new Object[2];
-            row[0] = organization;
-            row[1] = organization.getName();
+            row[0] = program;
+            row[1] = program.getName();
             
             model.addRow(row);
         }
@@ -132,7 +137,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Manage Organizations");
+        jLabel2.setText("Manage Programs");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -179,8 +184,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         
          Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
-        AdminWorkAreaJPanel panel = (AdminWorkAreaJPanel) component;
-        panel.plotgraph();
+        CollegeAdminWorkAreaJPanel panel = (CollegeAdminWorkAreaJPanel) component;
+        //panel.plotgraph();
         
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
@@ -188,8 +193,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
     private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
         // TODO add your handling code here:
-        NewOrganizationJPanel JPanel = new NewOrganizationJPanel(userProcessContainer, directory);
-        userProcessContainer.add("NewOrganizationJPanel", JPanel);
+        NewProgramJPanel JPanel = new NewProgramJPanel(userProcessContainer, pdir);
+        userProcessContainer.add("NewProgramJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
         
@@ -200,9 +205,9 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selected = organizationJTable.getSelectedRow();
         if(selected >= 0){
-            Organization org = (Organization)organizationJTable.getValueAt(selected, 0);
-            UpdateOrganizationJPanel JPanel = new UpdateOrganizationJPanel(userProcessContainer, directory,org);
-            userProcessContainer.add("UpdateOrganizationJPanel", JPanel);
+            Program prg = (Program)organizationJTable.getValueAt(selected, 0);
+            UpdateProgramJPanel JPanel = new UpdateProgramJPanel(userProcessContainer, pdir,prg);
+            userProcessContainer.add("UpdateProgramJPanel", JPanel);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.next(userProcessContainer);
         }else{
@@ -217,9 +222,9 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selected = organizationJTable.getSelectedRow();
         if(selected >= 0){
-            Organization org = (Organization)organizationJTable.getValueAt(selected, 0);
-            directory.removeOrganization(org);
-            JOptionPane.showMessageDialog(null, "Successfully deleted organization");
+            Program prg = (Program)organizationJTable.getValueAt(selected, 0);
+            pdir.removeProgram(prg);
+            JOptionPane.showMessageDialog(null, "Successfully deleted program");
             populateTable();
         }else{
             JOptionPane.showMessageDialog(null, "Please select a row");

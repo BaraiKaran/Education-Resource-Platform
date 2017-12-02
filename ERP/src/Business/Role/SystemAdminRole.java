@@ -10,21 +10,19 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import Interface.RARole.RAWorkAreaJPanel;
+import Interface.AdministrativeRole.AdminWorkAreaJPanel;
+import Interface.SystemAdminstrator.SystemAdminWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**
  *
- * @author aakas
+ * @author krunal
  */
-public class RARole extends Role{
-    
+public class SystemAdminRole extends Role{
+
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system,Network network) {
-        return new RAWorkAreaJPanel(userProcessContainer, system);   
-}
-    @Override
-    public String toString(){
-        return "Research Assistant";
+        return new SystemAdminWorkAreaJPanel(userProcessContainer, system);
     }
+    
 }

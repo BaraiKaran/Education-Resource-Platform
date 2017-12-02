@@ -26,16 +26,21 @@ public class OrganizationDirectory {
         return organizationList;
     }
     
-    public Organization createOrganization(Type type){
+    public Organization createOrganization(Type type,String name){
         Organization organization = null;
         if (type.getValue().equals(Type.Admin.getValue())){
-            organization = new AdminOrganization();
+            organization = new AdminOrganization(name);
             organizationList.add(organization);
         } else 
         if(type.getValue().equals(Type.College.getValue())){
-            organization = new CollegeOrganization();
+            organization = new CollegeOrganization(name);
             organizationList.add(organization);
         }
         return organization;
+    }
+    
+    public void removeOrganization(Organization org){
+            organizationList.remove(org);
+            
     }
 }

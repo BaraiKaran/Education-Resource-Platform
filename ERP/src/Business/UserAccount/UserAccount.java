@@ -6,6 +6,7 @@ package Business.UserAccount;
 
 import Business.Employee.Employee;
 import Business.Role.Role;
+import java.util.ArrayList;
 //import Business.WorkQueue.WorkQueue;
 
 /**
@@ -18,10 +19,23 @@ public class UserAccount {
     private String password;
     private Employee employee;
     private Role role;
+    private int id;
+    private static int count = 1;
     //private WorkQueue workQueue;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public UserAccount() {
         //workQueue = new WorkQueue();
+         this.id = count;
+        
+        count++;
     }
     
     
