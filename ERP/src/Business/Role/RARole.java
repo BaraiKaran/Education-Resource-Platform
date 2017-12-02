@@ -21,7 +21,7 @@ public class RARole extends Role{
     
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system,Network network) {
-        return new RAWorkAreaJPanel(userProcessContainer, system);   
+        return new RAWorkAreaJPanel(userProcessContainer, organization);   
 }
     @Override
     public String toString(){

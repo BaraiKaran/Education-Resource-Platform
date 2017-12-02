@@ -193,7 +193,7 @@ public class ManageProgramJPanel extends javax.swing.JPanel {
 
     private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
         // TODO add your handling code here:
-        NewProgramJPanel JPanel = new NewProgramJPanel(userProcessContainer, pdir);
+        NewProgramJPanel JPanel = new NewProgramJPanel(userProcessContainer, pdir,org);
         userProcessContainer.add("NewProgramJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

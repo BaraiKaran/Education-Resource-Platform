@@ -6,6 +6,7 @@
 package Interface.TARole;
 
 import Business.EcoSystem;
+import Business.Organization.Organization;
 import javax.swing.JPanel;
 
 /**
@@ -18,11 +19,11 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form TAWorkAreaJPanel
      */
     JPanel userProcessContainer;
-    EcoSystem system;
-    public TAWorkAreaJPanel(JPanel userProcessContainer, EcoSystem system) {
+    Organization organization;
+    public TAWorkAreaJPanel(JPanel userProcessContainer, Organization organization) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.system = system;
+        this.organization = organization;
     }
 
     /**

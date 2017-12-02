@@ -6,6 +6,7 @@
 package Interface.RARole;
 
 import Business.EcoSystem;
+import Business.Organization.Organization;
 import javax.swing.JPanel;
 
 /**
@@ -18,11 +19,11 @@ public class RAWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form RAWorkAreaJPanel
      */
     JPanel userProcessContainer;
-    EcoSystem system;
-    public RAWorkAreaJPanel(JPanel userProcessContainer, EcoSystem system) {
+    Organization organization;
+    public RAWorkAreaJPanel(JPanel userProcessContainer, Organization organization) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.system = system;
+        this.organization = organization;
     }
 
     /**

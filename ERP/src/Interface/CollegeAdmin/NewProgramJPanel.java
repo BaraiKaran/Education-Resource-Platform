@@ -10,8 +10,14 @@ import Interface.AdministrativeRole.*;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
+import Business.Role.ProgramCoordinatorRole;
+import Business.Role.ProgramDirectorRole;
+import Business.Role.Role;
+import Business.UserAccount.UserAccount;
+import Business.UserAccount.UserAccountDirectory;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -26,16 +32,37 @@ public class NewProgramJPanel extends javax.swing.JPanel {
      */
     private ProgramDirectory pdir;
     private JPanel userProcessContainer;
-    
-    public NewProgramJPanel(JPanel userProcessContainer,ProgramDirectory pdir) {
+    private Organization org;
+    public NewProgramJPanel(JPanel userProcessContainer,ProgramDirectory pdir, Organization org) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.pdir = pdir;
-        
+        this.org = org;
+        populateprogramdirector();
+        populateprogramcoordinator();
       // populateCombo();
     }
 
+    private void populateprogramdirector(){
+       programdirectorcombobox.removeAllItems();
+       UserAccountDirectory uad = org.getUserAccountDirectory();
+      for(UserAccount ua : uad.getUserAccountList()){
+               if(ua.getRole()instanceof ProgramDirectorRole){
+                   programdirectorcombobox.addItem(ua.getRole());
+               }
+           }
+        }
     
+    private void populateprogramcoordinator(){
+        programcoordinatorcombobox.removeAllItems();
+        UserAccountDirectory useraccountdirectory = org.getUserAccountDirectory();
+        for(UserAccount ua : useraccountdirectory.getUserAccountList()){
+            if(ua.getRole()instanceof ProgramCoordinatorRole){
+            programcoordinatorcombobox.addItem(ua.getRole());
+            }
+        }
+    }
+        
     /* private void populateCombo(){
         organizationJComboBox.removeAllItems();
         for (Organization.Type type : Organization.Type.values()){
@@ -58,6 +85,10 @@ public class NewProgramJPanel extends javax.swing.JPanel {
         txtName = new javax.swing.JTextField();
         saveBtn = new javax.swing.JButton();
         backJButton = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        programdirectorcombobox = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        programcoordinatorcombobox = new javax.swing.JComboBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -66,7 +97,7 @@ public class NewProgramJPanel extends javax.swing.JPanel {
         jLabel2.setText("Enter Program Name");
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Name :");
+        jLabel1.setText("Name :                     ");
 
         saveBtn.setBackground(new java.awt.Color(51, 153, 255));
         saveBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -86,6 +117,12 @@ public class NewProgramJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setText("Program Director :");
+
+        jLabel4.setText("Program Coordinator:");
+
+        programcoordinatorcombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,13 +134,20 @@ public class NewProgramJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(412, 412, 412)
                                 .addComponent(saveBtn))
-                            .addComponent(backJButton))
+                            .addComponent(backJButton)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(241, 241, 241)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                    .addComponent(programdirectorcombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(programcoordinatorcombobox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -116,9 +160,17 @@ public class NewProgramJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(programdirectorcombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(programcoordinatorcombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
                 .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 381, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
                 .addComponent(backJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -146,6 +198,7 @@ public class NewProgramJPanel extends javax.swing.JPanel {
         }
         
         pdir.createProgram(txtName.getText());
+        
         JOptionPane.showMessageDialog(null, "Program created successfully");
         
         
@@ -158,6 +211,10 @@ public class NewProgramJPanel extends javax.swing.JPanel {
     private javax.swing.JButton backJButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JComboBox programcoordinatorcombobox;
+    private javax.swing.JComboBox programdirectorcombobox;
     private javax.swing.JButton saveBtn;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
