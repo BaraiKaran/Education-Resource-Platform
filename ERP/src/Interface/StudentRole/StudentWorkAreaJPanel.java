@@ -6,6 +6,7 @@
 package Interface.StudentRole;
 
 import Business.EcoSystem;
+import Business.Organization.Organization;
 import javax.swing.JPanel;
 
 /**
@@ -18,11 +19,11 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form StudentWorkAreaJPanel
      */
     JPanel userProcessContainer;
-    EcoSystem system;
-    public StudentWorkAreaJPanel(JPanel userProcessContainer, EcoSystem system) {
+    Organization organization;
+    public StudentWorkAreaJPanel(JPanel userProcessContainer, Organization organization) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.system = system;
+        this.organization = organization;
     }
 
     /**
