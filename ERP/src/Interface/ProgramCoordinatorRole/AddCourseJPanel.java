@@ -9,6 +9,7 @@ import Business.College.Program;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
 import Business.UserAccount.UserAccount;
+import Business.Validations;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -138,13 +139,17 @@ public class AddCourseJPanel extends javax.swing.JPanel {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-        String crn = txtCRN.getText();
-        String coursename = txtName.getText();
-        String status = "Initiated";
-        //  System.out.println(program.getName());
-        Courses cc = program.getCourses().createCourse(crn, coursename, status);
-       program.getProgramDirector().createFeeds(userAccount.getEmployee().getName()+" added new course "+cc.getCourseName()+" to program "+program.getName());
-        JOptionPane.showMessageDialog(null, "Course Requested");
+
+        if (Validations.isTextFieldEmpty(txtCRN.getText()) && Validations.isTextFieldEmpty(txtName.getText())) {
+            JOptionPane.showMessageDialog(null, "CRN Number and/or Course name cannot be blank!");
+        } else {
+            String crn = txtCRN.getText();
+            String coursename = txtName.getText();
+            String status = "Initiated";
+            Courses cc = program.getCourses().createCourse(crn, coursename, status);
+            program.getProgramDirector().createFeeds(userAccount.getEmployee().getName() + " added new course " + cc.getCourseName() + " to program " + program.getName());
+            JOptionPane.showMessageDialog(null, "Course Requested");
+        }
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

@@ -14,11 +14,11 @@ import com.db4o.ta.TransparentPersistenceSupport;
  */
 public class DB4OUtil {
 
-    private static final String FILENAME = "C:\\Users\\kruna\\AED_LAB_DEMO\\HW_7\\DataBank1.db4o"; // path to the data store
+    private static final String FILENAME = "C:\\Users\\karan\\Documents\\NetBeansProjects\\db40"; // path to the data store
     private static DB4OUtil dB4OUtil;
-    
-    public synchronized static DB4OUtil getInstance(){
-        if (dB4OUtil == null){
+
+    public synchronized static DB4OUtil getInstance() {
+        if (dB4OUtil == null) {
             dB4OUtil = new DB4OUtil();
         }
         return dB4OUtil;
@@ -57,19 +57,18 @@ public class DB4OUtil {
         conn.commit();
         conn.close();
     }
-    
-    public EcoSystem retrieveSystem(){
+
+    public EcoSystem retrieveSystem() {
         ObjectContainer conn = createConnection();
         ObjectSet<EcoSystem> systems = conn.query(EcoSystem.class); // Change to the object you want to save
         EcoSystem system;
-        if (systems.size() == 0){
+        if (systems.size() == 0) {
             system = ConfigureABusiness.Configure();  // If there's no System in the record, create a new one
-        }
-        else{
+        } else {
             system = systems.get(systems.size() - 1);
         }
         conn.close();
         return system;
     }
-    
+
 }

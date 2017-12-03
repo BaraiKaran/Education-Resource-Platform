@@ -5,7 +5,6 @@
  */
 package Interface.StudentRole;
 
-import Business.EcoSystem;
 import Business.Feeds.Feeds;
 import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
@@ -15,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author aakas
+ * @author krunal
  */
 public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 
@@ -23,6 +22,7 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form StudentWorkAreaJPanel
      */
     JPanel userProcessContainer;
+
     CollegeOrganization organization;
     UserAccount ua;
     public StudentWorkAreaJPanel(JPanel userProcessContainer, Organization organization,UserAccount ua) {
@@ -32,6 +32,16 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         this.ua = ua;
         populateTable();
     }
+    
+
+    public StudentWorkAreaJPanel(JPanel userProcessContainer, Organization organization) {
+        initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.organization = (CollegeOrganization) organization;
+        populateTable();
+    }
+
+    
     
     public void populateTable(){
         DefaultTableModel model = (DefaultTableModel) tblFeeds.getModel();
@@ -48,7 +58,6 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         
        
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,13 +68,9 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         tblFeeds = new javax.swing.JTable();
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Welcome Student");
+        jLabel2 = new javax.swing.JLabel();
 
         tblFeeds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,7 +83,11 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
                 "Notifications", "Time"
             }
         ));
-        jScrollPane2.setViewportView(tblFeeds);
+        jScrollPane1.setViewportView(tblFeeds);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Welcome Student");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -87,17 +96,17 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(8, 8, 8)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 350, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 358, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -105,7 +114,7 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblFeeds;
     // End of variables declaration//GEN-END:variables
 }
