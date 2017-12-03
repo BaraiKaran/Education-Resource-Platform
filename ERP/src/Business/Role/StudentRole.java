@@ -22,7 +22,7 @@ public class StudentRole extends Role{
     
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system,Network network) {
-        return new StudentWorkAreaJPanel(userProcessContainer, organization);
+        return new StudentWorkAreaJPanel(userProcessContainer, organization,account);
 }
     @Override
     public String toString(){

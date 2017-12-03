@@ -5,11 +5,26 @@
  */
 package Interface.CollegeAdmin;
 
+import Business.College.Program;
+import Business.Courses.Courses;
 import Interface.ProfessorRole.*;
 import Business.EcoSystem;
+import Business.Employee.Employee;
+import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.JPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -21,13 +36,74 @@ public class CollegeAdminWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form ProfessorWorkAreaJPanel
      */
     JPanel userProcessContainer;
-    Organization org;
+    CollegeOrganization org;
+    
     public CollegeAdminWorkAreaJPanel(JPanel userProcessContainer, Organization org) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.org = org;
+        this.org = (CollegeOrganization)org;
+        plotgraph();
     }
 
+    
+    public void plotgraph() {
+
+        int prgcount = 0;
+        int courses = 0;
+        int usrcount = 0;
+        
+        for(Program pg : org.getPD().getDirectory()){
+            prgcount++;
+            for(Courses cr : pg.getCourses().getCourseList()){
+                if(cr.getApprovalStatus().equals("Approved"))
+                    courses++;
+            }
+        }
+
+        DefaultCategoryDataset dcd = new DefaultCategoryDataset();
+
+        dcd.setValue(prgcount, "Program", "No. of Programs");
+        dcd.setValue(courses, "Courses", "No. of Courses");
+        //dcd.setValue(usrcount, "Users", "No. of User Accounts");
+
+        JFreeChart jchart = ChartFactory.createBarChart3D("College Statistics", "Entities", "Numbers", dcd, PlotOrientation.VERTICAL, true, true, false);
+
+        CategoryPlot plot = jchart.getCategoryPlot();
+        plot.setRangeGridlinePaint(Color.BLACK);
+
+        ChartPanel chartp = new ChartPanel(jchart, true);
+        //  chartp.setDomainZoomable(true);
+        chartp.setVisible(true);
+        barchart.removeAll();
+        barchart.setLayout(new java.awt.BorderLayout());
+        barchart.add(chartp, BorderLayout.CENTER);
+
+        barchart.validate();
+       /* DefaultPieDataset pcd = new DefaultPieDataset();
+        int cc = 0;
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            for (Employee emp : org.getEmployeeDirectory().getEmployeeList()) {
+                cc++;
+            }
+            pcd.setValue(org.getName(), cc);
+            cc = 0;
+        }
+
+        //pcd.setValue("COE", 2);
+        //pcd.setValue("CCIS", 4);
+        JFreeChart jcrt = ChartFactory.createPieChart("College employees", pcd, true, true, false);
+        plot.setRangeGridlinePaint(Color.BLACK);
+        ChartPanel chrtp = new ChartPanel(jcrt, true);
+        //   chrtp.setDomainZoomable(true);
+        chrtp.setVisible(true);
+        chrtp.setPreferredSize(new Dimension(200, 200));
+        piechart.removeAll();
+        piechart.setLayout(new java.awt.BorderLayout());
+        piechart.add(chrtp, BorderLayout.CENTER);
+        piechart.validate();
+        */
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,6 +115,8 @@ public class CollegeAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
         manageOrganizationJButton = new javax.swing.JButton();
+        piechart = new javax.swing.JPanel();
+        barchart = new javax.swing.JPanel();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -54,6 +132,28 @@ public class CollegeAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        javax.swing.GroupLayout piechartLayout = new javax.swing.GroupLayout(piechart);
+        piechart.setLayout(piechartLayout);
+        piechartLayout.setHorizontalGroup(
+            piechartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        piechartLayout.setVerticalGroup(
+            piechartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 249, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout barchartLayout = new javax.swing.GroupLayout(barchart);
+        barchart.setLayout(barchartLayout);
+        barchartLayout.setHorizontalGroup(
+            barchartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        barchartLayout.setVerticalGroup(
+            barchartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 249, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -64,7 +164,9 @@ public class CollegeAdminWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(manageOrganizationJButton)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(39, 39, 39)
+                        .addComponent(piechart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(barchart, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -72,9 +174,17 @@ public class CollegeAdminWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(manageOrganizationJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(485, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(manageOrganizationJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(piechart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addComponent(barchart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -88,7 +198,9 @@ public class CollegeAdminWorkAreaJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel barchart;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton manageOrganizationJButton;
+    private javax.swing.JPanel piechart;
     // End of variables declaration//GEN-END:variables
 }

@@ -81,6 +81,14 @@ public class Program {
         return true;
     }
 
+    public Boolean checkStudent(UserAccount ua){
+        for(UserAccount u : students){
+            if(u.getId() == ua.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
     public String getName() {
         return name;
     }
