@@ -5,19 +5,15 @@
  */
 package Interface.CollegeAdmin;
 
+import Business.College.Program;
 import Business.College.ProgramDirectory;
-import Interface.AdministrativeRole.*;
-import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
-import Business.Organization.OrganizationDirectory;
 import Business.Role.ProgramCoordinatorRole;
 import Business.Role.ProgramDirectorRole;
-import Business.Role.Role;
 import Business.UserAccount.UserAccount;
 import Business.UserAccount.UserAccountDirectory;
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -33,36 +29,37 @@ public class NewProgramJPanel extends javax.swing.JPanel {
     private ProgramDirectory pdir;
     private JPanel userProcessContainer;
     private Organization org;
-    public NewProgramJPanel(JPanel userProcessContainer,ProgramDirectory pdir, Organization org) {
+
+    public NewProgramJPanel(JPanel userProcessContainer, ProgramDirectory pdir, Organization org) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.pdir = pdir;
         this.org = org;
         populateprogramdirector();
         populateprogramcoordinator();
-      // populateCombo();
+        // populateCombo();
     }
 
-    private void populateprogramdirector(){
-       programdirectorcombobox.removeAllItems();
-       UserAccountDirectory uad = org.getUserAccountDirectory();
-      for(UserAccount ua : uad.getUserAccountList()){
-               if(ua.getRole()instanceof ProgramDirectorRole){
-                   programdirectorcombobox.addItem(ua.getRole());
-               }
-           }
-        }
-    
-    private void populateprogramcoordinator(){
-        programcoordinatorcombobox.removeAllItems();
-        UserAccountDirectory useraccountdirectory = org.getUserAccountDirectory();
-        for(UserAccount ua : useraccountdirectory.getUserAccountList()){
-            if(ua.getRole()instanceof ProgramCoordinatorRole){
-            programcoordinatorcombobox.addItem(ua.getRole());
+    private void populateprogramdirector() {
+        programdirectorcombobox.removeAllItems();
+        UserAccountDirectory uad = org.getUserAccountDirectory();
+        for (UserAccount ua : uad.getUserAccountList()) {
+            if (ua.getRole() instanceof ProgramDirectorRole) {
+                programdirectorcombobox.addItem(ua);
             }
         }
     }
-        
+
+    private void populateprogramcoordinator() {
+        programcoordinatorcombobox.removeAllItems();
+        UserAccountDirectory useraccountdirectory = org.getUserAccountDirectory();
+        for (UserAccount ua : useraccountdirectory.getUserAccountList()) {
+            if (ua.getRole() instanceof ProgramCoordinatorRole) {
+                programcoordinatorcombobox.addItem(ua);
+            }
+        }
+    }
+
     /* private void populateCombo(){
         organizationJComboBox.removeAllItems();
         for (Organization.Type type : Organization.Type.values()){
@@ -70,7 +67,6 @@ public class NewProgramJPanel extends javax.swing.JPanel {
                 organizationJComboBox.addItem(type);
         }
     }*/
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -179,33 +175,29 @@ public class NewProgramJPanel extends javax.swing.JPanel {
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
 
         userProcessContainer.remove(this);
-        
-        
+
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         ManageProgramJPanel panel = (ManageProgramJPanel) component;
-        panel.populateTable();  
-        
+        panel.populateTable();
+
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
-        if(txtName.getText().equals("")){
+        if (txtName.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please enter the details");
             return;
         }
-        
-        pdir.createProgram(txtName.getText());
-        
-        JOptionPane.showMessageDialog(null, "Program created successfully");
-        
-        
-        
-        
-    }//GEN-LAST:event_saveBtnActionPerformed
 
+        Program prog = pdir.createProgram(txtName.getText());
+        UserAccount pc = (UserAccount) programcoordinatorcombobox.getSelectedItem();
+        prog.setProgramCoordinator(pc);
+        JOptionPane.showMessageDialog(null, "Program created successfully");
+
+    }//GEN-LAST:event_saveBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;

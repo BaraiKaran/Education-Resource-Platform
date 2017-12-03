@@ -12,23 +12,24 @@ import java.util.ArrayList;
  * @author krunal
  */
 public class ProgramDirectory {
-    
+
     private ArrayList<Program> directory;
-    
-    public ProgramDirectory(){
+
+    public ProgramDirectory() {
         directory = new ArrayList<Program>();
     }
 
-    public Program createProgram(String name){
+    public Program createProgram(String name) {
         Program prg = new Program(name);
         directory.add(prg);
         return prg;
-        
+
     }
-    
-    public void removeProgram(Program prg){
+
+    public void removeProgram(Program prg) {
         directory.remove(prg);
     }
+
     public ArrayList<Program> getDirectory() {
         return directory;
     }
@@ -36,6 +37,5 @@ public class ProgramDirectory {
     public void setDirectory(ArrayList<Program> directory) {
         this.directory = directory;
     }
-    
-    
+
 }

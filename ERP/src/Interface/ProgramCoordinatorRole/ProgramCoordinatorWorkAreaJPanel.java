@@ -5,9 +5,14 @@
  */
 package Interface.ProgramCoordinatorRole;
 
-import Business.EcoSystem;
+import Business.College.Program;
+import Business.Courses.Courses;
+import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,11 +24,26 @@ public class ProgramCoordinatorWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form ProgramCoordinatorWorkAreaJPanel
      */
     JPanel userProcessContainer;
-    Organization organization;
-    public ProgramCoordinatorWorkAreaJPanel(JPanel userProcessContainer, Organization organization) {
+    CollegeOrganization organization;
+    UserAccount userAccount;
+    Program program;
+
+    public ProgramCoordinatorWorkAreaJPanel(JPanel userProcessContainer, Organization organization, UserAccount userAccount) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.organization = organization;
+        this.organization = (CollegeOrganization) organization;
+        this.userAccount = userAccount;
+        for (Program prog : this.organization.getPD().getDirectory()) {
+            if (prog.getProgramCoordinator().getId() == userAccount.getId()) {
+
+                this.program = prog;
+                break;
+            }
+        }
+
+        System.out.println(this.program.getName());
+        populateTable();
+
     }
 
     /**
@@ -36,10 +56,53 @@ public class ProgramCoordinatorWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProgramCoordinator = new javax.swing.JTable();
+        btnAddCourse = new javax.swing.JButton();
+        btnUpdateCourse = new javax.swing.JButton();
+        btnDeleteCourse = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Welcome Program Coordinator");
+
+        tblProgramCoordinator.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "CRN", "Course Name", "Status", "Program"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblProgramCoordinator);
+        if (tblProgramCoordinator.getColumnModel().getColumnCount() > 0) {
+            tblProgramCoordinator.getColumnModel().getColumn(0).setResizable(false);
+            tblProgramCoordinator.getColumnModel().getColumn(1).setResizable(false);
+            tblProgramCoordinator.getColumnModel().getColumn(2).setResizable(false);
+            tblProgramCoordinator.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        btnAddCourse.setText("Add Course");
+        btnAddCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCourseActionPerformed(evt);
+            }
+        });
+
+        btnUpdateCourse.setText("Update Course");
+
+        btnDeleteCourse.setText("Delete Course");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -49,18 +112,65 @@ public class ProgramCoordinatorWorkAreaJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAddCourse)
+                .addGap(62, 62, 62)
+                .addComponent(btnUpdateCourse)
+                .addGap(60, 60, 60)
+                .addComponent(btnDeleteCourse)
+                .addGap(221, 221, 221))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(151, 151, 151)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(534, Short.MAX_VALUE))
+                .addGap(57, 57, 57)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddCourse)
+                    .addComponent(btnUpdateCourse)
+                    .addComponent(btnDeleteCourse))
+                .addContainerGap(206, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblProgramCoordinator.getModel();
+        model.setRowCount(0);
+
+        //for (Program pd : .getPD().getDirectory()) {
+        Object[] row = new Object[4];
+        for (Courses c : program.getCourses().getCourseList()) {
+            row[0] = c.getCrnNumber();
+            row[1] = c.getCourseName();
+        }
+        row[3] = program;
+        model.addRow(row);
+
+    }
+
+    private void btnAddCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCourseActionPerformed
+        // TODO add your handling code here:
+        AddCourseJPanel JPanel = new AddCourseJPanel(userProcessContainer, program, userAccount);
+        userProcessContainer.add("AddCourseJPanel", JPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+
+    }//GEN-LAST:event_btnAddCourseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddCourse;
+    private javax.swing.JButton btnDeleteCourse;
+    private javax.swing.JButton btnUpdateCourse;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblProgramCoordinator;
     // End of variables declaration//GEN-END:variables
 }

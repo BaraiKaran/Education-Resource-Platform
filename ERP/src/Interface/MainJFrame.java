@@ -4,10 +4,9 @@
  */
 package Interface;
 
-import Business.EcoSystem;
 import Business.ConfigureABusiness;
 import Business.DB4OUtil.DB4OUtil;
-
+import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
@@ -26,12 +25,12 @@ public class MainJFrame extends javax.swing.JFrame {
      * Creates new form MainJFrame
      */
     private EcoSystem system;
-   private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
+    private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
 
     public MainJFrame() {
         initComponents();
-         system = ConfigureABusiness.Configure();
-     //   system = dB4OUtil.retrieveSystem();
+        system = ConfigureABusiness.Configure();
+        //   system = dB4OUtil.retrieveSystem();
     }
 
     /**
@@ -185,11 +184,11 @@ public class MainJFrame extends javax.swing.JFrame {
             return;
         } else {
             CardLayout layout = (CardLayout) container.getLayout();
-            
-            container.add("workArea", userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system,inNetwork));
+
+            container.add("workArea", userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system, inNetwork));
             layout.next(container);
         }
-         loginJButton.setEnabled(false);
+        loginJButton.setEnabled(false);
         logoutJButton.setEnabled(true);
         userNameJTextField.setEnabled(false);
         passwordField.setEnabled(false);
@@ -209,7 +208,7 @@ public class MainJFrame extends javax.swing.JFrame {
         container.add("blank", blankJP);
         CardLayout crdLyt = (CardLayout) container.getLayout();
         crdLyt.next(container);
-       // dB4OUtil.storeSystem(system);
+        // dB4OUtil.storeSystem(system);
     }//GEN-LAST:event_logoutJButtonActionPerformed
 
     /**
@@ -219,7 +218,7 @@ public class MainJFrame extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

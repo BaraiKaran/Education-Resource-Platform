@@ -10,7 +10,6 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import Interface.ProfessorRole.ProfessorWorkAreaJPanel;
 import Interface.ProgramCoordinatorRole.ProgramCoordinatorWorkAreaJPanel;
 import javax.swing.JPanel;
 
@@ -18,15 +17,15 @@ import javax.swing.JPanel;
  *
  * @author aakas
  */
-public class ProgramCoordinatorRole extends Role{
-    
+public class ProgramCoordinatorRole extends Role {
+
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system,Network network) {
-        return new ProgramCoordinatorWorkAreaJPanel(userProcessContainer, organization);
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system, Network network) {
+        return new ProgramCoordinatorWorkAreaJPanel(userProcessContainer, organization, account);
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Program Coordinator";
     }
 }

@@ -5,8 +5,7 @@
  */
 package Business.College;
 
-import Business.Employee.Employee;
-import Business.Role.StudentRole;
+import Business.Courses.CourseDirectory;
 import Business.UserAccount.UserAccount;
 import java.util.ArrayList;
 
@@ -15,36 +14,83 @@ import java.util.ArrayList;
  * @author krunal
  */
 public class Program {
- 
+
     private String name;
     private int id;
     private static int count = 1;
     private ArrayList<UserAccount> students;
-    
-    
-    
-    public Program(String name){
+    private UserAccount programDirector;
+    private UserAccount programCoordinator;
+    private CourseDirectory courses;
+
+    public CourseDirectory getCourses() {
+        return courses;
+    }
+
+    public void setCourses(CourseDirectory courses) {
+        this.courses = courses;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public ArrayList<UserAccount> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<UserAccount> students) {
+        this.students = students;
+    }
+
+    public UserAccount getProgramDirector() {
+        return programDirector;
+    }
+
+    public void setProgramDirector(UserAccount programDirector) {
+        this.programDirector = programDirector;
+    }
+
+    public UserAccount getProgramCoordinator() {
+        return programCoordinator;
+    }
+
+    public void setProgramCoordinator(UserAccount programCoordinator) {
+        this.programCoordinator = programCoordinator;
+    }
+
+    public Program(String name) {
         this.name = name;
         this.id = count;
         students = new ArrayList<UserAccount>();
+        courses = new CourseDirectory();
         count++;
     }
-    
-    public Boolean subscribeProgram(UserAccount ua){
-        for(UserAccount u : students){
-            if(u.getId() == ua.getId())
+
+    public Boolean subscribeProgram(UserAccount ua) {
+        for (UserAccount u : students) {
+            if (u.getId() == ua.getId()) {
                 return false;
+            }
         }
         students.add(ua);
         return true;
     }
-    
-    
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(id);
     }
 }

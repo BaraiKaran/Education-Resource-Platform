@@ -5,22 +5,22 @@
 package Business.UserAccount;
 
 import Business.Employee.Employee;
+import Business.Feeds.Feeds;
 import Business.Role.Role;
-import java.util.ArrayList;
-//import Business.WorkQueue.WorkQueue;
 
 /**
  *
  * @author krunal
  */
 public class UserAccount {
-    
+
     private String username;
     private String password;
     private Employee employee;
     private Role role;
     private int id;
     private static int count = 1;
+    private Feeds feed;
     //private WorkQueue workQueue;
 
     public int getId() {
@@ -33,13 +33,19 @@ public class UserAccount {
 
     public UserAccount() {
         //workQueue = new WorkQueue();
-         this.id = count;
-        
+        this.id = count;
+
         count++;
     }
-    
-    
-    
+
+    public Feeds getFeed() {
+        return feed;
+    }
+
+    public void setFeed(Feeds feed) {
+        this.feed = feed;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -72,17 +78,12 @@ public class UserAccount {
         return employee;
     }
 
-   /* public WorkQueue getWorkQueue() {
+    /* public WorkQueue getWorkQueue() {
         return workQueue;
     }*/
-
-    
-    
     @Override
     public String toString() {
         return username;
     }
-    
-    
-    
+
 }

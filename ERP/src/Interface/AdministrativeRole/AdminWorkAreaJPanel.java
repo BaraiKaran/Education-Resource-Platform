@@ -3,7 +3,6 @@
  *
  * Created on October 10, 2008, 8:50 AM
  */
-
 package Interface.AdministrativeRole;
 
 import Business.Employee.Employee;
@@ -14,10 +13,8 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import static java.awt.PageAttributes.ColorType.COLOR;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
@@ -27,13 +24,16 @@ import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
- * @author  raunak
+ * @author raunak
  */
 public class AdminWorkAreaJPanel extends javax.swing.JPanel {
-    
+
     JPanel userProcessContainer;
     Enterprise enterprise;
-    /** Creates new form AdminWorkAreaJPanel */
+
+    /**
+     * Creates new form AdminWorkAreaJPanel
+     */
     public AdminWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -41,73 +41,71 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         valueLabel.setText(enterprise.getName());
         plotgraph();
     }
-    public void plotgraph(){
-        
+
+    public void plotgraph() {
+
         int orgcount = 0;
         int empcount = 0;
         int usrcount = 0;
-        for(Organization org : enterprise.getOrganizationDirectory().getOrganizationList()){
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
             orgcount++;
-        
-            for(Employee person : org.getEmployeeDirectory().getEmployeeList())
+
+            for (Employee person : org.getEmployeeDirectory().getEmployeeList()) {
                 empcount++;
-            
-            for(UserAccount usr : org.getUserAccountDirectory().getUserAccountList())
+            }
+
+            for (UserAccount usr : org.getUserAccountDirectory().getUserAccountList()) {
                 usrcount++;
-        }    
-        
-        
-        
+            }
+        }
+
         DefaultCategoryDataset dcd = new DefaultCategoryDataset();
-       
-        dcd.setValue(orgcount, "Organizations","No. of Organizations");
-        dcd.setValue(empcount,"Employees","No. of Employees");
-        dcd.setValue(usrcount,"Users","No. of User Accounts");
-        
-        JFreeChart jchart = ChartFactory.createBarChart3D("Enterprise Statistics", "Entities","Numbers", dcd, PlotOrientation.VERTICAL, true, true, false);
-       
-        
+
+        dcd.setValue(orgcount, "Organizations", "No. of Organizations");
+        dcd.setValue(empcount, "Employees", "No. of Employees");
+        dcd.setValue(usrcount, "Users", "No. of User Accounts");
+
+        JFreeChart jchart = ChartFactory.createBarChart3D("Enterprise Statistics", "Entities", "Numbers", dcd, PlotOrientation.VERTICAL, true, true, false);
+
         CategoryPlot plot = jchart.getCategoryPlot();
-        plot.setRangeGridlinePaint(Color.BLACK); 
-        
-       
+        plot.setRangeGridlinePaint(Color.BLACK);
+
         ChartPanel chartp = new ChartPanel(jchart, true);
-        chartp.setDomainZoomable(true);
-         chartp.setVisible(true);
+        //  chartp.setDomainZoomable(true);
+        chartp.setVisible(true);
         barchart.removeAll();
         barchart.setLayout(new java.awt.BorderLayout());
-        barchart.add(chartp,BorderLayout.CENTER); 
-       
+        barchart.add(chartp, BorderLayout.CENTER);
+
         barchart.validate();
         DefaultPieDataset pcd = new DefaultPieDataset();
         int cc = 0;
-        for(Organization org : enterprise.getOrganizationDirectory().getOrganizationList()){
-            for(Employee emp : org.getEmployeeDirectory().getEmployeeList()){
+        for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            for (Employee emp : org.getEmployeeDirectory().getEmployeeList()) {
                 cc++;
             }
             pcd.setValue(org.getName(), cc);
-            cc=0;
+            cc = 0;
         }
-        
+
         //pcd.setValue("COE", 2);
         //pcd.setValue("CCIS", 4);
-         
         JFreeChart jcrt = ChartFactory.createPieChart("College employees", pcd, true, true, false);
         plot.setRangeGridlinePaint(Color.BLACK);
-        ChartPanel chrtp = new ChartPanel(jcrt,true);
-        chrtp.setDomainZoomable(true);
+        ChartPanel chrtp = new ChartPanel(jcrt, true);
+        //   chrtp.setDomainZoomable(true);
         chrtp.setVisible(true);
-        chrtp.setPreferredSize(new Dimension(200,200)); 
+        chrtp.setPreferredSize(new Dimension(200, 200));
         piechart.removeAll();
         piechart.setLayout(new java.awt.BorderLayout());
-        piechart.add(chrtp,BorderLayout.CENTER);
+        piechart.add(chrtp, BorderLayout.CENTER);
         piechart.validate();
     }
-    
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -245,7 +243,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-        
+
     }//GEN-LAST:event_manageEmployeeJButtonActionPerformed
 
     private void manageOrganizationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrganizationJButtonActionPerformed
@@ -255,8 +253,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageOrganizationJButtonActionPerformed
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barchart;
     private javax.swing.JLabel enterpriseLabel;
@@ -267,5 +264,5 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton userJButton;
     private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
-    
+
 }
