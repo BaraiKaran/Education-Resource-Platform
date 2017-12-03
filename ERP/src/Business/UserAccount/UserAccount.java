@@ -7,6 +7,7 @@ package Business.UserAccount;
 import Business.Employee.Employee;
 import Business.Feeds.Feeds;
 import Business.Role.Role;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,7 +21,36 @@ public class UserAccount {
     private Role role;
     private int id;
     private static int count = 1;
-    private Feeds feed;
+    private ArrayList<Feeds> feedsList;
+
+    
+    
+    public UserAccount() {
+        //workQueue = new WorkQueue();
+        this.id = count;
+        this.feedsList = new ArrayList<Feeds>();
+        count++;
+    }
+
+    public ArrayList<Feeds> getFeedsList() {
+        return feedsList;
+    }
+
+    public void setFeedsList(ArrayList<Feeds> feedsList) {
+        this.feedsList = feedsList;
+    }
+
+    public Feeds createFeeds(String message){
+        Feeds fd = new Feeds(message);
+        feedsList.add(fd);
+        return fd;
+    }
+    
+    public void removeFeed(Feeds fd){
+        feedsList.remove(fd);
+    }
+    
+   
     //private WorkQueue workQueue;
 
     public int getId() {
@@ -31,20 +61,6 @@ public class UserAccount {
         this.id = id;
     }
 
-    public UserAccount() {
-        //workQueue = new WorkQueue();
-        this.id = count;
-
-        count++;
-    }
-
-    public Feeds getFeed() {
-        return feed;
-    }
-
-    public void setFeed(Feeds feed) {
-        this.feed = feed;
-    }
 
     public String getUsername() {
         return username;

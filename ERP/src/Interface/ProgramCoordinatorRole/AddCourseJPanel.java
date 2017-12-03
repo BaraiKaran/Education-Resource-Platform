@@ -11,6 +11,7 @@ import Business.Organization.CollegeOrganization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -142,7 +143,8 @@ public class AddCourseJPanel extends javax.swing.JPanel {
         String status = "Initiated";
         //  System.out.println(program.getName());
         Courses cc = program.getCourses().createCourse(crn, coursename, status);
-        System.out.println(cc.getCourseName());
+       program.getProgramDirector().createFeeds(userAccount.getEmployee().getName()+" added new course "+cc.getCourseName()+" to program "+program.getName());
+        JOptionPane.showMessageDialog(null, "Course Requested");
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -150,7 +152,7 @@ public class AddCourseJPanel extends javax.swing.JPanel {
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
-        ProgramCoordinatorWorkAreaJPanel pcwajp = (ProgramCoordinatorWorkAreaJPanel) component;
+        ManageCourseJPanel pcwajp = (ManageCourseJPanel) component;
         pcwajp.populateTable();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);

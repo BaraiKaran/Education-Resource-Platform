@@ -10,7 +10,7 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import Interface.ProfessorRole.ProfessorWorkAreaJPanel;
+import Interface.ProfessorRole.ManageCourseJPanel;
 import javax.swing.JPanel;
 
 /**
@@ -21,7 +21,7 @@ public class ProfessorRole extends Role{
    
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system,Network network) {
-        return new ProfessorWorkAreaJPanel(userProcessContainer, organization);
+        return new ManageCourseJPanel(userProcessContainer, organization);
     }
     
     

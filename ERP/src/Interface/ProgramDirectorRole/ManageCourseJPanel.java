@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author aakas
  */
-public class ProgramDirectorWorkAreaJPanel extends javax.swing.JPanel {
+public class ManageCourseJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ProgramDirectorWorkAreaJPanel
@@ -27,19 +27,12 @@ public class ProgramDirectorWorkAreaJPanel extends javax.swing.JPanel {
     Program program;
     UserAccount userAccount;
 
-    public ProgramDirectorWorkAreaJPanel(JPanel userProcessContainer, Organization organization, UserAccount userAccount) {
+    public ManageCourseJPanel(JPanel userProcessContainer, Program program, UserAccount userAccount) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.organization = (CollegeOrganization) organization;
+        this.program =  program;
         this.userAccount = userAccount;
-        for (Program prog : this.organization.getPD().getDirectory()) {
-
-            if (prog.getProgramDirector().getId() == userAccount.getId()) {
-
-                this.program = prog;
-                break;
-            }
-        }
+      
         populateTable();
     }
 

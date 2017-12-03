@@ -5,6 +5,7 @@
  */
 package Business.Feeds;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -14,8 +15,14 @@ import java.util.Date;
 public class Feeds {
 
     private String message;
-    private Date messageTime;
-
+    private String messageTime;
+    
+    public Feeds(String message){
+        this.message = message;
+        String timestamp = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date());
+        this.messageTime = timestamp;
+    }
+    
     public String getMessage() {
         return message;
     }
@@ -24,11 +31,11 @@ public class Feeds {
         this.message = message;
     }
 
-    public Date getMessageTime() {
+    public String getMessageTime() {
         return messageTime;
     }
 
-    public void setMessageTime(Date messageTime) {
+    public void setMessageTime(String messageTime) {
         this.messageTime = messageTime;
     }
 

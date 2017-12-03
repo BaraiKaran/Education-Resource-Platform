@@ -10,7 +10,8 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import Interface.ProgramCoordinatorRole.ProgramCoordinatorWorkAreaJPanel;
+import Interface.ProgramCoordinatorRole.ManageCourseJPanel;
+import Interface.ProgramCoordinatorRole.ProgramCoordWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**
@@ -21,7 +22,7 @@ public class ProgramCoordinatorRole extends Role {
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system, Network network) {
-        return new ProgramCoordinatorWorkAreaJPanel(userProcessContainer, organization, account);
+        return new ProgramCoordWorkAreaJPanel(userProcessContainer, organization, account);
     }
 
     @Override

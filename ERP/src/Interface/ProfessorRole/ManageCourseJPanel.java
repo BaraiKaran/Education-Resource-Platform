@@ -13,14 +13,14 @@ import javax.swing.JPanel;
  *
  * @author aakas
  */
-public class ProfessorWorkAreaJPanel extends javax.swing.JPanel {
+public class ManageCourseJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form ProfessorWorkAreaJPanel
      */
     JPanel userProcessContainer;
     Organization organization;
-    public ProfessorWorkAreaJPanel(JPanel userProcessContainer, Organization organization) {
+    public ManageCourseJPanel(JPanel userProcessContainer, Organization organization) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.organization = organization;
