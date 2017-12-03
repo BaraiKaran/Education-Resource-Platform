@@ -5,9 +5,11 @@
  */
 package Business;
 
+import Business.College.Program;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
+import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.Role.AdminRole;
 import Business.Role.CollegeAdminRole;
@@ -29,8 +31,8 @@ public class ConfigureABusiness {
         Network usa = ecosystem.createAndAddNetwork();
         usa.setName("United States of America");
         Enterprise neu = usa.getEnterpriseDirectory().createAndAddEnterprise("Northeastern University", Enterprise.EnterpriseType.University);
-
-        Organization neucoe = neu.getOrganizationDirectory().createOrganization(Organization.Type.College, "College of Engineering");
+        CollegeOrganization neucoe = (CollegeOrganization) neu.getOrganizationDirectory().createOrganization(Organization.Type.College, "College of Engineering");
+        // Organization neucoe = neu.getOrganizationDirectory().createOrganization(Organization.Type.College, "College of Engineering");
         Organization neuccis = neu.getOrganizationDirectory().createOrganization(Organization.Type.College, "College of Computer Science");
         Employee emp1 = neucoe.getEmployeeDirectory().createEmployee("COEEMP1");
         Employee emp2 = neuccis.getEmployeeDirectory().createEmployee("CCISEMP1");
@@ -44,8 +46,14 @@ public class ConfigureABusiness {
         Employee neuemp = neu.getEmployeeDirectory().createEmployee("NEU Admin");
         UserAccount neuua = neu.getUserAccountDirectory().createUserAccount("a", "a", neuemp, new AdminRole());
 
-        UserAccount pd = neucoe.getUserAccountDirectory().createUserAccount("pd", "pd", employee, new ProgramDirectorRole());
-        UserAccount pc = neucoe.getUserAccountDirectory().createUserAccount("pc", "pc", employee, new ProgramCoordinatorRole());
+        Employee emp4 = ecosystem.getEmployeeDirectory().createEmployee("COEEMP4");
+        UserAccount pd = neucoe.getUserAccountDirectory().createUserAccount("pd", "pd", emp4, new ProgramDirectorRole());
+        Employee emp5 = ecosystem.getEmployeeDirectory().createEmployee("COEEMP5");
+        UserAccount pc = neucoe.getUserAccountDirectory().createUserAccount("pc", "pc", emp5, new ProgramCoordinatorRole());
+
+        Program prg = neucoe.getPD().createProgram("Information Systems");
+        prg.setProgramCoordinator(pc);
+        prg.setProgramDirector(pd);
 
         return ecosystem;
     }

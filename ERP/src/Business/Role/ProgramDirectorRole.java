@@ -17,15 +17,15 @@ import javax.swing.JPanel;
  *
  * @author aakas
  */
-public class ProgramDirectorRole extends Role{
-    
-     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system,Network network) {
-        return new ProgramDirectorWorkAreaJPanel(userProcessContainer, organization);
-    }
-    
+public class ProgramDirectorRole extends Role {
+
     @Override
-    public String toString(){
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system, Network network) {
+        return new ProgramDirectorWorkAreaJPanel(userProcessContainer, organization, account);
+    }
+
+    @Override
+    public String toString() {
         return "Program Director";
     }
 }

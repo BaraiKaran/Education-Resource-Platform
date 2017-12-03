@@ -139,8 +139,9 @@ public class AddCourseJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         String crn = txtCRN.getText();
         String coursename = txtName.getText();
-        System.out.println(program.getName());
-        Courses cc = program.getCourses().createCourse(crn, coursename);
+        String status = "Initiated";
+        //  System.out.println(program.getName());
+        Courses cc = program.getCourses().createCourse(crn, coursename, status);
         System.out.println(cc.getCourseName());
     }//GEN-LAST:event_btnCreateActionPerformed
 

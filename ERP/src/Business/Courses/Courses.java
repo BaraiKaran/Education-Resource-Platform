@@ -16,10 +16,12 @@ public class Courses {
     private String crnNumber;
     private String courseName;
     private Program program;
+    private String approvalStatus;
 
-    public Courses(String crn, String name) {
+    public Courses(String crn, String name, String status) {
         this.courseName = name;
         this.crnNumber = crn;
+        this.approvalStatus = status;
     }
 
     public String getCrnNumber() {
@@ -28,6 +30,14 @@ public class Courses {
 
     public Program getProgram() {
         return program;
+    }
+
+    public String getApprovalStatus() {
+        return approvalStatus;
+    }
+
+    public void setApprovalStatus(String approvalStatus) {
+        this.approvalStatus = approvalStatus;
     }
 
     public void setProgram(Program program) {
@@ -44,6 +54,11 @@ public class Courses {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    @Override
+    public String toString() {
+        return this.courseName;
     }
 
 }

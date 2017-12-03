@@ -195,6 +195,8 @@ public class NewProgramJPanel extends javax.swing.JPanel {
         Program prog = pdir.createProgram(txtName.getText());
         UserAccount pc = (UserAccount) programcoordinatorcombobox.getSelectedItem();
         prog.setProgramCoordinator(pc);
+        UserAccount pd = (UserAccount) programdirectorcombobox.getSelectedItem();
+        prog.setProgramDirector(pd);
         JOptionPane.showMessageDialog(null, "Program created successfully");
 
     }//GEN-LAST:event_saveBtnActionPerformed

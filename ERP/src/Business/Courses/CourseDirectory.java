@@ -23,8 +23,8 @@ public class CourseDirectory {
         return courseList;
     }
 
-    public Courses createCourse(String crn, String name) {
-        Courses cc = new Courses(crn, name);
+    public Courses createCourse(String crn, String name, String status) {
+        Courses cc = new Courses(crn, name, status);
         courseList.add(cc);
         return cc;
     }

@@ -40,8 +40,6 @@ public class ProgramCoordinatorWorkAreaJPanel extends javax.swing.JPanel {
                 break;
             }
         }
-
-        System.out.println(this.program.getName());
         populateTable();
 
     }
@@ -145,14 +143,14 @@ public class ProgramCoordinatorWorkAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblProgramCoordinator.getModel();
         model.setRowCount(0);
 
-        //for (Program pd : .getPD().getDirectory()) {
         Object[] row = new Object[4];
         for (Courses c : program.getCourses().getCourseList()) {
             row[0] = c.getCrnNumber();
             row[1] = c.getCourseName();
+            row[2] = c.getApprovalStatus();
+            row[3] = program;
+            model.addRow(row);
         }
-        row[3] = program;
-        model.addRow(row);
 
     }
 
