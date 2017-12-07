@@ -20,10 +20,16 @@ import javax.swing.JPanel;
 public class StudentRole extends Role {
 
     @Override
+<<<<<<< HEAD
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system, Network network) {
         return new StudentWorkAreaJPanel(userProcessContainer, organization, account);
     }
 
+=======
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system,Network network) {
+        return new StudentWorkAreaJPanel(userProcessContainer, organization,account);
+}
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
     @Override
     public String toString() {
         return "Student";

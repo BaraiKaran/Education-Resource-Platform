@@ -6,6 +6,12 @@
 package Interface.ProgramCoordinatorRole;
 
 import Business.College.Program;
+<<<<<<< HEAD
+=======
+import Interface.CollegeAdmin.*;
+import Interface.ProfessorRole.*;
+import Business.EcoSystem;
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
 import Business.Feeds.Feeds;
 import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
@@ -40,6 +46,7 @@ public class ProgramCoordWorkAreaJPanel extends javax.swing.JPanel {
                 break;
             }
         }
+<<<<<<< HEAD
 
         populateTable();
     }
@@ -56,8 +63,28 @@ public class ProgramCoordWorkAreaJPanel extends javax.swing.JPanel {
             model.addRow(row);
         }
 
+=======
+        
+        populateTable();
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
     }
 
+    
+    public void populateTable(){
+          DefaultTableModel model = (DefaultTableModel) tblFeeds.getModel();
+        model.setRowCount(0);
+
+        //for (Program pd : .getPD().getDirectory()) {
+        Object[] row = new Object[2];
+        for (Feeds fd : userAccount.getFeedsList()) {
+            row[0] = fd.getMessage();
+            row[1] = fd.getMessageTime();
+            model.addRow(row);  
+        }
+        
+       
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,7 +150,12 @@ public class ProgramCoordWorkAreaJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(manageOrganizationJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(manageOrganizationJButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+<<<<<<< HEAD
                         .addGap(0, 0, Short.MAX_VALUE)))
+=======
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -146,16 +178,25 @@ public class ProgramCoordWorkAreaJPanel extends javax.swing.JPanel {
         ManageCourseJPanel panel = new ManageCourseJPanel(userProcessContainer, program, userAccount, organization);
         userProcessContainer.add("ManageCourseJPanel", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
+        layout.next(userProcessContainer); 
     }//GEN-LAST:event_manageOrganizationJButtonActionPerformed
 
     private void manageOrganizationJButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrganizationJButton1ActionPerformed
         // TODO add your handling code here:
+<<<<<<< HEAD
         EnrollStudents panel = new EnrollStudents(userProcessContainer, organization, program, userAccount);
         userProcessContainer.add("EnrollStudents", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageOrganizationJButton1ActionPerformed
+=======
+         EnrollStudents panel = new EnrollStudents(userProcessContainer,organization, program,userAccount);
+        userProcessContainer.add("EnrollStudents", panel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer); 
+    }//GEN-LAST:event_manageOrganizationJButton1ActionPerformed
+
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;

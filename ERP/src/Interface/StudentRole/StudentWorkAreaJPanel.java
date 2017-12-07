@@ -5,12 +5,18 @@
  */
 package Interface.StudentRole;
 
+<<<<<<< HEAD
 import Business.College.Program;
+=======
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
 import Business.Feeds.Feeds;
 import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
+<<<<<<< HEAD
 import java.awt.CardLayout;
+=======
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,6 +33,7 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 
     CollegeOrganization organization;
     UserAccount ua;
+<<<<<<< HEAD
     Program program;
 
     public StudentWorkAreaJPanel(JPanel userProcessContainer, Organization organization, UserAccount ua) {
@@ -46,6 +53,16 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 
         populateTable();
     }
+=======
+    public StudentWorkAreaJPanel(JPanel userProcessContainer, Organization organization,UserAccount ua) {
+        initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.organization = (CollegeOrganization)organization;
+        this.ua = ua;
+        populateTable();
+    }
+    
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
 
     public StudentWorkAreaJPanel(JPanel userProcessContainer, Organization organization) {
         initComponents();
@@ -54,19 +71,35 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         populateTable();
     }
 
+<<<<<<< HEAD
     public void populateTable() {
+=======
+    
+    
+    public void populateTable(){
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
         DefaultTableModel model = (DefaultTableModel) tblFeeds.getModel();
         model.setRowCount(0);
 
         //for (Program pd : .getPD().getDirectory()) {
         Object[] row = new Object[2];
         for (Feeds fd : ua.getFeedsList()) {
+<<<<<<< HEAD
 
             row[0] = fd.getMessage();
             row[1] = fd.getMessageTime();
             model.addRow(row);
         }
 
+=======
+            
+            row[0] = fd.getMessage();
+            row[1] = fd.getMessageTime();
+            model.addRow(row);  
+        }
+        
+       
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
     }
 
     /**
@@ -81,7 +114,10 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFeeds = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+<<<<<<< HEAD
         btnRegisterForCourses = new javax.swing.JButton();
+=======
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
 
         tblFeeds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -95,6 +131,7 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
             }
         ));
         jScrollPane1.setViewportView(tblFeeds);
+<<<<<<< HEAD
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -106,6 +143,12 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
                 btnRegisterForCoursesActionPerformed(evt);
             }
         });
+=======
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Welcome Student");
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -117,24 +160,32 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE))
                 .addContainerGap())
+<<<<<<< HEAD
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegisterForCourses)
                 .addGap(70, 70, 70))
+=======
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< HEAD
                 .addGap(53, 53, 53)
                 .addComponent(btnRegisterForCourses)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 276, Short.MAX_VALUE)
+=======
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 358, Short.MAX_VALUE)
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+<<<<<<< HEAD
     private void btnRegisterForCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterForCoursesActionPerformed
         // TODO add your handling code here:
         StudentCourseRegistrationJPanel panel = new StudentCourseRegistrationJPanel(userProcessContainer, ua, organization, program);
@@ -142,6 +193,8 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnRegisterForCoursesActionPerformed
+=======
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegisterForCourses;

@@ -57,6 +57,7 @@ public class ConfigureABusiness {
         prg.setProgramCoordinator(pc);
         prg.setProgramDirector(pd);
 
+<<<<<<< HEAD
         Employee emp6 = ecosystem.getEmployeeDirectory().createEmployee("COESTU1");
         UserAccount stu1 = neucoe.getUserAccountDirectory().createUserAccount("s1", "s1", emp6, new StudentRole());
         Employee emp7 = ecosystem.getEmployeeDirectory().createEmployee("COESTU2");
@@ -65,6 +66,14 @@ public class ConfigureABusiness {
         Employee emp8 = ecosystem.getEmployeeDirectory().createEmployee("COEPROF1");
         UserAccount prof1 = neucoe.getUserAccountDirectory().createUserAccount("p1", "p1", emp8, new ProfessorRole());
 
+=======
+        
+         Employee emp6 = ecosystem.getEmployeeDirectory().createEmployee("COESTU1");
+        UserAccount stu1 = neucoe.getUserAccountDirectory().createUserAccount("s1", "s1", emp6, new StudentRole());
+        Employee emp7 = ecosystem.getEmployeeDirectory().createEmployee("COESTU2");
+        UserAccount stu2 = neucoe.getUserAccountDirectory().createUserAccount("s2", "s2", emp7, new StudentRole());
+        
+>>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
         return ecosystem;
     }
 
