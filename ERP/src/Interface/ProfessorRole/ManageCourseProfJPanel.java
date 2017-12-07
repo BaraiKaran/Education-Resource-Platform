@@ -31,12 +31,12 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.organization = (CollegeOrganization) organization;
         this.userAccount = ua;
-        for (Program prog : this.organization.getPD().getDirectory()) {
+        /*for (Program prog : this.organization.getPD().getDirectory()) {
             if (prog.getProfessor().getId() == userAccount.getId()) {
                 this.program = prog;
                 break;
             }
-        }
+        }*/
     }
 
     /**

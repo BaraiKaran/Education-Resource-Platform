@@ -90,24 +90,19 @@ public class Program {
         return true;
     }
 
-<<<<<<< HEAD
-    public Boolean checkStudent(UserAccount ua) {
-        for (UserAccount u : students) {
-            if (u.getId() == ua.getId()) {
-=======
+
+   
+
     public Boolean checkStudent(UserAccount ua){
         for(UserAccount u : students){
             if(u.getId() == ua.getId()){
->>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
+
                 return true;
             }
         }
         return false;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
     public String getName() {
         return name;
     }

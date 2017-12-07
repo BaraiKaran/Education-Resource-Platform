@@ -9,6 +9,8 @@ import Business.College.Program;
 import Business.Courses.CourseDirectory;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
+import Business.Role.StudentRole;
+import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -36,28 +38,38 @@ public class AssignTAJPanel extends javax.swing.JPanel {
         this.organization = (CollegeOrganization) organization;
         this.uname = username;
         populateCourses();
+        populateStudents();
     }
 
     public void populateCourses() {
         cmbCousreName.removeAllItems();
-        CourseDirectory cd = program.getCourses();
-        for (Courses c : cd.getCourseList()) {
-            if (c.getProfessor().getUsername().equals(uname) && c.getApprovalStatus().equals("Approved")) {
-                cmbCousreName.addItem(c);
-            }
+        //CourseDirectory cd = program.getCourses();
+        for(Program pd : organization.getPD().getDirectory()){
+            for (Courses c : pd.getCourses().getCourseList()) {
+                if (c.getProfessor().getUsername().equals(uname) && c.getApprovalStatus().equals("Approved")) {
+                    cmbCousreName.addItem(c);
+                }
+            }   
         }
     }
 
     public void populateStudents() {
         cmbStudentsName.removeAllItems();
-
-        for (Courses c : program.getCourses().getCourseList()) {
+ /*for(Program pd : organization.getPD().getDirectory()){
+        for (Courses c : pd.getCourses().getCourseList()) {
             for (UserAccount ua : c.getStudents()) {
                 if (c.getCourseName().equals(cmbCousreName.getSelectedItem())) {
                     cmbStudentsName.addItem(ua);
                 }
             }
         }
+     
+ }*/
+    for(UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()){
+        if(ua.getRole() instanceof TARole){
+            cmbStudentsName.addItem(ua);
+        }
+    }
 
     }
 
@@ -76,6 +88,8 @@ public class AssignTAJPanel extends javax.swing.JPanel {
         btnAssignTA = new javax.swing.JButton();
         cmbCousreName = new javax.swing.JComboBox();
         cmbStudentsName = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblTA = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Assign Teaching Assistant");
@@ -116,55 +130,77 @@ public class AssignTAJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblTA.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "TA", "Course", "Program"
+            }
+        ));
+        jScrollPane1.setViewportView(tblTA);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(331, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(318, 318, 318))
             .addGroup(layout.createSequentialGroup()
-                .addGap(242, 242, 242)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmbCousreName, 0, 120, Short.MAX_VALUE)
-                            .addComponent(cmbStudentsName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(btnAssignTA))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbCousreName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbStudentsName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 926, Short.MAX_VALUE))))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAssignTA)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(98, 98, 98)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cmbCousreName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(cmbStudentsName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(62, 62, 62)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAssignTA)
-                .addContainerGap(347, Short.MAX_VALUE))
+                .addContainerGap(517, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbCousreNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCousreNameActionPerformed
         // TODO add your handling code here:
-
-        Object obj = evt.getSource();
+return;
+/*        Object obj = evt.getSource();
         if (obj == cmbCousreName) {
             cmbStudentsName.removeAllItems();
-
-            for (Courses c : program.getCourses().getCourseList()) {
+for(Program pd : organization.getPD().getDirectory()){
+            for (Courses c : pd.getCourses().getCourseList()) {
                 for (UserAccount ua : c.getStudents()) {
                     String courseName = String.valueOf(cmbCousreName.getSelectedItem());
                     if (c.getCourseName().equals(courseName)) {
@@ -172,8 +208,9 @@ public class AssignTAJPanel extends javax.swing.JPanel {
                     }
                 }
             }
+}
         }
-
+*/
     }//GEN-LAST:event_cmbCousreNameActionPerformed
 
     private void cmbCousreNamePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbCousreNamePropertyChange
@@ -208,5 +245,7 @@ public class AssignTAJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblTA;
     // End of variables declaration//GEN-END:variables
 }

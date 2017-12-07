@@ -35,6 +35,7 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
         this.organization = (CollegeOrganization) organization;
         this.userAccount = ua;
         this.program = program;
+        
         populateTable();
 
     }
@@ -147,6 +148,9 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void populateTable() {
+        
+        
+        
         DefaultTableModel model = (DefaultTableModel) tblCourseDescriptions.getModel();
         model.setRowCount(0);
         Object[] row = new Object[5];

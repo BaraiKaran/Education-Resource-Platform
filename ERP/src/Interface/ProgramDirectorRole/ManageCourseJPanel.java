@@ -124,11 +124,9 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
             Courses c = (Courses) tblProgDirectorBoard.getValueAt(selected, 1);
             if (c.getApprovalStatus().equals("Initiated")) {
                 c.setApprovalStatus("Approved");
-<<<<<<< HEAD
+
                 program.getProgramCoordinator().createFeeds("Program Director " + userAccount.getEmployee().getName() + " accepted course " + c.getCourseName());
-=======
-                program.getProgramCoordinator().createFeeds("Program Director "+userAccount.getEmployee().getName()+" accepted course "+c.getCourseName());
->>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
+
             }
 
         }

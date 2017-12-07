@@ -24,14 +24,11 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-<<<<<<< HEAD
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Component id="btnRegisterForCourses" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
           </Group>
-=======
->>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -39,13 +36,9 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" pref="50" max="-2" attributes="0"/>
-<<<<<<< HEAD
               <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
               <Component id="btnRegisterForCourses" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="276" max="32767" attributes="0"/>
-=======
-              <EmptySpace pref="358" max="32767" attributes="0"/>
->>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
               <Component id="jScrollPane1" min="-2" pref="168" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -84,7 +77,6 @@
         <Property name="text" type="java.lang.String" value="Welcome Student"/>
       </Properties>
     </Component>
-<<<<<<< HEAD
     <Component class="javax.swing.JButton" name="btnRegisterForCourses">
       <Properties>
         <Property name="text" type="java.lang.String" value="Register for courses"/>
@@ -93,7 +85,5 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegisterForCoursesActionPerformed"/>
       </Events>
     </Component>
-=======
->>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
   </SubComponents>
 </Form>

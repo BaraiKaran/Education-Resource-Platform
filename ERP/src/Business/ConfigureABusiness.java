@@ -6,6 +6,7 @@
 package Business;
 
 import Business.College.Program;
+import Business.Courses.Courses;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
@@ -18,6 +19,7 @@ import Business.Role.ProgramCoordinatorRole;
 import Business.Role.ProgramDirectorRole;
 import Business.Role.StudentRole;
 import Business.Role.SystemAdminRole;
+import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
 
 /**
@@ -53,11 +55,6 @@ public class ConfigureABusiness {
         Employee emp5 = ecosystem.getEmployeeDirectory().createEmployee("COEEMP5");
         UserAccount pc = neucoe.getUserAccountDirectory().createUserAccount("pc", "pc", emp5, new ProgramCoordinatorRole());
 
-        Program prg = neucoe.getPD().createProgram("Information Systems");
-        prg.setProgramCoordinator(pc);
-        prg.setProgramDirector(pd);
-
-<<<<<<< HEAD
         Employee emp6 = ecosystem.getEmployeeDirectory().createEmployee("COESTU1");
         UserAccount stu1 = neucoe.getUserAccountDirectory().createUserAccount("s1", "s1", emp6, new StudentRole());
         Employee emp7 = ecosystem.getEmployeeDirectory().createEmployee("COESTU2");
@@ -65,15 +62,22 @@ public class ConfigureABusiness {
 
         Employee emp8 = ecosystem.getEmployeeDirectory().createEmployee("COEPROF1");
         UserAccount prof1 = neucoe.getUserAccountDirectory().createUserAccount("p1", "p1", emp8, new ProfessorRole());
+        Employee emp9 = ecosystem.getEmployeeDirectory().createEmployee("COETA1");
+        UserAccount t1 = neucoe.getUserAccountDirectory().createUserAccount("t1", "t1", emp7, new TARole());
 
-=======
         
-         Employee emp6 = ecosystem.getEmployeeDirectory().createEmployee("COESTU1");
-        UserAccount stu1 = neucoe.getUserAccountDirectory().createUserAccount("s1", "s1", emp6, new StudentRole());
-        Employee emp7 = ecosystem.getEmployeeDirectory().createEmployee("COESTU2");
-        UserAccount stu2 = neucoe.getUserAccountDirectory().createUserAccount("s2", "s2", emp7, new StudentRole());
+        Program prg = neucoe.getPD().createProgram("Information Systems");
+        prg.setProgramCoordinator(pc);
+        prg.setProgramDirector(pd);
+        //prg.setProfessor(prof1);
+        Courses ads = prg.getCourses().createCourse("CRN1000", "ADS", "Approved", 10);
+        ads.setProfessor(prof1);
+
         
->>>>>>> 6bef96ae87be1dc6b1e3e0c943fb2c7792b2df87
+
+        
+        
+
         return ecosystem;
     }
 
