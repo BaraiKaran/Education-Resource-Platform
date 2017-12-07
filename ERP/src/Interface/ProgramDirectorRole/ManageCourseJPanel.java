@@ -8,7 +8,6 @@ package Interface.ProgramDirectorRole;
 import Business.College.Program;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
-import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -30,9 +29,9 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
     public ManageCourseJPanel(JPanel userProcessContainer, Program program, UserAccount userAccount) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.program =  program;
+        this.program = program;
         this.userAccount = userAccount;
-      
+
         populateTable();
     }
 
@@ -56,17 +55,17 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
 
         tblProgDirectorBoard.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "CRN", "Course Name", "Status", "Program"
+                "CRN", "Course Name", "Status", "Program", "Professor Name"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -79,6 +78,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
             tblProgDirectorBoard.getColumnModel().getColumn(1).setResizable(false);
             tblProgDirectorBoard.getColumnModel().getColumn(2).setResizable(false);
             tblProgDirectorBoard.getColumnModel().getColumn(3).setResizable(false);
+            tblProgDirectorBoard.getColumnModel().getColumn(4).setResizable(false);
         }
 
         btnApprove.setText("Approve");
@@ -124,6 +124,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
             Courses c = (Courses) tblProgDirectorBoard.getValueAt(selected, 1);
             if (c.getApprovalStatus().equals("Initiated")) {
                 c.setApprovalStatus("Approved");
+                program.getProgramCoordinator().createFeeds("Program Director " + userAccount.getEmployee().getName() + " accepted course " + c.getCourseName());
             }
 
         }
@@ -134,12 +135,13 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
     public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tblProgDirectorBoard.getModel();
         model.setRowCount(0);
-        Object[] row = new Object[4];
+        Object[] row = new Object[5];
         for (Courses c : program.getCourses().getCourseList()) {
             row[0] = c.getCrnNumber();
             row[1] = c;
             row[2] = c.getApprovalStatus();
             row[3] = program;
+            row[4] = c.getProfessor();
             model.addRow(row);
         }
 

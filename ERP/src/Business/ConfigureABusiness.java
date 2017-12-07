@@ -13,8 +13,10 @@ import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.Role.AdminRole;
 import Business.Role.CollegeAdminRole;
+import Business.Role.ProfessorRole;
 import Business.Role.ProgramCoordinatorRole;
 import Business.Role.ProgramDirectorRole;
+import Business.Role.StudentRole;
 import Business.Role.SystemAdminRole;
 import Business.UserAccount.UserAccount;
 
@@ -54,6 +56,14 @@ public class ConfigureABusiness {
         Program prg = neucoe.getPD().createProgram("Information Systems");
         prg.setProgramCoordinator(pc);
         prg.setProgramDirector(pd);
+
+        Employee emp6 = ecosystem.getEmployeeDirectory().createEmployee("COESTU1");
+        UserAccount stu1 = neucoe.getUserAccountDirectory().createUserAccount("s1", "s1", emp6, new StudentRole());
+        Employee emp7 = ecosystem.getEmployeeDirectory().createEmployee("COESTU2");
+        UserAccount stu2 = neucoe.getUserAccountDirectory().createUserAccount("s2", "s2", emp7, new StudentRole());
+
+        Employee emp8 = ecosystem.getEmployeeDirectory().createEmployee("COEPROF1");
+        UserAccount prof1 = neucoe.getUserAccountDirectory().createUserAccount("p1", "p1", emp8, new ProfessorRole());
 
         return ecosystem;
     }

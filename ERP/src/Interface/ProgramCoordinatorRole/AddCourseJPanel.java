@@ -8,7 +8,10 @@ package Interface.ProgramCoordinatorRole;
 import Business.College.Program;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
+import Business.Organization.Organization;
+import Business.Role.ProfessorRole;
 import Business.UserAccount.UserAccount;
+import Business.UserAccount.UserAccountDirectory;
 import Business.Validations;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -29,12 +32,13 @@ public class AddCourseJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private Program program;
 
-    AddCourseJPanel(JPanel userProcessContainer, Program program, UserAccount userAccount) {
+    AddCourseJPanel(JPanel userProcessContainer, Program program, UserAccount userAccount, Organization org) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.organization = (CollegeOrganization) organization;
+        this.organization = (CollegeOrganization) org;
         this.userAccount = userAccount;
         this.program = program;
+        populateProfessors();
 
     }
 
@@ -54,13 +58,18 @@ public class AddCourseJPanel extends javax.swing.JPanel {
         txtName = new javax.swing.JTextField();
         btnCreate = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        cmbProfessorName = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        txtTotalSeats = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setText("Add New Course ");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Name:");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel2.setText("Course Name:");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel3.setText("CRN:");
 
         txtCRN.addActionListener(new java.awt.event.ActionListener() {
@@ -85,39 +94,47 @@ public class AddCourseJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel4.setText("Professor Name:");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel5.setText("Total Seats:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(378, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(350, 350, 350))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(btnBack))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(197, 197, 197)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
-                                .addGap(123, 123, 123)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtCRN)
-                                    .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)))
-                            .addComponent(btnCreate))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel3)
+                                .addComponent(btnCreate)
+                                .addComponent(jLabel5))
+                            .addGap(67, 67, 67)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtName)
+                                .addComponent(txtCRN)
+                                .addComponent(cmbProfessorName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtTotalSeats, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(45, 45, 45)
+                            .addComponent(btnBack))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(350, 350, 350)
+                            .addComponent(jLabel1))))
+                .addContainerGap(445, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel1)
-                .addGap(136, 136, 136)
+                .addGap(82, 82, 82)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtCRN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -125,13 +142,31 @@ public class AddCourseJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cmbProfessorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtTotalSeats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(62, 62, 62)
                 .addComponent(btnCreate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
                 .addComponent(btnBack)
-                .addGap(74, 74, 74))
+                .addGap(38, 38, 38))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    public void populateProfessors() {
+        cmbProfessorName.removeAllItems();
+        UserAccountDirectory useraccountdirectory = organization.getUserAccountDirectory();
+        for (UserAccount ua : useraccountdirectory.getUserAccountList()) {
+            if (ua.getRole() instanceof ProfessorRole) {
+                cmbProfessorName.addItem(ua);
+            }
+        }
+    }
 
     private void txtCRNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCRNActionPerformed
         // TODO add your handling code here:
@@ -145,8 +180,12 @@ public class AddCourseJPanel extends javax.swing.JPanel {
         } else {
             String crn = txtCRN.getText();
             String coursename = txtName.getText();
+            int totalSeats = Integer.parseInt(txtTotalSeats.getText());
             String status = "Initiated";
-            Courses cc = program.getCourses().createCourse(crn, coursename, status);
+            Courses cc = program.getCourses().createCourse(crn, coursename, status, totalSeats);
+            UserAccount account = (UserAccount) cmbProfessorName.getSelectedItem();
+            program.setProfessor(account);
+            cc.setProfessor(account);
             program.getProgramDirector().createFeeds(userAccount.getEmployee().getName() + " added new course " + cc.getCourseName() + " to program " + program.getName());
             JOptionPane.showMessageDialog(null, "Course Requested");
         }
@@ -166,10 +205,14 @@ public class AddCourseJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreate;
+    private javax.swing.JComboBox cmbProfessorName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField txtCRN;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtTotalSeats;
     // End of variables declaration//GEN-END:variables
 }

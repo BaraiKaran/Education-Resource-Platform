@@ -5,13 +5,18 @@
  */
 package Interface.StudentRole;
 
+import Business.College.Program;
+import Business.Feeds.Feeds;
+import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author aakas
+ * @author krunal
  */
 public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 
@@ -19,20 +24,48 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form StudentWorkAreaJPanel
      */
     JPanel userProcessContainer;
-    Organization organization;
+
+    CollegeOrganization organization;
+    UserAccount ua;
+    Program program;
+
+    public StudentWorkAreaJPanel(JPanel userProcessContainer, Organization organization, UserAccount ua) {
+        initComponents();
+        this.userProcessContainer = userProcessContainer;
+        this.organization = (CollegeOrganization) organization;
+        this.ua = ua;
+        for (Program prog : this.organization.getPD().getDirectory()) {
+            for (UserAccount u : prog.getStudents()) {
+                if (u.getId() == ua.getId()) {
+                    this.program = prog;
+                    break;
+                }
+            }
+
+        }
+
+        populateTable();
+    }
 
     public StudentWorkAreaJPanel(JPanel userProcessContainer, Organization organization) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.organization = organization;
+        this.organization = (CollegeOrganization) organization;
         populateTable();
     }
 
     public void populateTable() {
-        DefaultTableModel model = (DefaultTableModel) tblCourseRegistration.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblFeeds.getModel();
         model.setRowCount(0);
 
-        Object[] row = new Object[4];
+        //for (Program pd : .getPD().getDirectory()) {
+        Object[] row = new Object[2];
+        for (Feeds fd : ua.getFeedsList()) {
+
+            row[0] = fd.getMessage();
+            row[1] = fd.getMessageTime();
+            model.addRow(row);
+        }
 
     }
 
@@ -45,15 +78,12 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCourseRegistration = new javax.swing.JTable();
+        tblFeeds = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        btnRegisterForCourses = new javax.swing.JButton();
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Welcome Student");
-
-        tblCourseRegistration.setModel(new javax.swing.table.DefaultTableModel(
+        tblFeeds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -61,22 +91,21 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
                 {null, null}
             },
             new String [] {
-                "CRN Number", "Course Name"
+                "Notifications", "Time"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
+        ));
+        jScrollPane1.setViewportView(tblFeeds);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Welcome Student");
+
+        btnRegisterForCourses.setText("Register for courses");
+        btnRegisterForCourses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterForCoursesActionPerformed(evt);
             }
         });
-        jScrollPane1.setViewportView(tblCourseRegistration);
-        if (tblCourseRegistration.getColumnModel().getColumnCount() > 0) {
-            tblCourseRegistration.getColumnModel().getColumn(0).setResizable(false);
-            tblCourseRegistration.getColumnModel().getColumn(1).setResizable(false);
-        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -84,27 +113,40 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(221, 221, 221))
+                .addComponent(btnRegisterForCourses)
+                .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(8, 8, 8)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(346, Short.MAX_VALUE))
+                .addGap(53, 53, 53)
+                .addComponent(btnRegisterForCourses)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 276, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRegisterForCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterForCoursesActionPerformed
+        // TODO add your handling code here:
+        StudentCourseRegistrationJPanel panel = new StudentCourseRegistrationJPanel(userProcessContainer, ua, organization, program);
+        userProcessContainer.add("StudentCourseRegistrationJPanel", panel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnRegisterForCoursesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegisterForCourses;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblCourseRegistration;
+    private javax.swing.JTable tblFeeds;
     // End of variables declaration//GEN-END:variables
 }

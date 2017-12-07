@@ -6,9 +6,7 @@
 package Interface.AdministrativeRole;
 
 import Business.Employee.Employee;
-import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
-import Business.Organization.OrganizationDirectory;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -27,30 +25,31 @@ public class NewUserAccountJPanel extends javax.swing.JPanel {
      */
     private Organization org;
     private JPanel userProcessContainer;
-    
-    public NewUserAccountJPanel(JPanel userProcessContainer,Organization org) {
+
+    public NewUserAccountJPanel(JPanel userProcessContainer, Organization org) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.org = org;
         populateEmployeeComboBox(org);
         populateRoleComboBox(org);
-      // populateCombo();
+        // populateCombo();
     }
 
-    
-     public void populateEmployeeComboBox(Organization organization){
+    public void populateEmployeeComboBox(Organization organization) {
         employeeJComboBox.removeAllItems();
-        
-        for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()){
+
+        for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()) {
             employeeJComboBox.addItem(employee);
         }
     }
-    private void populateRoleComboBox(Organization organization){
+
+    private void populateRoleComboBox(Organization organization) {
         roleJComboBox.removeAllItems();
-        for (Role role : organization.getSupportedRole()){
+        for (Role role : organization.getSupportedRole()) {
             roleJComboBox.addItem(role);
         }
     }
+
     /* private void populateCombo(){
         organizationJComboBox.removeAllItems();
         for (Organization.Type type : Organization.Type.values()){
@@ -58,7 +57,7 @@ public class NewUserAccountJPanel extends javax.swing.JPanel {
                 organizationJComboBox.addItem(type);
         }
     }*/
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -199,38 +198,33 @@ public class NewUserAccountJPanel extends javax.swing.JPanel {
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
 
         userProcessContainer.remove(this);
-        
-        
+
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         ManageUserAccountJPanel panel = (ManageUserAccountJPanel) component;
-        panel.popData(org); 
-        
+        panel.popData(org);
+
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
-        if(txtName.getText().equals("")){
+        if (txtName.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please enter the details");
             return;
         }
-        if(!txtCPassword.getText().equals(txtCPassword.getText())){
+        if (!txtCPassword.getText().equals(txtCPassword.getText())) {
             JOptionPane.showMessageDialog(null, "Password do not match");
             return;
         }
-        Employee emp = (Employee)employeeJComboBox.getSelectedItem();
-        Role role = (Role)roleJComboBox.getSelectedItem();
-        
-       UserAccount ua = org.getUserAccountDirectory().createUserAccount(txtName.getText(), txtCPassword.getText(), emp ,role);
-        JOptionPane.showMessageDialog(null, "User Account created successfully");
-        
-        
-        
-        
-    }//GEN-LAST:event_saveBtnActionPerformed
+        Employee emp = (Employee) employeeJComboBox.getSelectedItem();
+        Role role = (Role) roleJComboBox.getSelectedItem();
 
+        UserAccount ua = org.getUserAccountDirectory().createUserAccount(txtName.getText(), txtCPassword.getText(), emp, role);
+        JOptionPane.showMessageDialog(null, "User Account created successfully");
+
+    }//GEN-LAST:event_saveBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;

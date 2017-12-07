@@ -10,23 +10,22 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import Interface.ProfessorRole.ManageCourseJPanel;
+import Interface.ProfessorRole.ManageCourseProfJPanel;
 import javax.swing.JPanel;
 
 /**
  *
  * @author aakas
  */
-public class ProfessorRole extends Role{
-   
+public class ProfessorRole extends Role {
+
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system,Network network) {
-        return new ManageCourseJPanel(userProcessContainer, organization);
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system, Network network) {
+        return new ManageCourseProfJPanel(userProcessContainer, organization, account);
     }
-    
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Professor";
     }
 }

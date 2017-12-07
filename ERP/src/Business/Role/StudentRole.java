@@ -10,7 +10,6 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import Interface.RARole.RAWorkAreaJPanel;
 import Interface.StudentRole.StudentWorkAreaJPanel;
 import javax.swing.JPanel;
 
@@ -18,14 +17,16 @@ import javax.swing.JPanel;
  *
  * @author aakas
  */
-public class StudentRole extends Role{
-    
+public class StudentRole extends Role {
+
     @Override
-    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system,Network network) {
-        return new StudentWorkAreaJPanel(userProcessContainer, organization);
-}
+    public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system, Network network) {
+        return new StudentWorkAreaJPanel(userProcessContainer, organization, account);
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Student";
     }
+
 }

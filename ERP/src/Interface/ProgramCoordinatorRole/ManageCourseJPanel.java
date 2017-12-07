@@ -28,12 +28,12 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
     UserAccount userAccount;
     Program program;
 
-    public ManageCourseJPanel(JPanel userProcessContainer, Program program, UserAccount userAccount) {
+    public ManageCourseJPanel(JPanel userProcessContainer, Program program, UserAccount userAccount, Organization org) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.program = program;
         this.userAccount = userAccount;
-        
+        this.organization = (CollegeOrganization) org;
         populateTable();
 
     }
@@ -60,17 +60,17 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
 
         tblProgramCoordinator.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "CRN", "Course Name", "Status", "Program"
+                "CRN", "Course Name", "Status", "Program", "Professor Name"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -83,6 +83,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
             tblProgramCoordinator.getColumnModel().getColumn(1).setResizable(false);
             tblProgramCoordinator.getColumnModel().getColumn(2).setResizable(false);
             tblProgramCoordinator.getColumnModel().getColumn(3).setResizable(false);
+            tblProgramCoordinator.getColumnModel().getColumn(4).setResizable(false);
         }
 
         btnAddCourse.setText("Add Course");
@@ -137,12 +138,13 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblProgramCoordinator.getModel();
         model.setRowCount(0);
 
-        Object[] row = new Object[4];
+        Object[] row = new Object[5];
         for (Courses c : program.getCourses().getCourseList()) {
             row[0] = c.getCrnNumber();
             row[1] = c.getCourseName();
             row[2] = c.getApprovalStatus();
             row[3] = program;
+            row[4] = c.getProfessor();
             model.addRow(row);
         }
 
@@ -150,7 +152,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
 
     private void btnAddCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCourseActionPerformed
         // TODO add your handling code here:
-        AddCourseJPanel JPanel = new AddCourseJPanel(userProcessContainer, program, userAccount);
+        AddCourseJPanel JPanel = new AddCourseJPanel(userProcessContainer, program, userAccount, organization);
         userProcessContainer.add("AddCourseJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

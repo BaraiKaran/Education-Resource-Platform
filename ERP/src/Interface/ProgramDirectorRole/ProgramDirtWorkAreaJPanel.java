@@ -79,7 +79,7 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Welcome College Administration");
+        jLabel2.setText("Welcome Program Director");
 
         manageOrganizationJButton.setBackground(new java.awt.Color(51, 153, 255));
         manageOrganizationJButton.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N

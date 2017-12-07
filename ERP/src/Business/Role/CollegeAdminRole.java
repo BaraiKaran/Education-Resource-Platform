@@ -11,7 +11,7 @@ import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Interface.CollegeAdmin.CollegeAdminWorkAreaJPanel;
-import Interface.ProfessorRole.ManageCourseJPanel;
+import Interface.ProfessorRole.ManageCourseProfJPanel;
 import javax.swing.JPanel;
 
 /**

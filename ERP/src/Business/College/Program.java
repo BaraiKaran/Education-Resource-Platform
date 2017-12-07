@@ -22,9 +22,18 @@ public class Program {
     private UserAccount programDirector;
     private UserAccount programCoordinator;
     private CourseDirectory courses;
+    private UserAccount professor;
 
     public CourseDirectory getCourses() {
         return courses;
+    }
+
+    public UserAccount getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(UserAccount professor) {
+        this.professor = professor;
     }
 
     public void setCourses(CourseDirectory courses) {
@@ -79,6 +88,15 @@ public class Program {
         }
         students.add(ua);
         return true;
+    }
+
+    public Boolean checkStudent(UserAccount ua) {
+        for (UserAccount u : students) {
+            if (u.getId() == ua.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getName() {
