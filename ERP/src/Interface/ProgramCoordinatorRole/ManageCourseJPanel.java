@@ -94,6 +94,11 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         });
 
         btnUpdateCourse.setText("Update Course");
+        btnUpdateCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateCourseActionPerformed(evt);
+            }
+        });
 
         btnDeleteCourse.setText("Delete Course");
 
@@ -158,6 +163,10 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
 
     }//GEN-LAST:event_btnAddCourseActionPerformed
+
+    private void btnUpdateCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCourseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUpdateCourseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCourse;

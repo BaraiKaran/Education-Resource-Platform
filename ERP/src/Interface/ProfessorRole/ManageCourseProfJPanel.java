@@ -6,11 +6,14 @@
 package Interface.ProfessorRole;
 
 import Business.College.Program;
+import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
+import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -31,7 +34,8 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.organization = (CollegeOrganization) organization;
         this.userAccount = ua;
-        /*for (Program prog : this.organization.getPD().getDirectory()) {
+        populateTable();
+        /* for (Program prog : this.organization.getPD().getDirectory()) {
             if (prog.getProfessor().getId() == userAccount.getId()) {
                 this.program = prog;
                 break;
@@ -50,6 +54,8 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
         btnAssignTA = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblTADetails = new javax.swing.JTable();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -62,6 +68,24 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblTADetails.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "TA Name", "TA Hours Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblTADetails);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,7 +97,9 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(92, 92, 92)
                 .addComponent(btnAssignTA)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,10 +107,32 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
-                .addComponent(btnAssignTA)
-                .addContainerGap(453, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAssignTA)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(328, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblTADetails.getModel();
+        model.setRowCount(0);
+        Object[] row = new Object[5];
+        for (Program pd : organization.getPD().getDirectory()) {
+            for (Courses c : pd.getCourses().getCourseList()) {
+                for (UserAccount ua : c.getTeachingAssistant()) {
+                    row[0] = ua.getUsername();
+                    TARole r = (TARole) ua.getRole();
+                    if (r.getTaHours()) {
+                        row[1] = "Active";
+                    } else {
+                        row[1] = "InActive";
+                    }
+                    model.addRow(row);
+                }
+            }
+        }
+    }
 
     private void btnAssignTAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignTAActionPerformed
         // TODO add your handling code here:
@@ -97,5 +145,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssignTA;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblTADetails;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,9 +5,19 @@
  */
 package Interface.TARole;
 
-import Business.EcoSystem;
+import Business.College.Program;
+import Business.Courses.Courses;
+import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
+import Business.Role.TARole;
+import Business.UserAccount.UserAccount;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,11 +29,17 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form TAWorkAreaJPanel
      */
     JPanel userProcessContainer;
-    Organization organization;
-    public TAWorkAreaJPanel(JPanel userProcessContainer, Organization organization) {
+    CollegeOrganization organization;
+    UserAccount userAccount;
+    Program program;
+
+    public TAWorkAreaJPanel(JPanel userProcessContainer, Organization organization, UserAccount account) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.organization = organization;
+        this.organization = (CollegeOrganization) organization;
+        this.userAccount = account;
+
+        //populateTable();
     }
 
     /**
@@ -36,10 +52,49 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
+        btnStartTAHours = new javax.swing.JButton();
+        btnEndTAHours = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblTAHours = new javax.swing.JTable();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Welcome Teaching Assistant");
+
+        btnStartTAHours.setText("Start TA hours");
+        btnStartTAHours.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStartTAHoursActionPerformed(evt);
+            }
+        });
+
+        btnEndTAHours.setText("End TA hours");
+        btnEndTAHours.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEndTAHoursActionPerformed(evt);
+            }
+        });
+
+        tblTAHours.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Course Name", "Date", "Start Time", "End Time", "Total Hours"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblTAHours);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -49,18 +104,114 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEndTAHours)
+                    .addComponent(btnStartTAHours))
+                .addGap(95, 95, 95))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(534, Short.MAX_VALUE))
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnStartTAHours)
+                        .addGap(39, 39, 39)
+                        .addComponent(btnEndTAHours))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(334, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblTAHours.getModel();
+        model.setRowCount(0);
+        Object[] row = new Object[5];
+        for (Program pd : organization.getPD().getDirectory()) {
+            for (Courses c : pd.getCourses().getCourseList()) {
+                for (UserAccount ua : c.getTeachingAssistant()) {
+                    if (ua.getId() == userAccount.getId()) {
+                        TARole r = (TARole) ua.getRole();
+                        row[0] = c;
+                        row[1] = r.getDate();
+                        row[2] = r.getStartTime();
+                        row[3] = r.getEndTime();
+                        row[4] = (r.getTimeDuration() / 60000);
+                        model.addRow(row);
+
+                    }
+                }
+            }
+        }
+    }
+
+    private void btnStartTAHoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartTAHoursActionPerformed
+        // TODO add your handling code here:
+
+        for (Program pd : organization.getPD().getDirectory()) {
+            for (Courses c : pd.getCourses().getCourseList()) {
+                for (UserAccount ua : c.getTeachingAssistant()) {
+                    if (ua.getId() == userAccount.getId()) {
+                        TARole r = (TARole) ua.getRole();
+                        r.setTaHours(true);
+                        SimpleDateFormat formatter1 = new SimpleDateFormat("MM/dd/yyyy");
+                        Date d1 = new Date();
+                        r.setDate(formatter1.format(d1));
+
+                        Date d = new Date();
+                        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                        String s = formatter.format(d);
+
+                        r.setStartTime(s);
+
+                    }
+
+                }
+
+            }
+        }
+
+    }//GEN-LAST:event_btnStartTAHoursActionPerformed
+
+    private void btnEndTAHoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEndTAHoursActionPerformed
+        // TODO add your handling code here:
+
+        for (Program pd : organization.getPD().getDirectory()) {
+            for (Courses c : pd.getCourses().getCourseList()) {
+                for (UserAccount ua : c.getTeachingAssistant()) {
+                    if (ua.getId() == userAccount.getId()) {
+                        TARole r = (TARole) ua.getRole();
+                        r.setTaHours(false);
+                        Date d = new Date();
+                        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                        String e = formatter.format(d);
+                        r.setEndTime(e);
+                        try {
+                            long diff = d.getTime() - formatter.parse(r.getStartTime()).getTime();
+                            r.setTimeDuration(diff);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(TAWorkAreaJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+
+                }
+
+            }
+        }
+        populateTable();
+    }//GEN-LAST:event_btnEndTAHoursActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEndTAHours;
+    private javax.swing.JButton btnStartTAHours;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblTAHours;
     // End of variables declaration//GEN-END:variables
 }

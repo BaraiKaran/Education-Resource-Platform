@@ -6,10 +6,8 @@
 package Interface.ProfessorRole;
 
 import Business.College.Program;
-import Business.Courses.CourseDirectory;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
-import Business.Role.StudentRole;
 import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
 import javax.swing.JOptionPane;
@@ -44,18 +42,18 @@ public class AssignTAJPanel extends javax.swing.JPanel {
     public void populateCourses() {
         cmbCousreName.removeAllItems();
         //CourseDirectory cd = program.getCourses();
-        for(Program pd : organization.getPD().getDirectory()){
+        for (Program pd : organization.getPD().getDirectory()) {
             for (Courses c : pd.getCourses().getCourseList()) {
                 if (c.getProfessor().getUsername().equals(uname) && c.getApprovalStatus().equals("Approved")) {
                     cmbCousreName.addItem(c);
                 }
-            }   
+            }
         }
     }
 
     public void populateStudents() {
         cmbStudentsName.removeAllItems();
- /*for(Program pd : organization.getPD().getDirectory()){
+        /*for(Program pd : organization.getPD().getDirectory()){
         for (Courses c : pd.getCourses().getCourseList()) {
             for (UserAccount ua : c.getStudents()) {
                 if (c.getCourseName().equals(cmbCousreName.getSelectedItem())) {
@@ -63,13 +61,13 @@ public class AssignTAJPanel extends javax.swing.JPanel {
                 }
             }
         }
-     
+
  }*/
-    for(UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()){
-        if(ua.getRole() instanceof TARole){
-            cmbStudentsName.addItem(ua);
+        for (UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()) {
+            if (ua.getRole() instanceof TARole) {
+                cmbStudentsName.addItem(ua);
+            }
         }
-    }
 
     }
 
@@ -195,8 +193,8 @@ public class AssignTAJPanel extends javax.swing.JPanel {
 
     private void cmbCousreNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCousreNameActionPerformed
         // TODO add your handling code here:
-return;
-/*        Object obj = evt.getSource();
+        return;
+        /*        Object obj = evt.getSource();
         if (obj == cmbCousreName) {
             cmbStudentsName.removeAllItems();
 for(Program pd : organization.getPD().getDirectory()){
@@ -210,7 +208,7 @@ for(Program pd : organization.getPD().getDirectory()){
             }
 }
         }
-*/
+         */
     }//GEN-LAST:event_cmbCousreNameActionPerformed
 
     private void cmbCousreNamePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbCousreNamePropertyChange
@@ -228,15 +226,18 @@ for(Program pd : organization.getPD().getDirectory()){
 
     private void btnAssignTAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignTAActionPerformed
         // TODO add your handling code here:
-        CourseDirectory cd = program.getCourses();
-        for (Courses c : cd.getCourseList()) {
-            if (c.AssignTA((UserAccount) cmbStudentsName.getSelectedItem())) {
-                JOptionPane.showMessageDialog(null, "New Teaching assistant " + String.valueOf(cmbStudentsName.getSelectedItem()) + " has been assigned");
-            } else {
-                JOptionPane.showMessageDialog(null, String.valueOf(cmbStudentsName.getSelectedItem()) + " is already assigned as a Teaching Assistant");
+        //CourseDirectory cd = program.getCourses();
+
+        for (Program pd : organization.getPD().getDirectory()) {
+            for (Courses c : pd.getCourses().getCourseList()) {
+                if (c.AssignTA((UserAccount) cmbStudentsName.getSelectedItem())) {
+                    JOptionPane.showMessageDialog(null, "New Teaching assistant " + String.valueOf(cmbStudentsName.getSelectedItem()) + " has been assigned");
+                } else {
+                    JOptionPane.showMessageDialog(null, String.valueOf(cmbStudentsName.getSelectedItem()) + " is already assigned as a Teaching Assistant");
+                }
             }
-        }
     }//GEN-LAST:event_btnAssignTAActionPerformed
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssignTA;

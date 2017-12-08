@@ -23,8 +23,6 @@ public class UserAccount {
     private static int count = 1;
     private ArrayList<Feeds> feedsList;
 
-    
-    
     public UserAccount() {
         //workQueue = new WorkQueue();
         this.id = count;
@@ -40,19 +38,17 @@ public class UserAccount {
         this.feedsList = feedsList;
     }
 
-    public Feeds createFeeds(String message){
+    public Feeds createFeeds(String message) {
         Feeds fd = new Feeds(message);
         feedsList.add(fd);
         return fd;
     }
-    
-    public void removeFeed(Feeds fd){
+
+    public void removeFeed(Feeds fd) {
         feedsList.remove(fd);
     }
-    
-   
-    //private WorkQueue workQueue;
 
+    //private WorkQueue workQueue;
     public int getId() {
         return id;
     }
@@ -60,7 +56,6 @@ public class UserAccount {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public String getUsername() {
         return username;

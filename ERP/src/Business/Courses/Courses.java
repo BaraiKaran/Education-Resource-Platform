@@ -31,6 +31,15 @@ public class Courses {
         this.totalSeats = seats;
         students = new ArrayList<UserAccount>();
         teachingAssistant = new ArrayList<UserAccount>();
+
+    }
+
+    public ArrayList<UserAccount> getTeachingAssistant() {
+        return teachingAssistant;
+    }
+
+    public void setTeachingAssistant(ArrayList<UserAccount> teachingAssistant) {
+        this.teachingAssistant = teachingAssistant;
     }
 
     public ArrayList<UserAccount> getStudents() {
