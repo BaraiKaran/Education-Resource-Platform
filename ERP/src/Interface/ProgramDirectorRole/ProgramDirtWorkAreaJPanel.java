@@ -5,11 +5,7 @@
  */
 package Interface.ProgramDirectorRole;
 
-import Interface.ProgramCoordinatorRole.*;
 import Business.College.Program;
-import Interface.CollegeAdmin.*;
-import Interface.ProfessorRole.*;
-import Business.EcoSystem;
 import Business.Feeds.Feeds;
 import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
@@ -28,13 +24,14 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
      * Creates new form ProfessorWorkAreaJPanel
      */
     JPanel userProcessContainer;
-     CollegeOrganization organization;
+    CollegeOrganization organization;
     UserAccount userAccount;
     Program program;
-    public ProgramDirtWorkAreaJPanel(JPanel userProcessContainer, Organization org,UserAccount ua) {
+
+    public ProgramDirtWorkAreaJPanel(JPanel userProcessContainer, Organization org, UserAccount ua) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.organization = (CollegeOrganization)org;
+        this.organization = (CollegeOrganization) org;
         this.userAccount = ua;
         for (Program prog : this.organization.getPD().getDirectory()) {
             if (prog.getProgramDirector().getId() == userAccount.getId()) {
@@ -43,12 +40,12 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
                 break;
             }
         }
-        
+
         populateTable();
     }
-    
-     public void populateTable(){
-          DefaultTableModel model = (DefaultTableModel) tblFeeds.getModel();
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblFeeds.getModel();
         model.setRowCount(0);
 
         //for (Program pd : .getPD().getDirectory()) {
@@ -56,12 +53,10 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
         for (Feeds fd : userAccount.getFeedsList()) {
             row[0] = fd.getMessage();
             row[1] = fd.getMessageTime();
-            model.addRow(row);  
+            model.addRow(row);
         }
-        
-       
+
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,6 +71,8 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
         manageOrganizationJButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFeeds = new javax.swing.JTable();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -133,12 +130,11 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
 
     private void manageOrganizationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrganizationJButtonActionPerformed
 
-        ManageCourseJPanel panel = new ManageCourseJPanel(userProcessContainer, program,userAccount);
+        ManageCourseJPanel panel = new ManageCourseJPanel(userProcessContainer, program, userAccount);
         userProcessContainer.add("ManageCourseJPanel", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageOrganizationJButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;

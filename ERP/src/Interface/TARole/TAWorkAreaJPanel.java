@@ -12,7 +12,6 @@ import Business.Organization.Organization;
 import Business.Role.TAHours;
 import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
-import Interface.ProfessorRole.AssignTAJPanel;
 import java.awt.CardLayout;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,7 +35,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
     UserAccount userAccount;
     Program program;
     Courses course;
-    
+
     public TAWorkAreaJPanel(JPanel userProcessContainer, Organization organization, UserAccount account) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -44,10 +43,11 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         this.userAccount = account;
         TARole role = (TARole) userAccount.getRole();
         this.course = role.getCourse();
-        if(role.getTaHours())
+        if (role.getTaHours()) {
             btnStartTAHours.setEnabled(false);
-        else
+        } else {
             btnEndTAHours.setEnabled(false);
+        }
         populateTable();
     }
 
@@ -66,6 +66,8 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTAHours = new javax.swing.JTable();
         btnAnouncement = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -106,6 +108,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblTAHours);
 
+        btnAnouncement.setBackground(new java.awt.Color(51, 153, 255));
         btnAnouncement.setText("Anouncements");
         btnAnouncement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,22 +121,20 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEndTAHours)
-                            .addComponent(btnStartTAHours))
-                        .addGap(95, 95, 95))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnStartTAHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEndTAHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,19 +147,19 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                         .addComponent(btnStartTAHours)
                         .addGap(39, 39, 39)
                         .addComponent(btnEndTAHours)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(40, 40, 40)
                         .addComponent(btnAnouncement))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(334, Short.MAX_VALUE))
+                .addContainerGap(319, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tblTAHours.getModel();
         model.setRowCount(0);
-         TARole role = (TARole) userAccount.getRole();
+        TARole role = (TARole) userAccount.getRole();
         Object[] row = new Object[5];
-       /* for (Program pd : organization.getPD().getDirectory()) {
+        /* for (Program pd : organization.getPD().getDirectory()) {
             for (Courses c : pd.getCourses().getCourseList()) {
                 for (UserAccount ua : c.getTeachingAssistant()) {
                     if (ua.getId() == userAccount.getId()) {
@@ -174,15 +175,15 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                 }
             }
         }*/
-        for(TAHours r : role.getTahours()){
+        for (TAHours r : role.getTahours()) {
             row[0] = role.getCourse();
             row[1] = r.getDate();
             row[2] = r.getStartTime();
             row[3] = r.getEndTime();
             row[4] = (r.getTimeDuration() / 60000);
-             model.addRow(row);
+            model.addRow(row);
         }
-        
+
     }
 
     private void btnStartTAHoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartTAHoursActionPerformed
@@ -238,14 +239,14 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         try {
             long diff = d.getTime() - formatter.parse(active.getStartTime()).getTime();
             active.setTimeDuration(diff);
-            
+
             TAHours TAhrs = role.addTAHours();
             TAhrs.setDate(active.getDate());
             TAhrs.setEndTime(active.getEndTime());
             TAhrs.setStartTime(active.getStartTime());
             TAhrs.setTimeDuration(active.getTimeDuration());
-             btnStartTAHours.setEnabled(true);
-        btnEndTAHours.setEnabled(false);
+            btnStartTAHours.setEnabled(true);
+            btnEndTAHours.setEnabled(false);
         } catch (ParseException ex) {
             Logger.getLogger(TAWorkAreaJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -276,8 +277,8 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnAnouncementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncementActionPerformed
         // TODO add your handling code here:
-        
-         AnouncementJPanel JPanel = new AnouncementJPanel(userProcessContainer, program, userAccount, organization,course);
+
+        AnouncementJPanel JPanel = new AnouncementJPanel(userProcessContainer, program, userAccount, organization, course);
         userProcessContainer.add("AnouncementJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);

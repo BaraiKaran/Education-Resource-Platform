@@ -5,7 +5,6 @@
 package Interface.AdministrativeRole;
 
 import Business.Employee.Employee;
-import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
 import java.awt.CardLayout;
@@ -22,47 +21,48 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
 
     private OrganizationDirectory organizationDir;
     private JPanel userProcessContainer;
-    
+
     /**
      * Creates new form ManageOrganizationJPanel
      */
-    public ManageEmployeeJPanel(JPanel userProcessContainer,OrganizationDirectory organizationDir) {
+    public ManageEmployeeJPanel(JPanel userProcessContainer, OrganizationDirectory organizationDir) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.organizationDir = organizationDir;
-        
+
         populateOrganizationComboBox();
         populateOrganizationEmpComboBox();
     }
-    
-    public void populateOrganizationComboBox(){
+
+    public void populateOrganizationComboBox() {
         organizationJComboBox.removeAllItems();
-        
-        for (Organization organization : organizationDir.getOrganizationList()){
+
+        for (Organization organization : organizationDir.getOrganizationList()) {
             organizationJComboBox.addItem(organization);
         }
     }
-    
-    public void populateOrganizationEmpComboBox(){
-       /* organizationEmpJComboBox.removeAllItems();
-        
+
+    public void populateOrganizationEmpComboBox() {
+        /* organizationEmpJComboBox.removeAllItems();
+
         for (Organization organization : organizationDir.getOrganizationList()){
             organizationEmpJComboBox.addItem(organization);
         }*/
     }
 
-     public void populateTable(Organization organization){
+    public void populateTable(Organization organization) {
         DefaultTableModel model = (DefaultTableModel) organizationJTable.getModel();
-        
+
         model.setRowCount(0);
-        
-        for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()){
+
+        for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()) {
             Object[] row = new Object[2];
             row[0] = employee;
             row[1] = employee.getName();
             model.addRow(row);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,6 +81,8 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         newBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         organizationJComboBox = new javax.swing.JComboBox();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         organizationJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -210,12 +212,12 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
 
         userProcessContainer.remove(this);
-        
+
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         AdminWorkAreaJPanel panel = (AdminWorkAreaJPanel) component;
         panel.plotgraph();
-        
+
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
@@ -224,18 +226,16 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selected = organizationJTable.getSelectedRow();
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        if(selected >= 0){
-            Employee emp = (Employee)organizationJTable.getValueAt(selected, 0);
+        if (selected >= 0) {
+            Employee emp = (Employee) organizationJTable.getValueAt(selected, 0);
             organization.getEmployeeDirectory().removeEmployee(emp);
             JOptionPane.showMessageDialog(null, "Successfully deleted employee");
-            
-                
-        if (organization != null){
-            populateTable(organization);
-        }
-            
-           
-        }else{
+
+            if (organization != null) {
+                populateTable(organization);
+            }
+
+        } else {
             JOptionPane.showMessageDialog(null, "Please select a row");
         }
 
@@ -244,14 +244,14 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         // TODO add your handling code here:
         int selected = organizationJTable.getSelectedRow();
-        if(selected >= 0){
-            Employee emp = (Employee)organizationJTable.getValueAt(selected, 0);
-             Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-            UpdateEmployeeJPanel JPanel = new UpdateEmployeeJPanel(userProcessContainer, organization,emp);
+        if (selected >= 0) {
+            Employee emp = (Employee) organizationJTable.getValueAt(selected, 0);
+            Organization organization = (Organization) organizationJComboBox.getSelectedItem();
+            UpdateEmployeeJPanel JPanel = new UpdateEmployeeJPanel(userProcessContainer, organization, emp);
             userProcessContainer.add("UpdateEmployeeJPanel", JPanel);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.next(userProcessContainer);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Please select a row");
         }
 
@@ -260,11 +260,11 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
     private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
         // TODO add your handling code here:
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        if(!(organization instanceof  Organization)){
-        JOptionPane.showMessageDialog(null, "No organization selected");
-        return;
-    }
-        
+        if (!(organization instanceof Organization)) {
+            JOptionPane.showMessageDialog(null, "No organization selected");
+            return;
+        }
+
         NewEmployeeJPanel JPanel = new NewEmployeeJPanel(userProcessContainer, organization);
         userProcessContainer.add("NewEmployeeJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -274,7 +274,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
 
     private void organizationJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_organizationJComboBoxActionPerformed
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        if (organization != null){
+        if (organization != null) {
             populateTable(organization);
         }
     }//GEN-LAST:event_organizationJComboBoxActionPerformed

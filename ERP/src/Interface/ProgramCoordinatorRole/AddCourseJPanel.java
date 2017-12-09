@@ -63,6 +63,8 @@ public class AddCourseJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         txtTotalSeats = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setText("Add New Course ");
 
@@ -78,6 +80,7 @@ public class AddCourseJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnCreate.setBackground(new java.awt.Color(51, 153, 255));
         btnCreate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnCreate.setText("Create");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
@@ -86,6 +89,7 @@ public class AddCourseJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setBackground(new java.awt.Color(51, 153, 255));
         btnBack.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnBack.setText("< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -184,7 +188,7 @@ public class AddCourseJPanel extends javax.swing.JPanel {
             String status = "Initiated";
             Courses cc = program.getCourses().createCourse(crn, coursename, status, totalSeats);
             UserAccount account = (UserAccount) cmbProfessorName.getSelectedItem();
-          //program.setProfessor(account);
+            //program.setProfessor(account);
             cc.setProfessor(account);
             cc.setProgram(program);
             program.getProgramDirector().createFeeds(userAccount.getEmployee().getName() + " added new course " + cc.getCourseName() + " to program " + program.getName());

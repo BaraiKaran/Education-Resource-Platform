@@ -22,17 +22,15 @@ public class AnouncementJPanel extends javax.swing.JPanel {
     /**
      * Creates new form AnouncementJPanel
      */
-    
-     JPanel userProcessContainer;
+    JPanel userProcessContainer;
     CollegeOrganization organization;
     UserAccount userAccount;
     Program program;
     Courses course;
-   
 
     public AnouncementJPanel(JPanel userProcessContainer, Program program, UserAccount userAccount, CollegeOrganization organization, Courses course) {
-        
-         this.userProcessContainer = userProcessContainer;
+
+        this.userProcessContainer = userProcessContainer;
         this.organization = (CollegeOrganization) organization;
         this.userAccount = userAccount;
         this.program = program;
@@ -54,6 +52,8 @@ public class AnouncementJPanel extends javax.swing.JPanel {
         txtAn = new javax.swing.JTextArea();
         btnSubmit = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Announcements");
@@ -62,6 +62,7 @@ public class AnouncementJPanel extends javax.swing.JPanel {
         txtAn.setRows(5);
         jScrollPane1.setViewportView(txtAn);
 
+        btnSubmit.setBackground(new java.awt.Color(51, 153, 255));
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,21 +99,19 @@ public class AnouncementJPanel extends javax.swing.JPanel {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
-        
-        for(UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()){
-            if(ua.getRole() instanceof StudentRole){
-                if(course.checkStudent(ua)){
-                
-                    ua.createFeeds("Anouncement by "+userAccount.getEmployee().getName()+" : "+txtAn.getText());
-                
+
+        for (UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()) {
+            if (ua.getRole() instanceof StudentRole) {
+                if (course.checkStudent(ua)) {
+
+                    ua.createFeeds("Anouncement by " + userAccount.getEmployee().getName() + " : " + txtAn.getText());
+
                 }
             }
         }
         JOptionPane.showMessageDialog(null, "Submitted successfully");
-        
-        
-    }//GEN-LAST:event_btnSubmitActionPerformed
 
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;

@@ -35,7 +35,7 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
         this.organization = (CollegeOrganization) organization;
         this.userAccount = ua;
         this.program = program;
-        
+
         populateTable();
 
     }
@@ -60,12 +60,15 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCourseDescriptions = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Course Registration");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("Enter CRN:");
 
+        btnRegister.setBackground(new java.awt.Color(51, 153, 255));
         btnRegister.setText("Register");
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,9 +151,7 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void populateTable() {
-        
-        
-        
+
         DefaultTableModel model = (DefaultTableModel) tblCourseDescriptions.getModel();
         model.setRowCount(0);
         Object[] row = new Object[5];

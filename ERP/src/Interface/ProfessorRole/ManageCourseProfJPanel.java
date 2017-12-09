@@ -35,12 +35,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         this.organization = (CollegeOrganization) organization;
         this.userAccount = ua;
         populateTable();
-        /* for (Program prog : this.organization.getPD().getDirectory()) {
-            if (prog.getProfessor().getId() == userAccount.getId()) {
-                this.program = prog;
-                break;
-            }
-        }*/
+
     }
 
     /**
@@ -58,10 +53,13 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         tblTADetails = new javax.swing.JTable();
         btnAnouncement = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Welcome Professor");
 
+        btnAssignTA.setBackground(new java.awt.Color(51, 153, 255));
         btnAssignTA.setText("Assign TA");
         btnAssignTA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,6 +85,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblTADetails);
 
+        btnAnouncement.setBackground(new java.awt.Color(51, 153, 255));
         btnAnouncement.setText("Anouncements");
         btnAnouncement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,33 +119,33 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAssignTA)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAnouncement))
+                        .addGap(26, 26, 26)
+                        .addComponent(btnAnouncement, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(328, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     public void populateTable() {
-        
+
         DefaultTableModel model = (DefaultTableModel) tblTADetails.getModel();
         model.setRowCount(0);
         Object[] row = new Object[5];
         for (Program pd : organization.getPD().getDirectory()) {
             for (Courses c : pd.getCourses().getCourseList()) {
-                if(c.getProfessor().getId() != userAccount.getId())
+                if (c.getProfessor().getId() != userAccount.getId()) {
                     return;
-                
-                
+                }
+
                 for (UserAccount ua : c.getTeachingAssistant()) {
                     row[0] = ua.getUsername();
                     TARole r = (TARole) ua.getRole();
-                    
+
                     if (r.getTaHours()) {
                         row[1] = "Active";
                     } else {
-                       row[1] = "InActive";
-                   }
+                        row[1] = "InActive";
+                    }
                     model.addRow(row);
                 }
             }
@@ -163,7 +162,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
     private void btnAnouncementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncementActionPerformed
         // TODO add your handling code here:
-        
+
         AssignTAJPanel JPanel = new AssignTAJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
         userProcessContainer.add("AssignTAJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();

@@ -54,6 +54,8 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         btnUpdateCourse = new javax.swing.JButton();
         btnDeleteCourse = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Welcome Program Coordinator");
@@ -86,6 +88,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
             tblProgramCoordinator.getColumnModel().getColumn(4).setResizable(false);
         }
 
+        btnAddCourse.setBackground(new java.awt.Color(51, 153, 255));
         btnAddCourse.setText("Add Course");
         btnAddCourse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +96,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnUpdateCourse.setBackground(new java.awt.Color(51, 153, 255));
         btnUpdateCourse.setText("Update Course");
         btnUpdateCourse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,6 +104,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnDeleteCourse.setBackground(new java.awt.Color(51, 153, 255));
         btnDeleteCourse.setText("Delete Course");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

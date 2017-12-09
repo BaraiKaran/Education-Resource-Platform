@@ -5,7 +5,6 @@
 package Interface.AdministrativeRole;
 
 import Business.Organization.Organization;
-import Business.Organization.Organization.Type;
 import Business.Organization.OrganizationDirectory;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -21,34 +20,32 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
     private OrganizationDirectory directory;
     private JPanel userProcessContainer;
-    
+
     /**
      * Creates new form ManageOrganizationJPanel
      */
-    public ManageOrganizationJPanel(JPanel userProcessContainer,OrganizationDirectory directory) {
+    public ManageOrganizationJPanel(JPanel userProcessContainer, OrganizationDirectory directory) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.directory = directory;
-        
         populateTable();
-        
-    }
-    
-    
 
-    public void populateTable(){
+    }
+
+    public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) organizationJTable.getModel();
-        
+
         model.setRowCount(0);
-        
-        for (Organization organization : directory.getOrganizationList()){
+
+        for (Organization organization : directory.getOrganizationList()) {
             Object[] row = new Object[2];
             row[0] = organization;
             row[1] = organization.getName();
-            
+
             model.addRow(row);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,6 +62,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         updateBtn = new javax.swing.JButton();
         delBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         organizationJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,12 +175,12 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
 
         userProcessContainer.remove(this);
-        
-         Component[] componentArray = userProcessContainer.getComponents();
+
+        Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         AdminWorkAreaJPanel panel = (AdminWorkAreaJPanel) component;
         panel.plotgraph();
-        
+
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
@@ -192,39 +191,36 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         userProcessContainer.add("NewOrganizationJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-        
-        
+
     }//GEN-LAST:event_newBtnActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         // TODO add your handling code here:
         int selected = organizationJTable.getSelectedRow();
-        if(selected >= 0){
-            Organization org = (Organization)organizationJTable.getValueAt(selected, 0);
-            UpdateOrganizationJPanel JPanel = new UpdateOrganizationJPanel(userProcessContainer, directory,org);
+        if (selected >= 0) {
+            Organization org = (Organization) organizationJTable.getValueAt(selected, 0);
+            UpdateOrganizationJPanel JPanel = new UpdateOrganizationJPanel(userProcessContainer, directory, org);
             userProcessContainer.add("UpdateOrganizationJPanel", JPanel);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.next(userProcessContainer);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Please select a row");
         }
-        
-        
-        
+
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void delBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delBtnActionPerformed
         // TODO add your handling code here:
         int selected = organizationJTable.getSelectedRow();
-        if(selected >= 0){
-            Organization org = (Organization)organizationJTable.getValueAt(selected, 0);
+        if (selected >= 0) {
+            Organization org = (Organization) organizationJTable.getValueAt(selected, 0);
             directory.removeOrganization(org);
             JOptionPane.showMessageDialog(null, "Successfully deleted organization");
             populateTable();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Please select a row");
         }
-        
+
     }//GEN-LAST:event_delBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -7,11 +7,9 @@ package Interface.ProfessorRole;
 
 import Business.College.Program;
 import Business.Courses.Courses;
-import Business.Feeds.Feeds;
 import Business.Organization.CollegeOrganization;
 import Business.Role.StudentRole;
 import Business.Role.TARequest;
-import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -45,15 +43,14 @@ public class AssignTAJPanel extends javax.swing.JPanel {
         populateRequest();
     }
 
-    public void populateTable(){
+    public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tblTA.getModel();
         model.setRowCount(0);
-        
+
         //for (Program pd : .getPD().getDirectory()) {
-        Courses cr = (Courses)cmbCousreName.getSelectedItem();
+        Courses cr = (Courses) cmbCousreName.getSelectedItem();
         Object[] row = new Object[3];
         for (UserAccount ua : cr.getTeachingAssistant()) {
-
 
             row[0] = ua;
             row[1] = cr.getCourseName();
@@ -61,15 +58,15 @@ public class AssignTAJPanel extends javax.swing.JPanel {
             model.addRow(row);
         }
     }
-    public void populateRequest(){
+
+    public void populateRequest() {
         DefaultTableModel model = (DefaultTableModel) tblTARequest.getModel();
         model.setRowCount(0);
-        
+
         //for (Program pd : .getPD().getDirectory()) {
-        Courses cr = (Courses)cmbCousreName.getSelectedItem();
+        Courses cr = (Courses) cmbCousreName.getSelectedItem();
         Object[] row = new Object[4];
         for (TARequest tt : cr.getRequests()) {
-
 
             row[0] = tt.getUa().getEmployee().getName();
             row[1] = tt.getCourse().getCourseName();
@@ -78,7 +75,7 @@ public class AssignTAJPanel extends javax.swing.JPanel {
             model.addRow(row);
         }
     }
-    
+
     public void populateCourses() {
         cmbCousreName.removeAllItems();
         //CourseDirectory cd = program.getCourses();
@@ -131,6 +128,8 @@ public class AssignTAJPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTARequest = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Assign Teaching Assistant");
 
@@ -140,6 +139,7 @@ public class AssignTAJPanel extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Select TA:");
 
+        btnAssignTA.setBackground(new java.awt.Color(51, 153, 255));
         btnAssignTA.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         btnAssignTA.setText("Assignment Request");
         btnAssignTA.addActionListener(new java.awt.event.ActionListener() {
@@ -279,14 +279,13 @@ for(Program pd : organization.getPD().getDirectory()){
     private void btnAssignTAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignTAActionPerformed
         // TODO add your handling code here:
         //CourseDirectory cd = program.getCourses();
-        Courses ca = (Courses)cmbCousreName.getSelectedItem();
-        UserAccount usera = (UserAccount)cmbStudentsName.getSelectedItem();
-        TARequest tar  = ca.addRequest(ca.getProgram(), ca, usera);
+        Courses ca = (Courses) cmbCousreName.getSelectedItem();
+        UserAccount usera = (UserAccount) cmbStudentsName.getSelectedItem();
+        TARequest tar = ca.addRequest(ca.getProgram(), ca, usera);
         JOptionPane.showMessageDialog(null, "Teaching assistant User Account requested");
         populateTable();
         populateRequest();
     }//GEN-LAST:event_btnAssignTAActionPerformed
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssignTA;

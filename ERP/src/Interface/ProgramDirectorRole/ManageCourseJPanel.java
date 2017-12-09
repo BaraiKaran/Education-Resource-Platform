@@ -49,6 +49,8 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         tblProgDirectorBoard = new javax.swing.JTable();
         btnApprove = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Welcome Program Director");
@@ -81,6 +83,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
             tblProgDirectorBoard.getColumnModel().getColumn(4).setResizable(false);
         }
 
+        btnApprove.setBackground(new java.awt.Color(51, 153, 255));
         btnApprove.setText("Approve");
         btnApprove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

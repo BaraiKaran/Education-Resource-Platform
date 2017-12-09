@@ -5,7 +5,6 @@
  */
 package Interface.RARole;
 
-import Business.EcoSystem;
 import Business.Organization.Organization;
 import javax.swing.JPanel;
 
@@ -20,6 +19,7 @@ public class RAWorkAreaJPanel extends javax.swing.JPanel {
      */
     JPanel userProcessContainer;
     Organization organization;
+
     public RAWorkAreaJPanel(JPanel userProcessContainer, Organization organization) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
@@ -36,6 +36,8 @@ public class RAWorkAreaJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -58,7 +60,6 @@ public class RAWorkAreaJPanel extends javax.swing.JPanel {
                 .addContainerGap(534, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;

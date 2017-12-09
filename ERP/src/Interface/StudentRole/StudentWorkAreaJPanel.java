@@ -5,19 +5,13 @@
  */
 package Interface.StudentRole;
 
-
 import Business.College.Program;
-
-
 import Business.Feeds.Feeds;
 import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
-
-
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -55,11 +49,7 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         populateTable();
     }
 
-
-
-    
-    
-    public void populateTable(){
+    public void populateTable() {
 
         DefaultTableModel model = (DefaultTableModel) tblFeeds.getModel();
         model.setRowCount(0);
@@ -68,13 +58,11 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         Object[] row = new Object[2];
         for (Feeds fd : ua.getFeedsList()) {
 
-
             row[0] = fd.getMessage();
             row[1] = fd.getMessageTime();
             model.addRow(row);
         }
-        
-       
+
     }
 
     /**
@@ -90,6 +78,8 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         tblFeeds = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btnRegisterForCourses = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         tblFeeds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -108,6 +98,7 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Welcome Student");
 
+        btnRegisterForCourses.setBackground(new java.awt.Color(51, 153, 255));
         btnRegisterForCourses.setText("Register for courses");
         btnRegisterForCourses.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,12 +136,12 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnRegisterForCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterForCoursesActionPerformed
         // TODO add your handling code here:
-        
-        if(! (program instanceof Program)){
+
+        if (!(program instanceof Program)) {
             JOptionPane.showMessageDialog(null, "Please add program and courses");
             return;
         }
-        
+
         StudentCourseRegistrationJPanel panel = new StudentCourseRegistrationJPanel(userProcessContainer, ua, organization, program);
         userProcessContainer.add("StudentCourseRegistrationJPanel", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();

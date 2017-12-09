@@ -6,8 +6,6 @@
 package Interface.ProgramCoordinatorRole;
 
 import Business.College.Program;
-import Business.Courses.Courses;
-import Business.Feeds.Feeds;
 import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.Role.StudentRole;
@@ -25,31 +23,32 @@ public class EnrollStudents extends javax.swing.JPanel {
     /**
      * Creates new form EnrollStudents
      */
-    
     JPanel userProcessContainer;
     CollegeOrganization organization;
     UserAccount userAccount;
     Program program;
+
     public EnrollStudents(JPanel userProcessContainer, Organization organization, Program program, UserAccount userAccount) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.organization = (CollegeOrganization)organization;
+        this.organization = (CollegeOrganization) organization;
         this.program = program;
         this.userAccount = userAccount;
-        
+
         populateTable();
     }
-    
-     public void populateTable() {
+
+    public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tblStudents.getModel();
         model.setRowCount(0);
 
         Object[] row = new Object[2];
         for (UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()) {
-            if(ua.getRole() instanceof StudentRole ){
-                if(program.checkStudent(ua))
+            if (ua.getRole() instanceof StudentRole) {
+                if (program.checkStudent(ua)) {
                     continue;
-                
+                }
+
                 row[0] = ua;
                 row[1] = ua.getEmployee().getName();
 
@@ -59,14 +58,13 @@ public class EnrollStudents extends javax.swing.JPanel {
 
     }
 
-     
-     public void populateEnroll() {
+    public void populateEnroll() {
         DefaultTableModel model = (DefaultTableModel) tblEnrolled.getModel();
         model.setRowCount(0);
 
         Object[] row = new Object[3];
         for (UserAccount ua : program.getStudents()) {
-            if(ua.getRole() instanceof StudentRole ){
+            if (ua.getRole() instanceof StudentRole) {
                 row[0] = ua;
                 row[1] = ua.getEmployee().getName();
                 row[2] = program;
@@ -75,7 +73,7 @@ public class EnrollStudents extends javax.swing.JPanel {
         }
 
     }
-     
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,6 +90,8 @@ public class EnrollStudents extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblEnrolled = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Enroll Students");
@@ -106,6 +106,7 @@ public class EnrollStudents extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblStudents);
 
+        btnEnroll.setBackground(new java.awt.Color(51, 153, 255));
         btnEnroll.setText("Enroll");
         btnEnroll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,25 +157,23 @@ public class EnrollStudents extends javax.swing.JPanel {
     private void btnEnrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnrollActionPerformed
         // TODO add your handling code here:
         int selected = tblStudents.getSelectedRow();
-        if(selected >= 0){
-            UserAccount ua = (UserAccount)tblStudents.getValueAt(selected,0);
-            
+        if (selected >= 0) {
+            UserAccount ua = (UserAccount) tblStudents.getValueAt(selected, 0);
+
             Boolean flag = program.subscribeProgram(ua);
-            if(flag){
+            if (flag) {
                 populateEnroll();
                 populateTable();
-                ua.createFeeds("Congratulations !! You are now enrolled to Program "+program.getName());
-               
-            }else{
+                ua.createFeeds("Congratulations !! You are now enrolled to Program " + program.getName());
+
+            } else {
                 JOptionPane.showMessageDialog(null, "Already Enrolled");
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Please select a row"   );
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a row");
         }
-        
-        
-    }//GEN-LAST:event_btnEnrollActionPerformed
 
+    }//GEN-LAST:event_btnEnrollActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnroll;
