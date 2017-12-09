@@ -184,8 +184,9 @@ public class AddCourseJPanel extends javax.swing.JPanel {
             String status = "Initiated";
             Courses cc = program.getCourses().createCourse(crn, coursename, status, totalSeats);
             UserAccount account = (UserAccount) cmbProfessorName.getSelectedItem();
-            program.setProfessor(account);
+          //program.setProfessor(account);
             cc.setProfessor(account);
+            cc.setProgram(program);
             program.getProgramDirector().createFeeds(userAccount.getEmployee().getName() + " added new course " + cc.getCourseName() + " to program " + program.getName());
             JOptionPane.showMessageDialog(null, "Course Requested");
         }

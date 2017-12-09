@@ -56,6 +56,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         btnAssignTA = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTADetails = new javax.swing.JTable();
+        btnAnouncement = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -86,6 +87,13 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblTADetails);
 
+        btnAnouncement.setText("Anouncements");
+        btnAnouncement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnouncementActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,7 +104,9 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(92, 92, 92)
-                .addComponent(btnAssignTA)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAssignTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67))
@@ -108,26 +118,35 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAssignTA)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAssignTA)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAnouncement))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(328, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     public void populateTable() {
+        
         DefaultTableModel model = (DefaultTableModel) tblTADetails.getModel();
         model.setRowCount(0);
         Object[] row = new Object[5];
         for (Program pd : organization.getPD().getDirectory()) {
             for (Courses c : pd.getCourses().getCourseList()) {
+                if(c.getProfessor().getId() != userAccount.getId())
+                    return;
+                
+                
                 for (UserAccount ua : c.getTeachingAssistant()) {
                     row[0] = ua.getUsername();
                     TARole r = (TARole) ua.getRole();
+                    
                     if (r.getTaHours()) {
                         row[1] = "Active";
                     } else {
-                        row[1] = "InActive";
-                    }
+                       row[1] = "InActive";
+                   }
                     model.addRow(row);
                 }
             }
@@ -142,7 +161,17 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAssignTAActionPerformed
 
+    private void btnAnouncementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncementActionPerformed
+        // TODO add your handling code here:
+        
+        AssignTAJPanel JPanel = new AssignTAJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
+        userProcessContainer.add("AssignTAJPanel", JPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnAnouncementActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnouncement;
     private javax.swing.JButton btnAssignTA;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -5,12 +5,14 @@
  */
 package Business.Role;
 
+import Business.Courses.Courses;
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Interface.TARole.TAWorkAreaJPanel;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -28,20 +30,51 @@ public class TARole extends Role {
     public String toString() {
         return "Teaching Assistant";
     }
+    
+    private ArrayList<TAHours> tahours;
 
+    private TAHours active;
     private Boolean taHours;
-    private String startTime;
-    private String endTime;
-    private String date;
-    private long timeDuration;
-
-    public long getTimeDuration() {
-        return timeDuration;
+    private Courses course;
+    
+    public TARole(){
+        tahours = new ArrayList<TAHours>();
+        active = new TAHours();
+        taHours = false;
     }
 
-    public void setTimeDuration(long timeDuration) {
-        this.timeDuration = timeDuration;
+    public TAHours getActive() {
+        return active;
     }
+
+    public void setActive(TAHours active) {
+        this.active = active;
+    }
+    
+    
+    public Courses getCourse() {
+        return course;
+    }
+
+    public void setCourse(Courses course) {
+        this.course = course;
+    }
+
+    public ArrayList<TAHours> getTahours() {
+        return tahours;
+    }
+
+    public void setTahours(ArrayList<TAHours> tahours) {
+        this.tahours = tahours;
+    }
+    
+    public TAHours addTAHours(){
+        TAHours tt = new TAHours();
+        tahours.add(tt);
+        return tt;
+    }
+    
+    
 
     public Boolean getTaHours() {
         return taHours;
@@ -51,28 +84,6 @@ public class TARole extends Role {
         this.taHours = taHours;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
+    
 
 }

@@ -7,11 +7,15 @@ package Interface.ProfessorRole;
 
 import Business.College.Program;
 import Business.Courses.Courses;
+import Business.Feeds.Feeds;
 import Business.Organization.CollegeOrganization;
+import Business.Role.StudentRole;
+import Business.Role.TARequest;
 import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,8 +41,44 @@ public class AssignTAJPanel extends javax.swing.JPanel {
         this.uname = username;
         populateCourses();
         populateStudents();
+        populateTable();
+        populateRequest();
     }
 
+    public void populateTable(){
+        DefaultTableModel model = (DefaultTableModel) tblTA.getModel();
+        model.setRowCount(0);
+        
+        //for (Program pd : .getPD().getDirectory()) {
+        Courses cr = (Courses)cmbCousreName.getSelectedItem();
+        Object[] row = new Object[3];
+        for (UserAccount ua : cr.getTeachingAssistant()) {
+
+
+            row[0] = ua;
+            row[1] = cr.getCourseName();
+            row[2] = cr.getProgram().getName();
+            model.addRow(row);
+        }
+    }
+    public void populateRequest(){
+        DefaultTableModel model = (DefaultTableModel) tblTARequest.getModel();
+        model.setRowCount(0);
+        
+        //for (Program pd : .getPD().getDirectory()) {
+        Courses cr = (Courses)cmbCousreName.getSelectedItem();
+        Object[] row = new Object[4];
+        for (TARequest tt : cr.getRequests()) {
+
+
+            row[0] = tt.getUa().getEmployee().getName();
+            row[1] = tt.getCourse().getCourseName();
+            row[2] = tt.getProgram().getName();
+            row[3] = tt.getStatus();
+            model.addRow(row);
+        }
+    }
+    
     public void populateCourses() {
         cmbCousreName.removeAllItems();
         //CourseDirectory cd = program.getCourses();
@@ -64,7 +104,7 @@ public class AssignTAJPanel extends javax.swing.JPanel {
 
  }*/
         for (UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()) {
-            if (ua.getRole() instanceof TARole) {
+            if (ua.getRole() instanceof StudentRole) {
                 cmbStudentsName.addItem(ua);
             }
         }
@@ -88,6 +128,8 @@ public class AssignTAJPanel extends javax.swing.JPanel {
         cmbStudentsName = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTA = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblTARequest = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Assign Teaching Assistant");
@@ -99,7 +141,7 @@ public class AssignTAJPanel extends javax.swing.JPanel {
         jLabel3.setText("Select TA:");
 
         btnAssignTA.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        btnAssignTA.setText("Assign");
+        btnAssignTA.setText("Assignment Request");
         btnAssignTA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAssignTAActionPerformed(evt);
@@ -141,34 +183,42 @@ public class AssignTAJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblTA);
 
+        tblTARequest.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "TA", "Course", "Program", "Status"
+            }
+        ));
+        jScrollPane2.setViewportView(tblTARequest);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbCousreName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbStudentsName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 926, Short.MAX_VALUE))))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAssignTA)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 926, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAssignTA)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbStudentsName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbCousreName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,14 +230,16 @@ public class AssignTAJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(cmbCousreName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(cmbStudentsName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAssignTA)
-                .addContainerGap(517, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(386, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -227,17 +279,14 @@ for(Program pd : organization.getPD().getDirectory()){
     private void btnAssignTAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignTAActionPerformed
         // TODO add your handling code here:
         //CourseDirectory cd = program.getCourses();
-
-        for (Program pd : organization.getPD().getDirectory()) {
-            for (Courses c : pd.getCourses().getCourseList()) {
-                if (c.AssignTA((UserAccount) cmbStudentsName.getSelectedItem())) {
-                    JOptionPane.showMessageDialog(null, "New Teaching assistant " + String.valueOf(cmbStudentsName.getSelectedItem()) + " has been assigned");
-                } else {
-                    JOptionPane.showMessageDialog(null, String.valueOf(cmbStudentsName.getSelectedItem()) + " is already assigned as a Teaching Assistant");
-                }
-            }
+        Courses ca = (Courses)cmbCousreName.getSelectedItem();
+        UserAccount usera = (UserAccount)cmbStudentsName.getSelectedItem();
+        TARequest tar  = ca.addRequest(ca.getProgram(), ca, usera);
+        JOptionPane.showMessageDialog(null, "Teaching assistant User Account requested");
+        populateTable();
+        populateRequest();
     }//GEN-LAST:event_btnAssignTAActionPerformed
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssignTA;
@@ -247,6 +296,8 @@ for(Program pd : organization.getPD().getDirectory()){
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblTA;
+    private javax.swing.JTable tblTARequest;
     // End of variables declaration//GEN-END:variables
 }

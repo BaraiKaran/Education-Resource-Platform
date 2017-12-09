@@ -5,6 +5,8 @@
  */
 package Business.Role;
 
+import Business.College.Program;
+import Business.Courses.Courses;
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
@@ -12,6 +14,7 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Interface.CollegeAdmin.CollegeAdminWorkAreaJPanel;
 import Interface.ProfessorRole.ManageCourseProfJPanel;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -19,7 +22,9 @@ import javax.swing.JPanel;
  * @author aakas
  */
 public class CollegeAdminRole extends Role{
+    
    
+    
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system,Network network) {
         return new CollegeAdminWorkAreaJPanel(userProcessContainer, organization);

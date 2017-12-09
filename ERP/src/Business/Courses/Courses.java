@@ -6,6 +6,7 @@
 package Business.Courses;
 
 import Business.College.Program;
+import Business.Role.TARequest;
 import Business.UserAccount.UserAccount;
 import java.util.ArrayList;
 
@@ -31,9 +32,32 @@ public class Courses {
         this.totalSeats = seats;
         students = new ArrayList<UserAccount>();
         teachingAssistant = new ArrayList<UserAccount>();
+        requests = new ArrayList<TARequest>();
+    }
+    
+    
+     private ArrayList<TARequest> requests;
 
+    public ArrayList<TARequest> getRequests() {
+        return requests;
     }
 
+    public void setRequests(ArrayList<TARequest> requests) {
+        this.requests = requests;
+    }
+     
+    
+    
+    public TARequest addRequest(Program program,Courses course,UserAccount useraccount){
+        TARequest tar = new TARequest( program, course, useraccount);
+        requests.add(tar);
+        return tar;
+    }
+    
+    public void removeRequest(TARequest tar){
+        requests.remove(tar);
+    }
+    
     public ArrayList<UserAccount> getTeachingAssistant() {
         return teachingAssistant;
     }
@@ -121,6 +145,17 @@ public class Courses {
         }
         teachingAssistant.add(ua);
         return true;
+    }
+    
+    
+     public Boolean checkStudent(UserAccount ua){
+        for(UserAccount u : students){
+            if(u.getId() == ua.getId()){
+
+                return true;
+            }
+        }
+        return false;
     }
 
 }

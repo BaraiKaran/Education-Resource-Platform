@@ -9,8 +9,11 @@ import Business.College.Program;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
+import Business.Role.TAHours;
 import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
+import Interface.ProfessorRole.AssignTAJPanel;
+import java.awt.CardLayout;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,14 +35,20 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
     CollegeOrganization organization;
     UserAccount userAccount;
     Program program;
-
+    Courses course;
+    
     public TAWorkAreaJPanel(JPanel userProcessContainer, Organization organization, UserAccount account) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.organization = (CollegeOrganization) organization;
         this.userAccount = account;
-
-        //populateTable();
+        TARole role = (TARole) userAccount.getRole();
+        this.course = role.getCourse();
+        if(role.getTaHours())
+            btnStartTAHours.setEnabled(false);
+        else
+            btnEndTAHours.setEnabled(false);
+        populateTable();
     }
 
     /**
@@ -56,6 +65,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         btnEndTAHours = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTAHours = new javax.swing.JTable();
+        btnAnouncement = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -96,6 +106,13 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblTAHours);
 
+        btnAnouncement.setText("Anouncements");
+        btnAnouncement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnouncementActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,9 +126,14 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEndTAHours)
-                    .addComponent(btnStartTAHours))
-                .addGap(95, 95, 95))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEndTAHours)
+                            .addComponent(btnStartTAHours))
+                        .addGap(95, 95, 95))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,7 +145,9 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnStartTAHours)
                         .addGap(39, 39, 39)
-                        .addComponent(btnEndTAHours))
+                        .addComponent(btnEndTAHours)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAnouncement))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(334, Short.MAX_VALUE))
         );
@@ -132,8 +156,9 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
     public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tblTAHours.getModel();
         model.setRowCount(0);
+         TARole role = (TARole) userAccount.getRole();
         Object[] row = new Object[5];
-        for (Program pd : organization.getPD().getDirectory()) {
+       /* for (Program pd : organization.getPD().getDirectory()) {
             for (Courses c : pd.getCourses().getCourseList()) {
                 for (UserAccount ua : c.getTeachingAssistant()) {
                     if (ua.getId() == userAccount.getId()) {
@@ -148,13 +173,35 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                     }
                 }
             }
+        }*/
+        for(TAHours r : role.getTahours()){
+            row[0] = role.getCourse();
+            row[1] = r.getDate();
+            row[2] = r.getStartTime();
+            row[3] = r.getEndTime();
+            row[4] = (r.getTimeDuration() / 60000);
+             model.addRow(row);
         }
+        
     }
 
     private void btnStartTAHoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartTAHoursActionPerformed
         // TODO add your handling code here:
+        TARole role = (TARole) userAccount.getRole();
+        TAHours active = role.getActive();
+        role.setTaHours(true);
+        SimpleDateFormat formatter1 = new SimpleDateFormat("MM/dd/yyyy");
+        Date d1 = new Date();
+        active.setDate(formatter1.format(d1));
 
-        for (Program pd : organization.getPD().getDirectory()) {
+        Date d = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        String s = formatter.format(d);
+
+        active.setStartTime(s);
+        btnStartTAHours.setEnabled(false);
+        btnEndTAHours.setEnabled(true);
+        /*for (Program pd : organization.getPD().getDirectory()) {
             for (Courses c : pd.getCourses().getCourseList()) {
                 for (UserAccount ua : c.getTeachingAssistant()) {
                     if (ua.getId() == userAccount.getId()) {
@@ -175,14 +222,34 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                 }
 
             }
-        }
+        }*/
 
     }//GEN-LAST:event_btnStartTAHoursActionPerformed
 
     private void btnEndTAHoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEndTAHoursActionPerformed
         // TODO add your handling code here:
-
-        for (Program pd : organization.getPD().getDirectory()) {
+        TARole role = (TARole) userAccount.getRole();
+        TAHours active = role.getActive();
+        role.setTaHours(false);
+        Date d = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        String e = formatter.format(d);
+        active.setEndTime(e);
+        try {
+            long diff = d.getTime() - formatter.parse(active.getStartTime()).getTime();
+            active.setTimeDuration(diff);
+            
+            TAHours TAhrs = role.addTAHours();
+            TAhrs.setDate(active.getDate());
+            TAhrs.setEndTime(active.getEndTime());
+            TAhrs.setStartTime(active.getStartTime());
+            TAhrs.setTimeDuration(active.getTimeDuration());
+             btnStartTAHours.setEnabled(true);
+        btnEndTAHours.setEnabled(false);
+        } catch (ParseException ex) {
+            Logger.getLogger(TAWorkAreaJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        /*for (Program pd : organization.getPD().getDirectory()) {
             for (Courses c : pd.getCourses().getCourseList()) {
                 for (UserAccount ua : c.getTeachingAssistant()) {
                     if (ua.getId() == userAccount.getId()) {
@@ -203,11 +270,22 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                 }
 
             }
-        }
+        }*/
         populateTable();
     }//GEN-LAST:event_btnEndTAHoursActionPerformed
 
+    private void btnAnouncementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncementActionPerformed
+        // TODO add your handling code here:
+        
+         AnouncementJPanel JPanel = new AnouncementJPanel(userProcessContainer, program, userAccount, organization,course);
+        userProcessContainer.add("AnouncementJPanel", JPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+
+    }//GEN-LAST:event_btnAnouncementActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnouncement;
     private javax.swing.JButton btnEndTAHours;
     private javax.swing.JButton btnStartTAHours;
     private javax.swing.JLabel jLabel2;
