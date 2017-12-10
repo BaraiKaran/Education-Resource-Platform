@@ -165,7 +165,7 @@ public class EnrollStudents extends javax.swing.JPanel {
             if (flag) {
                 populateEnroll();
                 populateTable();
-                ua.createFeeds("Congratulations !! You are now enrolled to Program " + program.getName());
+                ua.createFeeds("Congratulations !! You are now enrolled to this Program " + program.getName());
 
             } else {
                 JOptionPane.showMessageDialog(null, "Already Enrolled");

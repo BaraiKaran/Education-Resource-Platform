@@ -89,7 +89,7 @@ public class AssignTAJPanel extends javax.swing.JPanel {
     }
 
     public void populateStudents() {
-        cmbStudentsName.removeAllItems();
+         cmbStudentsName.removeAllItems();
         /*for(Program pd : organization.getPD().getDirectory()){
         for (Courses c : pd.getCourses().getCourseList()) {
             for (UserAccount ua : c.getStudents()) {

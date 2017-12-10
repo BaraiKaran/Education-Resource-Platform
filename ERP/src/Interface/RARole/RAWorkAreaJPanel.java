@@ -23,7 +23,7 @@ public class RAWorkAreaJPanel extends javax.swing.JPanel {
     public RAWorkAreaJPanel(JPanel userProcessContainer, Organization organization) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.organization = organization;
+        this.organization =organization;
     }
 
     /**

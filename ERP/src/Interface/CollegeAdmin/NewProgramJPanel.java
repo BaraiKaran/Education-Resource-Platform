@@ -54,7 +54,7 @@ public class NewProgramJPanel extends javax.swing.JPanel {
         programcoordinatorcombobox.removeAllItems();
         UserAccountDirectory useraccountdirectory = org.getUserAccountDirectory();
         for (UserAccount ua : useraccountdirectory.getUserAccountList()) {
-            if (ua.getRole() instanceof ProgramCoordinatorRole) {
+            if (ua.getRole()instanceof ProgramCoordinatorRole) {
                 programcoordinatorcombobox.addItem(ua);
             }
         }

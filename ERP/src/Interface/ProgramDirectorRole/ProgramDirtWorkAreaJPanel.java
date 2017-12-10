@@ -35,7 +35,6 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
         this.userAccount = ua;
         for (Program prog : this.organization.getPD().getDirectory()) {
             if (prog.getProgramDirector().getId() == userAccount.getId()) {
-
                 this.program = prog;
                 break;
             }

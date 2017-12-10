@@ -105,9 +105,8 @@ public class AnouncementJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "announcement cannot be blank.");
         } else {
             for (UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()) {
-                if (ua.getRole() instanceof StudentRole) {
+                if (ua.getRole()instanceof StudentRole) {
                     if (course.checkStudent(ua)) {
-
                         ua.createFeeds("Anouncement by " + userAccount.getEmployee().getName() + " : " + txtAn.getText());
 
                     }

@@ -65,8 +65,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
     private void populateEnterpriseComboBox(Network network) {
         enterpriseJComboBox.removeAllItems();
-
-        for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
+            for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
             enterpriseJComboBox.addItem(enterprise);
         }
 

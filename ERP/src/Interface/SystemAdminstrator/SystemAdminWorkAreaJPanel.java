@@ -194,7 +194,6 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         ManageEnterpriseJPanel manageEnterpriseJPanel = new ManageEnterpriseJPanel(userProcessContainer, system);
         userProcessContainer.add("manageEnterpriseJPanel", manageEnterpriseJPanel);
-
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_manageEnterpriseJButtonActionPerformed

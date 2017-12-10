@@ -201,7 +201,6 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         Date d = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         String s = formatter.format(d);
-
         active.setStartTime(s);
         btnStartTAHours.setEnabled(false);
         btnEndTAHours.setEnabled(true);
