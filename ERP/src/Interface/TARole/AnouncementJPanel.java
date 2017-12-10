@@ -101,17 +101,20 @@ public class AnouncementJPanel extends javax.swing.JPanel {
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
 
-        for (UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()) {
-            if (ua.getRole() instanceof StudentRole) {
-                if (course.checkStudent(ua)) {
+        if (txtAn.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "announcement cannot be blank.");
+        } else {
+            for (UserAccount ua : organization.getUserAccountDirectory().getUserAccountList()) {
+                if (ua.getRole() instanceof StudentRole) {
+                    if (course.checkStudent(ua)) {
 
-                    ua.createFeeds("Anouncement by " + userAccount.getEmployee().getName() + " : " + txtAn.getText());
+                        ua.createFeeds("Anouncement by " + userAccount.getEmployee().getName() + " : " + txtAn.getText());
 
+                    }
                 }
             }
+            JOptionPane.showMessageDialog(null, "Submitted successfully");
         }
-        JOptionPane.showMessageDialog(null, "Submitted successfully");
-
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
