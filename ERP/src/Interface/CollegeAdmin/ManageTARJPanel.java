@@ -8,10 +8,7 @@ import Business.College.Program;
 import Business.College.ProgramDirectory;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
-import Interface.AdministrativeRole.*;
 import Business.Organization.Organization;
-import Business.Organization.Organization.Type;
-import Business.Organization.OrganizationDirectory;
 import Business.Role.TARequest;
 import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
@@ -30,50 +27,51 @@ public class ManageTARJPanel extends javax.swing.JPanel {
     private CollegeOrganization org;
     private JPanel userProcessContainer;
     private ProgramDirectory pdir;
+
     /**
      * Creates new form ManageOrganizationJPanel
      */
-    public ManageTARJPanel(JPanel userProcessContainer,Organization org) {
+    public ManageTARJPanel(JPanel userProcessContainer, Organization org) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.org = (CollegeOrganization)org;
-         
+        this.org = (CollegeOrganization) org;
+
         this.pdir = this.org.getPD();
         populateTable();
         populateCombo();
     }
-    public void populateCombo(){
+
+    public void populateCombo() {
         cmbStudentsName.removeAllItems();
-        for(UserAccount ua : org.getUserAccountDirectory().getUserAccountList()){
-            if(ua.getRole() instanceof TARole){
+        for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
+            if (ua.getRole() instanceof TARole) {
                 cmbStudentsName.addItem(ua);
             }
         }
     }
-    
 
-    public void populateTable(){
+    public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tblTARequest.getModel();
-        
+
         model.setRowCount(0);
-       
-        for(Program prg : pdir.getDirectory()){
-            for(Courses cr : prg.getCourses().getCourseList()){
-                for(TARequest tt : cr.getRequests()){
-                    
+
+        for (Program prg : pdir.getDirectory()) {
+            for (Courses cr : prg.getCourses().getCourseList()) {
+                for (TARequest tt : cr.getRequests()) {
+
                     Object[] row = new Object[4];
                     row[0] = tt;
                     row[1] = tt.getCourse().getCourseName();
                     row[2] = tt.getProgram().getName();
                     row[3] = tt.getStatus();
-            
+
                     model.addRow(row);
                 }
             }
         }
-        
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,7 +89,10 @@ public class ManageTARJPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTARequest = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         backJButton.setBackground(new java.awt.Color(51, 153, 255));
+        backJButton.setForeground(new java.awt.Color(255, 255, 255));
         backJButton.setText("< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,6 +104,8 @@ public class ManageTARJPanel extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Manage TA Requests");
 
+        btnApprove.setBackground(new java.awt.Color(51, 153, 255));
+        btnApprove.setForeground(new java.awt.Color(255, 255, 255));
         btnApprove.setText("Approve");
         btnApprove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,9 +171,9 @@ public class ManageTARJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(cmbStudentsName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnApprove)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 238, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
                 .addComponent(backJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -179,36 +182,35 @@ public class ManageTARJPanel extends javax.swing.JPanel {
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
 
         userProcessContainer.remove(this);
-        
-         Component[] componentArray = userProcessContainer.getComponents();
+
+        Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         CollegeAdminWorkAreaJPanel panel = (CollegeAdminWorkAreaJPanel) component;
         //panel.plotgraph();
-        
+
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
 
     private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
         // TODO add your handling code here:
-        
+
         int selected = tblTARequest.getSelectedRow();
-        if(selected >= 0){
+        if (selected >= 0) {
             UserAccount ua = (UserAccount) cmbStudentsName.getSelectedItem();
-            TARequest tar = (TARequest)tblTARequest.getValueAt(selected, 0);
+            TARequest tar = (TARequest) tblTARequest.getValueAt(selected, 0);
             Courses cr = tar.getCourse();
             Boolean flag = cr.AssignTA(ua);
-            if(flag){
+            if (flag) {
                 JOptionPane.showMessageDialog(null, "TA Account asssigned");
-                
+
                 cr.removeRequest(tar);
                 populateTable();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "TA Account already assigned to the course");
             }
         }
-        
-        
+
     }//GEN-LAST:event_btnApproveActionPerformed
 
     private void cmbStudentsNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbStudentsNameActionPerformed

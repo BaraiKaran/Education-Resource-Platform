@@ -7,10 +7,7 @@ package Interface.CollegeAdmin;
 import Business.College.Program;
 import Business.College.ProgramDirectory;
 import Business.Organization.CollegeOrganization;
-import Interface.AdministrativeRole.*;
 import Business.Organization.Organization;
-import Business.Organization.Organization.Type;
-import Business.Organization.OrganizationDirectory;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -26,34 +23,34 @@ public class ManageProgramJPanel extends javax.swing.JPanel {
     private Organization org;
     private JPanel userProcessContainer;
     private ProgramDirectory pdir;
+
     /**
      * Creates new form ManageOrganizationJPanel
      */
-    public ManageProgramJPanel(JPanel userProcessContainer,Organization org) {
+    public ManageProgramJPanel(JPanel userProcessContainer, Organization org) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.org = org;
-         CollegeOrganization corg = (CollegeOrganization)org;
+        CollegeOrganization corg = (CollegeOrganization) org;
         this.pdir = corg.getPD();
         populateTable();
-        
-    }
-    
-    
 
-    public void populateTable(){
+    }
+
+    public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) organizationJTable.getModel();
-        
+
         model.setRowCount(0);
-       
-        for (Program program : pdir.getDirectory()){
+
+        for (Program program : pdir.getDirectory()) {
             Object[] row = new Object[2];
             row[0] = program;
             row[1] = program.getName();
-            
+
             model.addRow(row);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,6 +101,7 @@ public class ManageProgramJPanel extends javax.swing.JPanel {
         }
 
         backJButton.setBackground(new java.awt.Color(51, 153, 255));
+        backJButton.setForeground(new java.awt.Color(255, 255, 255));
         backJButton.setText("< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,6 +110,7 @@ public class ManageProgramJPanel extends javax.swing.JPanel {
         });
 
         newBtn.setBackground(new java.awt.Color(51, 153, 255));
+        newBtn.setForeground(new java.awt.Color(255, 255, 255));
         newBtn.setText("New");
         newBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,6 +119,7 @@ public class ManageProgramJPanel extends javax.swing.JPanel {
         });
 
         updateBtn.setBackground(new java.awt.Color(51, 153, 255));
+        updateBtn.setForeground(new java.awt.Color(255, 255, 255));
         updateBtn.setText("Update");
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,6 +128,7 @@ public class ManageProgramJPanel extends javax.swing.JPanel {
         });
 
         delBtn.setBackground(new java.awt.Color(51, 153, 255));
+        delBtn.setForeground(new java.awt.Color(255, 255, 255));
         delBtn.setText("Delete");
         delBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,55 +182,52 @@ public class ManageProgramJPanel extends javax.swing.JPanel {
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
 
         userProcessContainer.remove(this);
-        
-         Component[] componentArray = userProcessContainer.getComponents();
+
+        Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         CollegeAdminWorkAreaJPanel panel = (CollegeAdminWorkAreaJPanel) component;
         //panel.plotgraph();
-        
+
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
 
     private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
         // TODO add your handling code here:
-        NewProgramJPanel JPanel = new NewProgramJPanel(userProcessContainer, pdir,org);
+        NewProgramJPanel JPanel = new NewProgramJPanel(userProcessContainer, pdir, org);
         userProcessContainer.add("NewProgramJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-        
-        
+
     }//GEN-LAST:event_newBtnActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         // TODO add your handling code here:
         int selected = organizationJTable.getSelectedRow();
-        if(selected >= 0){
-            Program prg = (Program)organizationJTable.getValueAt(selected, 0);
-            UpdateProgramJPanel JPanel = new UpdateProgramJPanel(userProcessContainer, pdir,prg);
+        if (selected >= 0) {
+            Program prg = (Program) organizationJTable.getValueAt(selected, 0);
+            UpdateProgramJPanel JPanel = new UpdateProgramJPanel(userProcessContainer, pdir, prg);
             userProcessContainer.add("UpdateProgramJPanel", JPanel);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.next(userProcessContainer);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Please select a row");
         }
-        
-        
-        
+
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void delBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delBtnActionPerformed
         // TODO add your handling code here:
         int selected = organizationJTable.getSelectedRow();
-        if(selected >= 0){
-            Program prg = (Program)organizationJTable.getValueAt(selected, 0);
+        if (selected >= 0) {
+            Program prg = (Program) organizationJTable.getValueAt(selected, 0);
             pdir.removeProgram(prg);
             JOptionPane.showMessageDialog(null, "Successfully deleted program");
             populateTable();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Please select a row");
         }
-        
+
     }//GEN-LAST:event_delBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

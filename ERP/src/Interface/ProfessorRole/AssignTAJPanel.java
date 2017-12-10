@@ -141,6 +141,7 @@ public class AssignTAJPanel extends javax.swing.JPanel {
 
         btnAssignTA.setBackground(new java.awt.Color(51, 153, 255));
         btnAssignTA.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        btnAssignTA.setForeground(new java.awt.Color(255, 255, 255));
         btnAssignTA.setText("Assignment Request");
         btnAssignTA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

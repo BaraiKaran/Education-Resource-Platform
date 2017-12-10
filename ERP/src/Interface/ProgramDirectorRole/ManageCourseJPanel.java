@@ -84,6 +84,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         }
 
         btnApprove.setBackground(new java.awt.Color(51, 153, 255));
+        btnApprove.setForeground(new java.awt.Color(255, 255, 255));
         btnApprove.setText("Approve");
         btnApprove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

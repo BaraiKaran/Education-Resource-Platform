@@ -60,6 +60,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         jLabel2.setText("Welcome Professor");
 
         btnAssignTA.setBackground(new java.awt.Color(51, 153, 255));
+        btnAssignTA.setForeground(new java.awt.Color(255, 255, 255));
         btnAssignTA.setText("Assign TA");
         btnAssignTA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,6 +87,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblTADetails);
 
         btnAnouncement.setBackground(new java.awt.Color(51, 153, 255));
+        btnAnouncement.setForeground(new java.awt.Color(255, 255, 255));
         btnAnouncement.setText("Anouncements");
         btnAnouncement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

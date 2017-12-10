@@ -7,16 +7,11 @@ package Interface.CollegeAdmin;
 
 import Business.College.Program;
 import Business.Courses.Courses;
-import Interface.ProfessorRole.*;
-import Business.EcoSystem;
-import Business.Employee.Employee;
 import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
-import Business.UserAccount.UserAccount;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -24,7 +19,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -37,26 +31,26 @@ public class CollegeAdminWorkAreaJPanel extends javax.swing.JPanel {
      */
     JPanel userProcessContainer;
     CollegeOrganization org;
-    
+
     public CollegeAdminWorkAreaJPanel(JPanel userProcessContainer, Organization org) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.org = (CollegeOrganization)org;
+        this.org = (CollegeOrganization) org;
         plotgraph();
     }
 
-    
     public void plotgraph() {
 
         int prgcount = 0;
         int courses = 0;
         int usrcount = 0;
-        
-        for(Program pg : org.getPD().getDirectory()){
+
+        for (Program pg : org.getPD().getDirectory()) {
             prgcount++;
-            for(Courses cr : pg.getCourses().getCourseList()){
-                if(cr.getApprovalStatus().equals("Approved"))
+            for (Courses cr : pg.getCourses().getCourseList()) {
+                if (cr.getApprovalStatus().equals("Approved")) {
                     courses++;
+                }
             }
         }
 
@@ -79,7 +73,7 @@ public class CollegeAdminWorkAreaJPanel extends javax.swing.JPanel {
         barchart.add(chartp, BorderLayout.CENTER);
 
         barchart.validate();
-       /* DefaultPieDataset pcd = new DefaultPieDataset();
+        /* DefaultPieDataset pcd = new DefaultPieDataset();
         int cc = 0;
         for (Organization org : enterprise.getOrganizationDirectory().getOrganizationList()) {
             for (Employee emp : org.getEmployeeDirectory().getEmployeeList()) {
@@ -101,9 +95,9 @@ public class CollegeAdminWorkAreaJPanel extends javax.swing.JPanel {
         piechart.setLayout(new java.awt.BorderLayout());
         piechart.add(chrtp, BorderLayout.CENTER);
         piechart.validate();
-        */
+         */
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -143,6 +137,8 @@ public class CollegeAdminWorkAreaJPanel extends javax.swing.JPanel {
             piechartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 249, Short.MAX_VALUE)
         );
+
+        barchart.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout barchartLayout = new javax.swing.GroupLayout(barchart);
         barchart.setLayout(barchartLayout);
@@ -213,13 +209,12 @@ public class CollegeAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnTARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTARActionPerformed
         // TODO add your handling code here:
-        
+
         ManageTARJPanel panel = new ManageTARJPanel(userProcessContainer, org);
         userProcessContainer.add("ManageTARJPanel", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnTARActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barchart;

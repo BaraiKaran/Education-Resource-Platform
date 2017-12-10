@@ -121,6 +121,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         jLabel1.setText("Manage University Person Directory");
 
         backJButton.setBackground(new java.awt.Color(51, 153, 255));
+        backJButton.setForeground(new java.awt.Color(255, 255, 255));
         backJButton.setText("< Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,6 +130,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         });
 
         delBtn.setBackground(new java.awt.Color(51, 153, 255));
+        delBtn.setForeground(new java.awt.Color(255, 255, 255));
         delBtn.setText("Delete");
         delBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +139,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         });
 
         updateBtn.setBackground(new java.awt.Color(51, 153, 255));
+        updateBtn.setForeground(new java.awt.Color(255, 255, 255));
         updateBtn.setText("Update");
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,6 +148,7 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
         });
 
         newBtn.setBackground(new java.awt.Color(51, 153, 255));
+        newBtn.setForeground(new java.awt.Color(255, 255, 255));
         newBtn.setText("New");
         newBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

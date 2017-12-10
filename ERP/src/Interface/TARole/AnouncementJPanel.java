@@ -63,6 +63,7 @@ public class AnouncementJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(txtAn);
 
         btnSubmit.setBackground(new java.awt.Color(51, 153, 255));
+        btnSubmit.setForeground(new java.awt.Color(255, 255, 255));
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

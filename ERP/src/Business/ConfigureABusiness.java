@@ -64,21 +64,17 @@ public class ConfigureABusiness {
         UserAccount prof1 = neucoe.getUserAccountDirectory().createUserAccount("p1", "p1", emp8, new ProfessorRole());
         Employee emp9 = ecosystem.getEmployeeDirectory().createEmployee("COETA1");
         UserAccount t1 = neucoe.getUserAccountDirectory().createUserAccount("t1", "t1", emp7, new TARole());
-        TARole t1r = (TARole)t1.getRole();
-        
-        
+        TARole t1r = (TARole) t1.getRole();
+
         Program prg = neucoe.getPD().createProgram("Information Systems");
         prg.setProgramCoordinator(pc);
         prg.setProgramDirector(pd);
         //prg.setProfessor(prof1);
-        Courses ads = prg.getCourses().createCourse("CRN1000", "ADS", "Approved", 10);
+        Courses ads = prg.getCourses().createCourse(1000, "ADS", "Approved", 10);
         ads.setProfessor(prof1);
         ads.setProgram(prg);
         ads.AssignTA(t1);
         t1r.setCourse(ads);
-
-        
-        
 
         return ecosystem;
     }

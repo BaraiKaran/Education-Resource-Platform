@@ -82,6 +82,7 @@ public class AddCourseJPanel extends javax.swing.JPanel {
 
         btnCreate.setBackground(new java.awt.Color(51, 153, 255));
         btnCreate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnCreate.setForeground(new java.awt.Color(255, 255, 255));
         btnCreate.setText("Create");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,6 +92,7 @@ public class AddCourseJPanel extends javax.swing.JPanel {
 
         btnBack.setBackground(new java.awt.Color(51, 153, 255));
         btnBack.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText("< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,9 +184,21 @@ public class AddCourseJPanel extends javax.swing.JPanel {
         if (Validations.isTextFieldEmpty(txtCRN.getText()) && Validations.isTextFieldEmpty(txtName.getText())) {
             JOptionPane.showMessageDialog(null, "CRN Number and/or Course name cannot be blank!");
         } else {
-            String crn = txtCRN.getText();
-            String coursename = txtName.getText();
-            int totalSeats = Integer.parseInt(txtTotalSeats.getText());
+            int crn, totalSeats;
+            try {
+                crn = Integer.parseInt(txtCRN.getText());
+            } catch (NumberFormatException num) {
+                JOptionPane.showMessageDialog(null, "CRN Number has to be an integer value.");
+                return;
+            }
+
+            String coursename = txtName.getText().trim();
+            try {
+                totalSeats = Integer.parseInt(txtTotalSeats.getText());
+            } catch (NumberFormatException num) {
+                JOptionPane.showMessageDialog(null, "Total seats has to be an integer value.");
+                return;
+            }
             String status = "Initiated";
             Courses cc = program.getCourses().createCourse(crn, coursename, status, totalSeats);
             UserAccount account = (UserAccount) cmbProfessorName.getSelectedItem();

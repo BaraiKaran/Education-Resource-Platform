@@ -107,6 +107,7 @@ public class EnrollStudents extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblStudents);
 
         btnEnroll.setBackground(new java.awt.Color(51, 153, 255));
+        btnEnroll.setForeground(new java.awt.Color(255, 255, 255));
         btnEnroll.setText("Enroll");
         btnEnroll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

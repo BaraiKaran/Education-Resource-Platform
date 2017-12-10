@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Courses {
 
-    private String crnNumber;
+    private int crnNumber;
     private String courseName;
     private Program program;
     private int totalSeats;
@@ -25,7 +25,7 @@ public class Courses {
     private ArrayList<UserAccount> students;
     private ArrayList<UserAccount> teachingAssistant;
 
-    public Courses(String crn, String name, String status, int seats) {
+    public Courses(int crn, String name, String status, int seats) {
         this.courseName = name;
         this.crnNumber = crn;
         this.approvalStatus = status;
@@ -34,9 +34,8 @@ public class Courses {
         teachingAssistant = new ArrayList<UserAccount>();
         requests = new ArrayList<TARequest>();
     }
-    
-    
-     private ArrayList<TARequest> requests;
+
+    private ArrayList<TARequest> requests;
 
     public ArrayList<TARequest> getRequests() {
         return requests;
@@ -45,19 +44,17 @@ public class Courses {
     public void setRequests(ArrayList<TARequest> requests) {
         this.requests = requests;
     }
-     
-    
-    
-    public TARequest addRequest(Program program,Courses course,UserAccount useraccount){
-        TARequest tar = new TARequest( program, course, useraccount);
+
+    public TARequest addRequest(Program program, Courses course, UserAccount useraccount) {
+        TARequest tar = new TARequest(program, course, useraccount);
         requests.add(tar);
         return tar;
     }
-    
-    public void removeRequest(TARequest tar){
+
+    public void removeRequest(TARequest tar) {
         requests.remove(tar);
     }
-    
+
     public ArrayList<UserAccount> getTeachingAssistant() {
         return teachingAssistant;
     }
@@ -90,8 +87,12 @@ public class Courses {
         this.professor = professor;
     }
 
-    public String getCrnNumber() {
+    public int getCrnNumber() {
         return crnNumber;
+    }
+
+    public void setCrnNumber(int crnNumber) {
+        this.crnNumber = crnNumber;
     }
 
     public Program getProgram() {
@@ -108,10 +109,6 @@ public class Courses {
 
     public void setProgram(Program program) {
         this.program = program;
-    }
-
-    public void setCrnNumber(String crnNumber) {
-        this.crnNumber = crnNumber;
     }
 
     public String getCourseName() {
@@ -146,11 +143,10 @@ public class Courses {
         teachingAssistant.add(ua);
         return true;
     }
-    
-    
-     public Boolean checkStudent(UserAccount ua){
-        for(UserAccount u : students){
-            if(u.getId() == ua.getId()){
+
+    public Boolean checkStudent(UserAccount ua) {
+        for (UserAccount u : students) {
+            if (u.getId() == ua.getId()) {
 
                 return true;
             }

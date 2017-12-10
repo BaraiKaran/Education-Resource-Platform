@@ -4,10 +4,8 @@
  */
 package Interface.AdministrativeRole;
 
-import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
-import Business.Role.Role;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -33,39 +31,36 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
 
         popOrganizationComboBox();
-       // employeeJComboBox.removeAllItems();
-      
+        // employeeJComboBox.removeAllItems();
+
     }
 
     public void popOrganizationComboBox() {
         organizationJComboBox.removeAllItems();
 
         for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
-           
+
             organizationJComboBox.addItem(organization);
         }
     }
-    
-  
 
     public void popData(Organization org) {
 
         DefaultTableModel model = (DefaultTableModel) userJTable.getModel();
 
         model.setRowCount(0);
-        
-        
-        if(!(org instanceof Organization))
+
+        if (!(org instanceof Organization)) {
             return;
-     
-       
-            for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
-                Object row[] = new Object[2];
-                row[0] = ua;
-                row[1] = ua.getRole();
-                ((DefaultTableModel) userJTable.getModel()).addRow(row);
-            }
-        
+        }
+
+        for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
+            Object row[] = new Object[2];
+            row[0] = ua;
+            row[1] = ua.getRole();
+            ((DefaultTableModel) userJTable.getModel()).addRow(row);
+        }
+
     }
 
     /**
@@ -135,6 +130,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         });
 
         newBtn.setBackground(new java.awt.Color(51, 153, 255));
+        newBtn.setForeground(new java.awt.Color(255, 255, 255));
         newBtn.setText("New");
         newBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,6 +139,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         });
 
         updateBtn.setBackground(new java.awt.Color(51, 153, 255));
+        updateBtn.setForeground(new java.awt.Color(255, 255, 255));
         updateBtn.setText("Update");
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,6 +148,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         });
 
         delBtn.setBackground(new java.awt.Color(51, 153, 255));
+        delBtn.setForeground(new java.awt.Color(255, 255, 255));
         delBtn.setText("Delete");
         delBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,30 +200,30 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
 
     private void backjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backjButton1ActionPerformed
         // TODO add your handling code here:
-       userProcessContainer.remove(this);
-        
-         Component[] componentArray = userProcessContainer.getComponents();
+        userProcessContainer.remove(this);
+
+        Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         AdminWorkAreaJPanel panel = (AdminWorkAreaJPanel) component;
         panel.plotgraph();
-        
+
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backjButton1ActionPerformed
 
     private void organizationJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_organizationJComboBoxActionPerformed
-      Organization organization = (Organization)organizationJComboBox.getSelectedItem();
+        Organization organization = (Organization) organizationJComboBox.getSelectedItem();
         popData(organization);
     }//GEN-LAST:event_organizationJComboBoxActionPerformed
 
     private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
         // TODO add your handling code here:
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-        if(!(organization instanceof  Organization)){
-        JOptionPane.showMessageDialog(null, "No organization selected");
-        return;
-    }
-        
+        if (!(organization instanceof Organization)) {
+            JOptionPane.showMessageDialog(null, "No organization selected");
+            return;
+        }
+
         NewUserAccountJPanel JPanel = new NewUserAccountJPanel(userProcessContainer, organization);
         userProcessContainer.add("NewUserAccountJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -236,14 +234,14 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         // TODO add your handling code here:
         int selected = userJTable.getSelectedRow();
-        if(selected >= 0){
-            UserAccount ua = (UserAccount)userJTable.getValueAt(selected, 0);
+        if (selected >= 0) {
+            UserAccount ua = (UserAccount) userJTable.getValueAt(selected, 0);
             Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-            UpdateUserAccountJPanel JPanel = new UpdateUserAccountJPanel(userProcessContainer, organization,ua);
+            UpdateUserAccountJPanel JPanel = new UpdateUserAccountJPanel(userProcessContainer, organization, ua);
             userProcessContainer.add("UpdateOrganizationJPanel", JPanel);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.next(userProcessContainer);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Please select a row");
         }
 
@@ -252,13 +250,13 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
     private void delBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delBtnActionPerformed
         // TODO add your handling code here:
         int selected = userJTable.getSelectedRow();
-        if(selected >= 0){
-            UserAccount ua = (UserAccount)userJTable.getValueAt(selected, 0);
+        if (selected >= 0) {
+            UserAccount ua = (UserAccount) userJTable.getValueAt(selected, 0);
             Organization organization = (Organization) organizationJComboBox.getSelectedItem();
             organization.getUserAccountDirectory().removeAccount(ua);
             JOptionPane.showMessageDialog(null, "Successfully deleted useraccount");
             popData(organization);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Please select a row");
         }
 

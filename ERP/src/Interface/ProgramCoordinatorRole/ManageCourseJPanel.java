@@ -89,6 +89,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         }
 
         btnAddCourse.setBackground(new java.awt.Color(51, 153, 255));
+        btnAddCourse.setForeground(new java.awt.Color(255, 255, 255));
         btnAddCourse.setText("Add Course");
         btnAddCourse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +98,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         });
 
         btnUpdateCourse.setBackground(new java.awt.Color(51, 153, 255));
+        btnUpdateCourse.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdateCourse.setText("Update Course");
         btnUpdateCourse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +107,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         });
 
         btnDeleteCourse.setBackground(new java.awt.Color(51, 153, 255));
+        btnDeleteCourse.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteCourse.setText("Delete Course");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

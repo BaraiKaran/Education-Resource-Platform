@@ -99,6 +99,7 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         jLabel2.setText("Welcome Student");
 
         btnRegisterForCourses.setBackground(new java.awt.Color(51, 153, 255));
+        btnRegisterForCourses.setForeground(new java.awt.Color(255, 255, 255));
         btnRegisterForCourses.setText("Register for courses");
         btnRegisterForCourses.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

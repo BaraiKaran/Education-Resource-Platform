@@ -10,6 +10,7 @@ import Business.Courses.CourseDirectory;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
 import Business.UserAccount.UserAccount;
+import Business.Validations;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -69,6 +70,7 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
         jLabel2.setText("Enter CRN:");
 
         btnRegister.setBackground(new java.awt.Color(51, 153, 255));
+        btnRegister.setForeground(new java.awt.Color(255, 255, 255));
         btnRegister.setText("Register");
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,30 +170,45 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
-        Boolean registered = false;
-        ArrayList<String> crnNumbers = new ArrayList<String>();
-        crnNumbers.add(txtEnterCrn1.getText());
-        crnNumbers.add(txtEnterCrn2.getText());
-        crnNumbers.add(txtEnterCrn3.getText());
-        crnNumbers.add(txtEnterCrn4.getText());
-        CourseDirectory cd = program.getCourses();
-        for (String number : crnNumbers) {
-            for (Courses c : cd.getCourseList()) {
-                if (!number.isEmpty()) {
-                    if (c.getCrnNumber().equals(number)) {
-                        c.RegisterCourse(userAccount);
-                        int seats = c.getTotalSeats();
-                        seats -= 1;
-                        c.setTotalSeats(seats);
-                        registered = true;
-                    }
 
+        if (Validations.isTextFieldEmpty(txtEnterCrn1.getText()) && Validations.isTextFieldEmpty(txtEnterCrn2.getText()) && Validations.isTextFieldEmpty(txtEnterCrn3.getText()) && Validations.isTextFieldEmpty(txtEnterCrn4.getText())) {
+
+            JOptionPane.showMessageDialog(null, "You must atleast enter one CRN number.");
+
+        } else {
+            Boolean registered = false;
+            ArrayList<Integer> crnNumbers = new ArrayList<Integer>();
+            if (!txtEnterCrn1.getText().trim().isEmpty()) {
+                crnNumbers.add(Integer.parseInt(txtEnterCrn1.getText()));
+            }
+            if (!txtEnterCrn2.getText().trim().isEmpty()) {
+                crnNumbers.add(Integer.parseInt(txtEnterCrn2.getText()));
+            }
+            if (!txtEnterCrn3.getText().trim().isEmpty()) {
+                crnNumbers.add(Integer.parseInt(txtEnterCrn3.getText()));
+            }
+            if (!txtEnterCrn4.getText().trim().isEmpty()) {
+                crnNumbers.add(Integer.parseInt(txtEnterCrn4.getText()));
+            }
+            CourseDirectory cd = program.getCourses();
+            for (Integer number : crnNumbers) {
+                for (Courses c : cd.getCourseList()) {
+                    if (number != 0) {
+                        if (c.getCrnNumber() == number) {
+                            c.RegisterCourse(userAccount);
+                            int seats = c.getTotalSeats();
+                            seats -= 1;
+                            c.setTotalSeats(seats);
+                            registered = true;
+                        }
+
+                    }
                 }
             }
-        }
-        if (registered) {
-            populateTable();
-            JOptionPane.showMessageDialog(null, "You have successfully registered for the entered courses.");
+            if (registered) {
+                populateTable();
+                JOptionPane.showMessageDialog(null, "You have successfully registered for the entered courses.");
+            }
         }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
