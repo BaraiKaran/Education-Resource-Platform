@@ -31,7 +31,7 @@ public class EnrollStudents extends javax.swing.JPanel {
     public EnrollStudents(JPanel userProcessContainer, Organization organization, Program program, UserAccount userAccount) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.organization = (CollegeOrganization) organization;
+        this.organization = (CollegeOrganization)organization;
         this.program = program;
         this.userAccount = userAccount;
 
@@ -171,7 +171,7 @@ public class EnrollStudents extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Already Enrolled");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Please select a row");
+            JOptionPane.showMessageDialog(null,"Please select a row");
         }
 
     }//GEN-LAST:event_btnEnrollActionPerformed

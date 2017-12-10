@@ -207,7 +207,7 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
             }
             if (registered) {
                 populateTable();
-                JOptionPane.showMessageDialog(null, "You have successfully registered for the entered courses.");
+                JOptionPane.showMessageDialog(null,"You have successfully registered for the entered courses.");
             }
         }
     }//GEN-LAST:event_btnRegisterActionPerformed

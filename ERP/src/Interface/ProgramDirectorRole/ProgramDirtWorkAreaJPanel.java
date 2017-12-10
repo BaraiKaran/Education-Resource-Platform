@@ -31,7 +31,7 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
     public ProgramDirtWorkAreaJPanel(JPanel userProcessContainer, Organization org, UserAccount ua) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.organization = (CollegeOrganization) org;
+        this.organization = (CollegeOrganization)org;
         this.userAccount = ua;
         for (Program prog : this.organization.getPD().getDirectory()) {
             if (prog.getProgramDirector().getId() == userAccount.getId()) {
