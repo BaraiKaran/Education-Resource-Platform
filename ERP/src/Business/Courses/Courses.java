@@ -5,8 +5,9 @@
  */
 package Business.Courses;
 
-import Business.Assignment.Assignment;
+import Business.Assignment.AssignmentDirectory;
 import Business.College.Program;
+import Business.Marks.MarksDirectory;
 import Business.Role.TARequest;
 import Business.UserAccount.UserAccount;
 import java.util.ArrayList;
@@ -25,7 +26,8 @@ public class Courses {
     private UserAccount professor;
     private ArrayList<UserAccount> students;
     private ArrayList<UserAccount> teachingAssistant;
-    private ArrayList<Assignment> assignment;
+    private ArrayList<AssignmentDirectory> assignment;
+    private ArrayList<MarksDirectory> marks;
 
     public Courses(int crn, String name, String status, int seats) {
         this.courseName = name;
@@ -35,7 +37,9 @@ public class Courses {
         students = new ArrayList<UserAccount>();
         teachingAssistant = new ArrayList<UserAccount>();
         requests = new ArrayList<TARequest>();
-        assignment = new ArrayList<Assignment>();
+        assignment = new ArrayList<AssignmentDirectory>();
+        marks = new ArrayList<MarksDirectory>();
+
     }
 
     private ArrayList<TARequest> requests;
@@ -54,12 +58,20 @@ public class Courses {
         return tar;
     }
 
-    public ArrayList<Assignment> getAssignment() {
+    public ArrayList<AssignmentDirectory> getAssignment() {
         return assignment;
     }
 
-    public void setAssignment(ArrayList<Assignment> assignment) {
+    public void setAssignment(ArrayList<AssignmentDirectory> assignment) {
         this.assignment = assignment;
+    }
+
+    public ArrayList<MarksDirectory> getMarks() {
+        return marks;
+    }
+
+    public void setMarks(ArrayList<MarksDirectory> marks) {
+        this.marks = marks;
     }
 
     public void removeRequest(TARequest tar) {
