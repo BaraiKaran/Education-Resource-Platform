@@ -5,6 +5,7 @@
  */
 package Business.Courses;
 
+import Business.Assignment.Assignment;
 import Business.College.Program;
 import Business.Role.TARequest;
 import Business.UserAccount.UserAccount;
@@ -24,6 +25,7 @@ public class Courses {
     private UserAccount professor;
     private ArrayList<UserAccount> students;
     private ArrayList<UserAccount> teachingAssistant;
+    private ArrayList<Assignment> assignment;
 
     public Courses(int crn, String name, String status, int seats) {
         this.courseName = name;
@@ -33,6 +35,7 @@ public class Courses {
         students = new ArrayList<UserAccount>();
         teachingAssistant = new ArrayList<UserAccount>();
         requests = new ArrayList<TARequest>();
+        assignment = new ArrayList<Assignment>();
     }
 
     private ArrayList<TARequest> requests;
@@ -49,6 +52,14 @@ public class Courses {
         TARequest tar = new TARequest(program, course, useraccount);
         requests.add(tar);
         return tar;
+    }
+
+    public ArrayList<Assignment> getAssignment() {
+        return assignment;
+    }
+
+    public void setAssignment(ArrayList<Assignment> assignment) {
+        this.assignment = assignment;
     }
 
     public void removeRequest(TARequest tar) {

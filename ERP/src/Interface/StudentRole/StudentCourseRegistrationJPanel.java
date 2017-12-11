@@ -176,6 +176,7 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "You must atleast enter one CRN number.");
 
         } else {
+            String coursenames = "";
             Boolean registered = false;
             ArrayList<Integer> crnNumbers = new ArrayList<Integer>();
             if (!txtEnterCrn1.getText().trim().isEmpty()) {
@@ -197,6 +198,7 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
                         if (c.getCrnNumber() == number) {
                             c.RegisterCourse(userAccount);
                             int seats = c.getTotalSeats();
+                            coursenames += c.getCourseName() + ",";
                             seats -= 1;
                             c.setTotalSeats(seats);
                             registered = true;
@@ -207,8 +209,9 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
             }
             if (registered) {
                 populateTable();
-                JOptionPane.showMessageDialog(null,"You have successfully registered for entered courses.");
+                JOptionPane.showMessageDialog(null, "You have successfully registered for entered courses.");
             }
+            userAccount.createFeeds("Successfully Registered for course " + coursenames.substring(0, coursenames.length() - 1));
         }
     }//GEN-LAST:event_btnRegisterActionPerformed
 

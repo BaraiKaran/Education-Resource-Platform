@@ -10,7 +10,7 @@ package Business.Role;
  * @author krunal
  */
 public class TAHours {
-   
+
     private String startTime;
     private String endTime;
     private String date;
@@ -47,6 +47,5 @@ public class TAHours {
     public void setTimeDuration(long timeDuration) {
         this.timeDuration = timeDuration;
     }
-   
-    
+
 }
