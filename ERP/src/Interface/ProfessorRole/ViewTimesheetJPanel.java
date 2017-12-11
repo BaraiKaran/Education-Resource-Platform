@@ -8,8 +8,11 @@ package Interface.ProfessorRole;
 import Business.College.Program;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
+import Business.Role.TAHours;
+import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -50,6 +53,7 @@ public class ViewTimesheetJPanel extends javax.swing.JPanel {
         cmbTANames = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTimesheetDetails = new javax.swing.JTable();
+        btnApprove = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(900, 600));
 
@@ -72,16 +76,41 @@ public class ViewTimesheetJPanel extends javax.swing.JPanel {
 
         tblTimesheetDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Course Name", "Date", "Start Time", "End Time", "Hours worked", "Status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblTimesheetDetails);
+        if (tblTimesheetDetails.getColumnModel().getColumnCount() > 0) {
+            tblTimesheetDetails.getColumnModel().getColumn(0).setResizable(false);
+            tblTimesheetDetails.getColumnModel().getColumn(1).setResizable(false);
+            tblTimesheetDetails.getColumnModel().getColumn(2).setResizable(false);
+            tblTimesheetDetails.getColumnModel().getColumn(3).setResizable(false);
+            tblTimesheetDetails.getColumnModel().getColumn(4).setResizable(false);
+            tblTimesheetDetails.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        btnApprove.setBackground(new java.awt.Color(51, 153, 255));
+        btnApprove.setForeground(new java.awt.Color(255, 255, 255));
+        btnApprove.setText("Approve");
+        btnApprove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApproveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -98,9 +127,11 @@ public class ViewTimesheetJPanel extends javax.swing.JPanel {
                         .addGap(28, 28, 28)
                         .addComponent(cmbTANames, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(183, 183, 183)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(266, Short.MAX_VALUE))
+                        .addGap(129, 129, 129)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,9 +144,28 @@ public class ViewTimesheetJPanel extends javax.swing.JPanel {
                     .addComponent(cmbTANames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(61, 61, 61)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(297, Short.MAX_VALUE))
+                .addGap(87, 87, 87)
+                .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(171, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblTimesheetDetails.getModel();
+        model.setRowCount(0);
+        UserAccount u = (UserAccount) cmbTANames.getSelectedItem();
+        TARole role = (TARole) u.getRole();
+        Object[] row = new Object[6];
+        for (TAHours r : role.getTahours()) {
+            row[0] = role.getCourse();
+            row[1] = r.getDate();
+            row[2] = r.getStartTime();
+            row[3] = r.getEndTime();
+            row[4] = (r.getTimeDuration() / 60000);
+            row[5] = r;
+            model.addRow(row);
+        }
+    }
 
     private void cmbTANamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTANamesActionPerformed
         // TODO add your handling code here:
@@ -123,7 +173,7 @@ public class ViewTimesheetJPanel extends javax.swing.JPanel {
         Object obj = evt.getSource();
         if (obj == cmbTANames) {
             tblTimesheetDetails.setVisible(true);
-
+            populateTable();
         }
 
     }//GEN-LAST:event_cmbTANamesActionPerformed
@@ -131,6 +181,25 @@ public class ViewTimesheetJPanel extends javax.swing.JPanel {
     private void cmbTANamesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbTANamesPropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbTANamesPropertyChange
+
+    private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tblTimesheetDetails.getModel();
+        int selected = tblTimesheetDetails.getSelectedRow();
+        if (selected >= 0) {
+            TAHours hrs = (TAHours) tblTimesheetDetails.getValueAt(selected, 5);
+            if (hrs.getStatus().equals("Submitted")) {
+                hrs.setStatus("Approved");
+
+                UserAccount u = (UserAccount) cmbTANames.getSelectedItem();
+                u.createFeeds("TA hours for " + tblTimesheetDetails.getValueAt(selected, 1) + " has been approved.");
+
+                //program.getProgramCoordinator().createFeeds("Program Director " + userAccount.getEmployee().getName() + " accepted course " + c.getCourseName());
+            }
+
+        }
+        populateTable();
+    }//GEN-LAST:event_btnApproveActionPerformed
 
     public void populateTAdropdown() {
         cmbTANames.removeAllItems();
@@ -147,6 +216,7 @@ public class ViewTimesheetJPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApprove;
     private javax.swing.JComboBox cmbTANames;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

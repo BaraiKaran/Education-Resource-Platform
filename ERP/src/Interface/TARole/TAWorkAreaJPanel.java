@@ -53,8 +53,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         populateFeeds();
     }
 
-    
-     public void populateFeeds() {
+    public void populateFeeds() {
 
         DefaultTableModel model = (DefaultTableModel) tblFeeds.getModel();
         model.setRowCount(0);
@@ -69,6 +68,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         }
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -112,17 +112,17 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
 
         tblTAHours.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Course Name", "Date", "Start Time", "End Time", "Total Hours"
+                "Course Name", "Date", "Start Time", "End Time", "Total Hours", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -172,9 +172,9 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
+                        .addGap(28, 28, 28)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(90, 90, 90)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnStartTAHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnEndTAHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -210,7 +210,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblTAHours.getModel();
         model.setRowCount(0);
         TARole role = (TARole) userAccount.getRole();
-        Object[] row = new Object[5];
+        Object[] row = new Object[6];
         /* for (Program pd : organization.getPD().getDirectory()) {
             for (Courses c : pd.getCourses().getCourseList()) {
                 for (UserAccount ua : c.getTeachingAssistant()) {
@@ -233,6 +233,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
             row[2] = r.getStartTime();
             row[3] = r.getEndTime();
             row[4] = (r.getTimeDuration() / 60000);
+            row[5] = r;
             model.addRow(row);
         }
 
@@ -296,6 +297,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
             TAhrs.setEndTime(active.getEndTime());
             TAhrs.setStartTime(active.getStartTime());
             TAhrs.setTimeDuration(active.getTimeDuration());
+            TAhrs.setStatus("Submitted");
             btnStartTAHours.setEnabled(true);
             btnEndTAHours.setEnabled(false);
         } catch (ParseException ex) {
@@ -338,7 +340,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnTImeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTImeActionPerformed
         // TODO add your handling code here:
-          TimeSlotJPanel JPanel = new TimeSlotJPanel(userProcessContainer, program, userAccount, organization, course);
+        TimeSlotJPanel JPanel = new TimeSlotJPanel(userProcessContainer, program, userAccount, organization, course);
         userProcessContainer.add("TimeSlotJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
