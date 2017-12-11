@@ -29,23 +29,37 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.directory = directory;
         populateTable();
+        
+       
 
     }
-
-    public void populateTable() {
+    
+     public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) organizationJTable.getModel();
 
         model.setRowCount(0);
 
         for (Organization organization : directory.getOrganizationList()) {
+            
+              if (!searchField.getText().equals("")) {
+                  try{
+                    if (Integer.parseInt(searchField.getText()) != organization.getOrganizationID())
+                        continue;
+                  }catch(NumberFormatException e){
+                      JOptionPane.showMessageDialog(null, "Please enter only digits");
+                      return;
+                  }  
+                  
+                  }
+                  
+            
             Object[] row = new Object[2];
-            row[0] = organization;
-            row[1] = organization.getName();
+            row[0] = organization.getOrganizationID();
+            row[1] = organization;
 
             model.addRow(row);
         }
-    }
-
+    }    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,6 +76,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         updateBtn = new javax.swing.JButton();
         delBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        searchbyIDbutton = new javax.swing.JButton();
+        searchField = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -137,6 +153,18 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Manage Organizations");
 
+        searchbyIDbutton.setBackground(new java.awt.Color(51, 153, 255));
+        searchbyIDbutton.setForeground(new java.awt.Color(255, 255, 255));
+        searchbyIDbutton.setText("Search by ID:");
+        searchbyIDbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchbyIDbuttonActionPerformed(evt);
+            }
+        });
+
+        searchField.setBackground(new java.awt.Color(240, 240, 240));
+        searchField.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,7 +178,10 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                         .addComponent(backJButton)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(searchbyIDbutton)
+                        .addGap(18, 18, 18)
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(delBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(updateBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -164,12 +195,19 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(newBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(delBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(newBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(delBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(searchbyIDbutton)
+                            .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
                 .addComponent(backJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -227,6 +265,12 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_delBtnActionPerformed
 
+    private void searchbyIDbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbyIDbuttonActionPerformed
+        // TODO add your handling code here:
+        populateTable();
+      
+    }//GEN-LAST:event_searchbyIDbuttonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;
     private javax.swing.JButton delBtn;
@@ -234,6 +278,8 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton newBtn;
     private javax.swing.JTable organizationJTable;
+    private javax.swing.JTextField searchField;
+    private javax.swing.JButton searchbyIDbutton;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 }

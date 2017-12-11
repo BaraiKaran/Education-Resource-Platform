@@ -52,6 +52,8 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTADetails = new javax.swing.JTable();
         btnAnouncement = new javax.swing.JButton();
+        Searchbyname = new javax.swing.JButton();
+        nametextfield = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -95,6 +97,15 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
             }
         });
 
+        Searchbyname.setText("Search by Name:");
+        Searchbyname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchbynameActionPerformed(evt);
+            }
+        });
+
+        nametextfield.setBackground(new java.awt.Color(240, 240, 240));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,9 +116,14 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(92, 92, 92)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAssignTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnAssignTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Searchbyname)
+                        .addGap(27, 27, 27)
+                        .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67))
@@ -122,9 +138,13 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAssignTA)
                         .addGap(26, 26, 26)
-                        .addComponent(btnAnouncement, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnAnouncement, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Searchbyname)
+                            .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(328, Short.MAX_VALUE))
+                .addContainerGap(318, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -140,6 +160,11 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                 }
 
                 for (UserAccount ua : c.getTeachingAssistant()) {
+                    
+                    if(!nametextfield.getText().equals("")){
+                    if(!nametextfield.getText().equals(ua.getUsername()))
+                        continue;
+            }
                     row[0] = ua.getUsername();
                     TARole r = (TARole) ua.getRole();
 
@@ -171,11 +196,18 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAnouncementActionPerformed
 
+    private void SearchbynameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchbynameActionPerformed
+        // TODO add your handling code here:
+        populateTable();
+    }//GEN-LAST:event_SearchbynameActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Searchbyname;
     private javax.swing.JButton btnAnouncement;
     private javax.swing.JButton btnAssignTA;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField nametextfield;
     private javax.swing.JTable tblTADetails;
     // End of variables declaration//GEN-END:variables
 }

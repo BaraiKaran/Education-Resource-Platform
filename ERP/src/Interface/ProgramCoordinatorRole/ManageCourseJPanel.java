@@ -11,6 +11,7 @@ import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -53,6 +54,8 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         btnAddCourse = new javax.swing.JButton();
         btnUpdateCourse = new javax.swing.JButton();
         btnDeleteCourse = new javax.swing.JButton();
+        Searchbycrn = new javax.swing.JButton();
+        crntextfield = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -110,6 +113,15 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         btnDeleteCourse.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteCourse.setText("Delete Course");
 
+        Searchbycrn.setText("Search by CRN:");
+        Searchbycrn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchbycrnActionPerformed(evt);
+            }
+        });
+
+        crntextfield.setBackground(new java.awt.Color(240, 240, 240));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,7 +140,12 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
                 .addGap(221, 221, 221))
             .addGroup(layout.createSequentialGroup()
                 .addGap(151, 151, 151)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Searchbycrn)
+                        .addGap(27, 27, 27)
+                        .addComponent(crntextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -138,7 +155,11 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Searchbycrn)
+                    .addComponent(crntextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddCourse)
                     .addComponent(btnUpdateCourse)
@@ -153,6 +174,16 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
 
         Object[] row = new Object[5];
         for (Courses c : program.getCourses().getCourseList()) {
+            
+            if (!crntextfield.getText().equals("")) {
+                  try{
+                    if (Integer.parseInt(crntextfield.getText()) != c.getCrnNumber())
+                        continue;
+                  }catch(NumberFormatException e){
+                      JOptionPane.showMessageDialog(null, "Please enter only digits");
+                      return;
+                  }
+                  }
             row[0] = c.getCrnNumber();
             row[1] = c.getCourseName();
             row[2] = c.getApprovalStatus();
@@ -176,10 +207,17 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnUpdateCourseActionPerformed
 
+    private void SearchbycrnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchbycrnActionPerformed
+        // TODO add your handling code here:
+        populateTable();
+    }//GEN-LAST:event_SearchbycrnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Searchbycrn;
     private javax.swing.JButton btnAddCourse;
     private javax.swing.JButton btnDeleteCourse;
     private javax.swing.JButton btnUpdateCourse;
+    private javax.swing.JTextField crntextfield;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblProgramCoordinator;

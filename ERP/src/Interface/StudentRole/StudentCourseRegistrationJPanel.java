@@ -60,6 +60,10 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
         btnRegister = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCourseDescriptions = new javax.swing.JTable();
+        Searchbycrn = new javax.swing.JButton();
+        crntextfield = new javax.swing.JTextField();
+        Searchbyname = new javax.swing.JButton();
+        nametextfield = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -105,6 +109,29 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
             tblCourseDescriptions.getColumnModel().getColumn(3).setResizable(false);
         }
 
+        Searchbycrn.setText("Search by CRN:");
+        Searchbycrn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchbycrnActionPerformed(evt);
+            }
+        });
+
+        crntextfield.setBackground(new java.awt.Color(240, 240, 240));
+        crntextfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crntextfieldActionPerformed(evt);
+            }
+        });
+
+        Searchbyname.setText("Search by Name:");
+        Searchbyname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchbynameActionPerformed(evt);
+            }
+        });
+
+        nametextfield.setBackground(new java.awt.Color(240, 240, 240));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,19 +143,29 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(194, 194, 194)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnRegister)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(28, 28, 28)
-                                .addComponent(txtEnterCrn1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(txtEnterCrn2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
-                                .addComponent(txtEnterCrn3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)
-                                .addComponent(txtEnterCrn4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnRegister)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(28, 28, 28)
+                                    .addComponent(txtEnterCrn1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(32, 32, 32)
+                                    .addComponent(txtEnterCrn2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(37, 37, 37)
+                                    .addComponent(txtEnterCrn3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(39, 39, 39)
+                                    .addComponent(txtEnterCrn4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(Searchbycrn)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(crntextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(Searchbyname)
+                                    .addGap(27, 27, 27)
+                                    .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(155, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -138,7 +175,15 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(76, 76, 76)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Searchbycrn)
+                    .addComponent(crntextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Searchbyname)
+                    .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtEnterCrn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -159,6 +204,12 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
         Object[] row = new Object[5];
         for (Courses c : program.getCourses().getCourseList()) {
             if (c.getApprovalStatus().equals("Approved")) {
+                
+                    if(!nametextfield.getText().equals("")){
+                    if(!nametextfield.getText().equals(c.getCourseName()))
+                    if (Integer.parseInt(crntextfield.getText()) != c.getCrnNumber())
+                        continue;
+                    }
                 row[0] = c.getCrnNumber();
                 row[1] = c.getCourseName();
                 row[2] = c.getProfessor();
@@ -212,11 +263,29 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
+    private void SearchbycrnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchbycrnActionPerformed
+        // TODO add your handling code here:
+        populateTable();
+    }//GEN-LAST:event_SearchbycrnActionPerformed
+
+    private void SearchbynameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchbynameActionPerformed
+        // TODO add your handling code here:
+        populateTable();
+    }//GEN-LAST:event_SearchbynameActionPerformed
+
+    private void crntextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crntextfieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_crntextfieldActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Searchbycrn;
+    private javax.swing.JButton Searchbyname;
     private javax.swing.JButton btnRegister;
+    private javax.swing.JTextField crntextfield;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField nametextfield;
     private javax.swing.JTable tblCourseDescriptions;
     private javax.swing.JTextField txtEnterCrn1;
     private javax.swing.JTextField txtEnterCrn2;

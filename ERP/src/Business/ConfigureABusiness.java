@@ -65,6 +65,8 @@ public class ConfigureABusiness {
         Employee emp9 = ecosystem.getEmployeeDirectory().createEmployee("COETA1");
         UserAccount t1 = neucoe.getUserAccountDirectory().createUserAccount("t1", "t1", emp7, new TARole());
         TARole t1r = (TARole) t1.getRole();
+        
+        
 
         Program prg = neucoe.getPD().createProgram("Information Systems");
         prg.setProgramCoordinator(pc);

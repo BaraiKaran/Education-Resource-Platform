@@ -133,7 +133,7 @@ public class AddCourseJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addGap(350, 350, 350)
                             .addComponent(jLabel1))))
-                .addContainerGap(445, Short.MAX_VALUE))
+                .addContainerGap(275, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +158,7 @@ public class AddCourseJPanel extends javax.swing.JPanel {
                     .addComponent(txtTotalSeats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(62, 62, 62)
                 .addComponent(btnCreate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(btnBack)
                 .addGap(38, 38, 38))
         );
