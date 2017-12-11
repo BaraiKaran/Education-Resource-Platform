@@ -199,6 +199,12 @@ public class AddCourseJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Total seats has to be an integer value.");
                 return;
             }
+            
+            if(Validations.isTextLong(coursename)) {
+                JOptionPane.showMessageDialog(null, "Coursename cannot exceed 20 characters");
+                return;
+            }
+            
             String status = "Initiated";
             Courses cc = program.getCourses().createCourse(crn, coursename, status, totalSeats);
             UserAccount account = (UserAccount) cmbProfessorName.getSelectedItem();
