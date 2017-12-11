@@ -29,6 +29,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="Searchbycrn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="crntextfield" min="-2" pref="114" max="-2" attributes="0"/>
+                  </Group>
                   <Component id="btnApprove" min="-2" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="640" max="-2" attributes="0"/>
               </Group>
@@ -43,7 +48,12 @@
               <Component id="jLabel2" min="-2" pref="50" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="156" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="Searchbycrn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="crntextfield" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Component id="btnApprove" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="203" max="32767" attributes="0"/>
           </Group>
@@ -127,6 +137,21 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnApproveActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="Searchbycrn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Search by CRN:"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SearchbycrnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="crntextfield">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f0" green="f0" red="f0" type="rgb"/>
+        </Property>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
