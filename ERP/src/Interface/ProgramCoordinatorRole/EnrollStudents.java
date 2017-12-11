@@ -36,6 +36,7 @@ public class EnrollStudents extends javax.swing.JPanel {
         this.userAccount = userAccount;
 
         populateTable();
+        populateEnroll();
     }
 
     public void populateTable() {

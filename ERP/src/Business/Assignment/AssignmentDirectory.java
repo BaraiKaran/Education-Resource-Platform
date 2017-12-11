@@ -16,7 +16,7 @@ public class AssignmentDirectory {
     private ArrayList<Assignment> assignmentDirectory;
 
     public AssignmentDirectory() {
-        assignmentDirectory = new ArrayList<>();
+        assignmentDirectory = new ArrayList<Assignment>();
     }
 
     public ArrayList<Assignment> getAssignmentDirectory() {
@@ -26,16 +26,11 @@ public class AssignmentDirectory {
     public void setAssignmentDirectory(ArrayList<Assignment> assignmentDirectory) {
         this.assignmentDirectory = assignmentDirectory;
     }
-
-    public void removeCourse(Assignment a) {
-        assignmentDirectory.remove(a);
+    
+    public Assignment addAssignment(String name,String problem){
+        Assignment as = new Assignment(name,problem);
+        assignmentDirectory.add(as);
+        return as;
     }
-
-    public ArrayList<Assignment> getCourseList() {
-        return assignmentDirectory;
-    }
-
-    public ArrayList<Assignment> getAssignmentList() {
-        return assignmentDirectory;
-    }
+   
 }

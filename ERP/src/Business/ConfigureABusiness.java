@@ -77,7 +77,15 @@ public class ConfigureABusiness {
         ads.setProgram(prg);
         ads.AssignTA(t1);
         t1r.setCourse(ads);
-
+        prg.subscribeProgram(stu1);
+        
+         ads.RegisterCourse(stu1);
+         int seats = ads.getTotalSeats();
+        // coursenames += c.getCourseName() + ",";
+         seats -= 1;
+         ads.setTotalSeats(seats);
+        
+        
         return ecosystem;
     }
 

@@ -78,6 +78,7 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         tblFeeds = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btnRegisterForCourses = new javax.swing.JButton();
+        btnTime = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -107,6 +108,15 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnTime.setBackground(new java.awt.Color(51, 153, 255));
+        btnTime.setForeground(new java.awt.Color(255, 255, 255));
+        btnTime.setText("Book Time Slot");
+        btnTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,7 +129,9 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRegisterForCourses)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRegisterForCourses, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
@@ -129,7 +141,9 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addComponent(btnRegisterForCourses)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 276, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnTime)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 238, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -149,8 +163,25 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnRegisterForCoursesActionPerformed
 
+    private void btnTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimeActionPerformed
+        // TODO add your handling code here:
+         if (!(program instanceof Program)) {
+            JOptionPane.showMessageDialog(null, "Please add program and courses");
+            return;
+        }
+         
+        
+
+        TimeSlotJPanel panel = new TimeSlotJPanel(userProcessContainer, ua, organization, program);
+        userProcessContainer.add("StudentCourseRegistrationJPanel", panel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+        
+    }//GEN-LAST:event_btnTimeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegisterForCourses;
+    private javax.swing.JButton btnTime;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblFeeds;

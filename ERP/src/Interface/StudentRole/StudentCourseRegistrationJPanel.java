@@ -30,7 +30,7 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private Program program;
 
-    StudentCourseRegistrationJPanel(JPanel userProcessContainer, UserAccount ua, CollegeOrganization organization, Program program) {
+    public StudentCourseRegistrationJPanel(JPanel userProcessContainer, UserAccount ua, CollegeOrganization organization, Program program) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.organization = (CollegeOrganization) organization;

@@ -7,6 +7,7 @@ package Interface.TARole;
 
 import Business.College.Program;
 import Business.Courses.Courses;
+import Business.Feeds.Feeds;
 import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.Role.TAHours;
@@ -49,8 +50,25 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
             btnEndTAHours.setEnabled(false);
         }
         populateTable();
+        populateFeeds();
     }
 
+    
+     public void populateFeeds() {
+
+        DefaultTableModel model = (DefaultTableModel) tblFeeds.getModel();
+        model.setRowCount(0);
+
+        //for (Program pd : .getPD().getDirectory()) {
+        Object[] row = new Object[2];
+        for (Feeds fd : userAccount.getFeedsList()) {
+
+            row[0] = fd.getMessage();
+            row[1] = fd.getMessageTime();
+            model.addRow(row);
+        }
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,6 +84,9 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTAHours = new javax.swing.JTable();
         btnAnouncement = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblFeeds = new javax.swing.JTable();
+        btnTIme = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -119,6 +140,28 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblFeeds.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Notifications", "Time"
+            }
+        ));
+        jScrollPane2.setViewportView(tblFeeds);
+
+        btnTIme.setBackground(new java.awt.Color(51, 153, 255));
+        btnTIme.setForeground(new java.awt.Color(255, 255, 255));
+        btnTIme.setText("Assignment Time Slots");
+        btnTIme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTImeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,8 +178,10 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnStartTAHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnEndTAHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnTIme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 885, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -153,7 +198,11 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                         .addGap(40, 40, 40)
                         .addComponent(btnAnouncement))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(319, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnTIme)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -287,12 +336,23 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnAnouncementActionPerformed
 
+    private void btnTImeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTImeActionPerformed
+        // TODO add your handling code here:
+          TimeSlotJPanel JPanel = new TimeSlotJPanel(userProcessContainer, program, userAccount, organization, course);
+        userProcessContainer.add("TimeSlotJPanel", JPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnTImeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnouncement;
     private javax.swing.JButton btnEndTAHours;
     private javax.swing.JButton btnStartTAHours;
+    private javax.swing.JButton btnTIme;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tblFeeds;
     private javax.swing.JTable tblTAHours;
     // End of variables declaration//GEN-END:variables
 }

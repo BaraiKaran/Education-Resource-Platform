@@ -54,6 +54,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         btnAnouncement = new javax.swing.JButton();
         Searchbyname = new javax.swing.JButton();
         nametextfield = new javax.swing.JTextField();
+        btnAnouncement1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -90,7 +91,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
         btnAnouncement.setBackground(new java.awt.Color(51, 153, 255));
         btnAnouncement.setForeground(new java.awt.Color(255, 255, 255));
-        btnAnouncement.setText("Anouncements");
+        btnAnouncement.setText("Assignment");
         btnAnouncement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAnouncementActionPerformed(evt);
@@ -106,6 +107,15 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
         nametextfield.setBackground(new java.awt.Color(240, 240, 240));
 
+        btnAnouncement1.setBackground(new java.awt.Color(51, 153, 255));
+        btnAnouncement1.setForeground(new java.awt.Color(255, 255, 255));
+        btnAnouncement1.setText("Announcement");
+        btnAnouncement1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnouncement1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,19 +124,20 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(92, 92, 92)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAssignTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAnouncement1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 317, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnAssignTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Searchbyname)
                         .addGap(27, 27, 27)
-                        .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67))
+                        .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(58, 58, 58))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,12 +150,14 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                         .addComponent(btnAssignTA)
                         .addGap(26, 26, 26)
                         .addComponent(btnAnouncement, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Searchbyname)
-                            .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAnouncement1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(318, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Searchbyname)
+                    .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(290, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -190,8 +203,8 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
     private void btnAnouncementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncementActionPerformed
         // TODO add your handling code here:
 
-        AssignTAJPanel JPanel = new AssignTAJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
-        userProcessContainer.add("AssignTAJPanel", JPanel);
+        AssignmentJPanel JPanel = new AssignmentJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
+        userProcessContainer.add("AssignmentJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAnouncementActionPerformed
@@ -201,9 +214,18 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         populateTable();
     }//GEN-LAST:event_SearchbynameActionPerformed
 
+    private void btnAnouncement1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncement1ActionPerformed
+        // TODO add your handling code here:
+        AnnouncementJPanel JPanel = new AnnouncementJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
+        userProcessContainer.add("AnnouncementJPanel", JPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnAnouncement1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Searchbyname;
     private javax.swing.JButton btnAnouncement;
+    private javax.swing.JButton btnAnouncement1;
     private javax.swing.JButton btnAssignTA;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

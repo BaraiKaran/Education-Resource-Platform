@@ -6,6 +6,8 @@
 package Business.Marks;
 
 import Business.Assignment.Assignment;
+import Business.Courses.Courses;
+import Business.UserAccount.UserAccount;
 
 /**
  *
@@ -15,7 +17,35 @@ public class Marks {
 
     private int marks;
     private Assignment assignment;
+    private UserAccount Student;
+    private Courses course;
+    private UserAccount TA;
 
+    public UserAccount getStudent() {
+        return Student;
+    }
+
+    public void setStudent(UserAccount Student) {
+        this.Student = Student;
+    }
+
+    public Courses getCourse() {
+        return course;
+    }
+
+    public void setCourse(Courses course) {
+        this.course = course;
+    }
+
+    public UserAccount getTA() {
+        return TA;
+    }
+
+    public void setTA(UserAccount TA) {
+        this.TA = TA;
+    }
+
+    
     public int getMarks() {
         return marks;
     }
