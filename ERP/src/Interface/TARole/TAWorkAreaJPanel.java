@@ -6,6 +6,8 @@
 package Interface.TARole;
 
 import Business.College.Program;
+import Interface.TARole.ClockLabel;
+        
 import Business.Courses.Courses;
 import Business.Feeds.Feeds;
 import Business.Organization.CollegeOrganization;
@@ -14,12 +16,15 @@ import Business.Role.TAHours;
 import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
-import java.awt.Font;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -32,32 +37,72 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form TAWorkAreaJPanel
      */
-    JPanel userProcessContainer;
+    JPanel userProcessContainer; 
     CollegeOrganization organization;
     UserAccount userAccount;
     Program program;
     Courses course;
 
-    public TAWorkAreaJPanel(JPanel userProcessContainer, Organization organization, UserAccount account) {
+    public TAWorkAreaJPanel(JPanel userProcessContainer, Organization organization, UserAccount account) throws ParseException {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.organization = (CollegeOrganization) organization;
         this.userAccount = account;
         TARole role = (TARole) userAccount.getRole();
         this.course = role.getCourse();
+        
+        
+        
         if (role.getTaHours()) {
             btnStartTAHours.setEnabled(false);
+           
+        TAHours active = role.getActive();
+              Date d = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        String e = formatter.format(d);
+         long diff = d. getTime() - formatter.parse(active.getStartTime()).getTime();
+        int h =0 ;
+        int m = 0;
+        int tt = 0;
+        int seconds = (int) (diff/1000); 
+        h = seconds/(60*60);
+        if(h > 0){
+            seconds -= h*60*60;
+        }
+        m = seconds/(60);
+        if(m > 0){
+            seconds -= m*60;
+        }
+        
+       // ClockLabel dateLable = new ClockLabel("date");
+            
+            
+            
+        ClockLabel timeLable = new ClockLabel("time",h,m,seconds); 
+       // ClockLabel dayLable = new ClockLabel("day");
+ 
+    JFrame.setDefaultLookAndFeelDecorated(true);
+    JFrame f = new JFrame("Digital Clock");
+    f.setSize(300,150);
+   // f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    f.setLayout(new GridLayout(1, 1));
+ 
+   // f.add(dateLable);
+    f.add(timeLable);
+    //f.add(dayLable);
+ 
+    f.getContentPane().setBackground(Color.black);
+ 
+    f.setVisible(true);
+            
         } else {
             btnEndTAHours.setEnabled(false);
+            txtClock.setText("00:00:00");
         }
         populateTable();
         populateFeeds();
-        
-        tblFeeds.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
-
-        tblTAHours.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
-
     }
+    
 
     public void populateFeeds() {
 
@@ -94,6 +139,8 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         tblFeeds = new javax.swing.JTable();
         btnTIme = new javax.swing.JButton();
         btnReview = new javax.swing.JButton();
+        btnAnouncement1 = new javax.swing.JButton();
+        txtClock = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -117,7 +164,6 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        tblTAHours.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblTAHours.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -137,7 +183,6 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblTAHours.setRowHeight(20);
         jScrollPane1.setViewportView(tblTAHours);
 
         btnAnouncement.setBackground(new java.awt.Color(51, 153, 255));
@@ -149,7 +194,6 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        tblFeeds.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblFeeds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -161,7 +205,6 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                 "Notifications", "Time"
             }
         ));
-        tblFeeds.setRowHeight(20);
         jScrollPane2.setViewportView(tblFeeds);
 
         btnTIme.setBackground(new java.awt.Color(51, 153, 255));
@@ -182,26 +225,41 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnAnouncement1.setBackground(new java.awt.Color(51, 153, 255));
+        btnAnouncement1.setForeground(new java.awt.Color(255, 255, 255));
+        btnAnouncement1.setText("Working Hours");
+        btnAnouncement1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnouncement1ActionPerformed(evt);
+            }
+        });
+
+        txtClock.setText("txt");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 885, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnStartTAHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEndTAHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnTIme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnReview, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(9, 9, 9))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 905, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtClock, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnStartTAHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnEndTAHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnTIme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnReview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAnouncement1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -210,11 +268,15 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnStartTAHours)
-                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnStartTAHours)
+                            .addComponent(txtClock, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEndTAHours)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAnouncement1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAnouncement)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -222,7 +284,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnReview))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -276,6 +338,25 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         active.setStartTime(s);
         btnStartTAHours.setEnabled(false);
         btnEndTAHours.setEnabled(true);
+        
+       // ClockLabel dateLable = new ClockLabel("date");
+    ClockLabel timeLable = new ClockLabel("time",0,0,0); 
+    //ClockLabel dayLable = new ClockLabel("day");
+ 
+    JFrame.setDefaultLookAndFeelDecorated(true);
+    JFrame f = new JFrame("Digital Clock");
+    f.setSize(300,150);
+    //f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+    f.setLayout(new GridLayout(1, 1));
+ 
+  //  f.add(dateLable);
+    f.add(timeLable);
+   // f.add(dayLable);
+ 
+    f.getContentPane().setBackground(Color.black);
+ 
+    f.setVisible(true);
+        
         /*for (Program pd : organization.getPD().getDirectory()) {
             for (Courses c : pd.getCourses().getCourseList()) {
                 for (UserAccount ua : c.getTeachingAssistant()) {
@@ -325,28 +406,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         } catch (ParseException ex) {
             Logger.getLogger(TAWorkAreaJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        /*for (Program pd : organization.getPD().getDirectory()) {
-            for (Courses c : pd.getCourses().getCourseList()) {
-                for (UserAccount ua : c.getTeachingAssistant()) {
-                    if (ua.getId() == userAccount.getId()) {
-                        TARole r = (TARole) ua.getRole();
-                        r.setTaHours(false);
-                        Date d = new Date();
-                        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-                        String e = formatter.format(d);
-                        r.setEndTime(e);
-                        try {
-                            long diff = d.getTime() - formatter.parse(r.getStartTime()).getTime();
-                            r.setTimeDuration(diff);
-                        } catch (ParseException ex) {
-                            Logger.getLogger(TAWorkAreaJPanel.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-
-                }
-
-            }
-        }*/
+        
         populateTable();
     }//GEN-LAST:event_btnEndTAHoursActionPerformed
 
@@ -378,8 +438,19 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnReviewActionPerformed
 
+    private void btnAnouncement1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncement1ActionPerformed
+        // TODO add your handling code here:
+        WorkingHoursJPanel  JPanel = new WorkingHoursJPanel(userProcessContainer, program, userAccount, organization, course);
+        userProcessContainer.add("ReviewJPanel", JPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+        
+        
+    }//GEN-LAST:event_btnAnouncement1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnouncement;
+    private javax.swing.JButton btnAnouncement1;
     private javax.swing.JButton btnEndTAHours;
     private javax.swing.JButton btnReview;
     private javax.swing.JButton btnStartTAHours;
@@ -389,5 +460,6 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblFeeds;
     private javax.swing.JTable tblTAHours;
+    private javax.swing.JLabel txtClock;
     // End of variables declaration//GEN-END:variables
 }

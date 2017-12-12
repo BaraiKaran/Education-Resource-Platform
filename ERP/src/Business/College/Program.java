@@ -89,7 +89,10 @@ public class Program {
         students.add(ua);
         return true;
     }
-
+    
+    public void unsubscribe(UserAccount ua){
+        students.remove(ua);
+    }
 
    
 
