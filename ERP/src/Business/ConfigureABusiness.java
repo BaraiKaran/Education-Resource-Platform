@@ -17,6 +17,7 @@ import Business.Role.CollegeAdminRole;
 import Business.Role.ProfessorRole;
 import Business.Role.ProgramCoordinatorRole;
 import Business.Role.ProgramDirectorRole;
+import Business.Role.RARole;
 import Business.Role.StudentRole;
 import Business.Role.SystemAdminRole;
 import Business.Role.TARole;
@@ -67,6 +68,12 @@ public class ConfigureABusiness {
         TARole t1r = (TARole) t1.getRole();
         
         
+        Employee emp10 = ecosystem.getEmployeeDirectory().createEmployee("COERA1");
+        UserAccount r1 = neucoe.getUserAccountDirectory().createUserAccount("r1", "r1", emp7, new RARole());
+        RARole r1r = (RARole) r1.getRole();
+        
+        ProfessorRole p1r = (ProfessorRole)prof1.getRole();
+        p1r.AssignRA(r1);
 
         Program prg = neucoe.getPD().createProgram("Information Systems");
         prg.setProgramCoordinator(pc);

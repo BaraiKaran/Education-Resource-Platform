@@ -7,6 +7,7 @@ package Interface.ProfessorRole;
 
 import Business.College.Program;
 import Business.Courses.Courses;
+import Business.Feeds.Feeds;
 import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.Role.TARole;
@@ -36,9 +37,25 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         this.organization = (CollegeOrganization) organization;
         this.userAccount = ua;
         populateTable();
-        
+        populateFeeds();
         tblTADetails.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
 
+
+    }
+    
+     public void populateFeeds() {
+
+        DefaultTableModel model = (DefaultTableModel) tblFeeds.getModel();
+        model.setRowCount(0);
+
+        //for (Program pd : .getPD().getDirectory()) {
+        Object[] row = new Object[2];
+        for (Feeds fd : userAccount.getFeedsList()) {
+
+            row[0] = fd.getMessage();
+            row[1] = fd.getMessageTime();
+            model.addRow(row);
+        }
 
     }
 
@@ -60,6 +77,10 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         nametextfield = new javax.swing.JTextField();
         btnAnouncement1 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        btnAssignRA = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblFeeds = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -138,6 +159,41 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnAssignRA.setBackground(new java.awt.Color(51, 153, 255));
+        btnAssignRA.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnAssignRA.setForeground(new java.awt.Color(255, 255, 255));
+        btnAssignRA.setText("Assign RA");
+        btnAssignRA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignRAActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(51, 153, 255));
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("View RA Timesheets");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        tblFeeds.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tblFeeds.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Notifications", "Time"
+            }
+        ));
+        tblFeeds.setRowHeight(20);
+        jScrollPane2.setViewportView(tblFeeds);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,7 +208,9 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                     .addComponent(btnAnouncement1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAssignTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAssignTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAssignRA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -161,6 +219,10 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                         .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(58, 58, 58))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +243,13 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Searchbyname, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nametextfield, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAssignRA, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -255,15 +323,35 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnAssignRAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignRAActionPerformed
+        // TODO add your handling code here:
+         AssignRAJPanel JPanel = new AssignRAJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
+        userProcessContainer.add("AssignRAJPanel", JPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnAssignRAActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        ViewRATimesheetJPanel JPanel = new ViewRATimesheetJPanel(userProcessContainer, program, userAccount, organization);
+        userProcessContainer.add("ViewRATimesheetJPanel", JPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Searchbyname;
     private javax.swing.JButton btnAnouncement;
     private javax.swing.JButton btnAnouncement1;
+    private javax.swing.JButton btnAssignRA;
     private javax.swing.JButton btnAssignTA;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nametextfield;
+    private javax.swing.JTable tblFeeds;
     private javax.swing.JTable tblTADetails;
     // End of variables declaration//GEN-END:variables
 }
