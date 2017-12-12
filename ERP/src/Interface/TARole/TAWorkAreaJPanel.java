@@ -14,6 +14,7 @@ import Business.Role.TAHours;
 import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Font;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -51,6 +52,11 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         }
         populateTable();
         populateFeeds();
+        
+        tblFeeds.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
+
+        tblTAHours.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
+
     }
 
     public void populateFeeds() {
@@ -111,6 +117,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblTAHours.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblTAHours.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -130,6 +137,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblTAHours.setRowHeight(20);
         jScrollPane1.setViewportView(tblTAHours);
 
         btnAnouncement.setBackground(new java.awt.Color(51, 153, 255));
@@ -141,6 +149,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblFeeds.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblFeeds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -152,6 +161,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                 "Notifications", "Time"
             }
         ));
+        tblFeeds.setRowHeight(20);
         jScrollPane2.setViewportView(tblFeeds);
 
         btnTIme.setBackground(new java.awt.Color(51, 153, 255));
@@ -180,19 +190,18 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(90, 90, 90)
+                        .addComponent(jScrollPane1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnStartTAHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnEndTAHours, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnTIme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnReview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 885, Short.MAX_VALUE))
+                            .addComponent(btnReview, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 905, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

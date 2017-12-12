@@ -58,6 +58,8 @@ public class ViewRATimesheetJPanel extends javax.swing.JPanel {
         tblTimesheetDetails = new javax.swing.JTable();
         btnApprove = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+        setToolTipText("");
         setPreferredSize(new java.awt.Dimension(900, 600));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -77,6 +79,7 @@ public class ViewRATimesheetJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblTimesheetDetails.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblTimesheetDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -96,6 +99,7 @@ public class ViewRATimesheetJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblTimesheetDetails.setRowHeight(20);
         jScrollPane1.setViewportView(tblTimesheetDetails);
         if (tblTimesheetDetails.getColumnModel().getColumnCount() > 0) {
             tblTimesheetDetails.getColumnModel().getColumn(0).setResizable(false);
@@ -130,11 +134,11 @@ public class ViewRATimesheetJPanel extends javax.swing.JPanel {
                         .addGap(28, 28, 28)
                         .addComponent(cmbTANames, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
+                        .addGap(55, 55, 55)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(197, Short.MAX_VALUE))
+                            .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,13 +147,13 @@ public class ViewRATimesheetJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cmbTANames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbTANames, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(56, 56, 56)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87)
+                .addGap(77, 77, 77)
                 .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -152,7 +152,7 @@ public class UpdateProgramJPanel extends javax.swing.JPanel {
 
         userProcessContainer.remove(this);
         
-         Component[] componentArray = userProcessContainer.getComponents();
+        Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         ManageProgramJPanel panel = (ManageProgramJPanel) component;
         panel.populateTable(); 

@@ -106,6 +106,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         manageNetworkJButton.setBackground(new java.awt.Color(51, 153, 255));
+        manageNetworkJButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         manageNetworkJButton.setForeground(new java.awt.Color(255, 255, 255));
         manageNetworkJButton.setText("Manage Network");
         manageNetworkJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +116,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         manageAdminJButton.setBackground(new java.awt.Color(51, 153, 255));
+        manageAdminJButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         manageAdminJButton.setForeground(new java.awt.Color(255, 255, 255));
         manageAdminJButton.setText("Manage Enterprise Admin");
         manageAdminJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -124,6 +126,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         manageEnterpriseJButton.setBackground(new java.awt.Color(51, 153, 255));
+        manageEnterpriseJButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         manageEnterpriseJButton.setForeground(new java.awt.Color(255, 255, 255));
         manageEnterpriseJButton.setText("Manage Enterprise");
         manageEnterpriseJButton.addActionListener(new java.awt.event.ActionListener() {
