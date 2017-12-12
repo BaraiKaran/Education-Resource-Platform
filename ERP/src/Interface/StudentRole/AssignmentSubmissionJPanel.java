@@ -317,6 +317,7 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
         //active.setEndTime(e);
         as.getSubmissionDirectory().addSubmission(e, spath, ua);
         populateTable();
+        JOptionPane.showMessageDialog(null, "Assignment Submitted Successfully.");
 
     }//GEN-LAST:event_btnBrowseFilesActionPerformed
 

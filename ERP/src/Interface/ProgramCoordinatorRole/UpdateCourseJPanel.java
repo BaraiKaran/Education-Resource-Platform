@@ -7,11 +7,8 @@ package Interface.ProgramCoordinatorRole;
 
 import Business.College.Program;
 import Business.Courses.Courses;
-import Business.Organization.CollegeOrganization;
-import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Business.Validations;
-import Interface.CollegeAdmin.ManageProgramJPanel;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -26,27 +23,26 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
     /**
      * Creates new form UpdateCourseJPanel
      */
-    
     private JPanel userprocesscontainer;
     private Program program;
     private UserAccount userAccount;
     private Courses courses;
+       
     public UpdateCourseJPanel(JPanel userProcessContainer, Program program, UserAccount userAccount, Courses course) {
-        initComponents();
         this.userprocesscontainer = userProcessContainer;
         this.program = program;
         this.userAccount = userAccount;
         this.courses = course;
         
-        savebtn.setEnabled(false);
+        jButton1.setEnabled(false);
         txtCRN.setEnabled(false);
         txtName.setEnabled(false);
         cmbProfessorName.setEnabled(false);
         txtTotalSeats.setEnabled(false);
-        updatebtn.setEnabled(true);
+        btnupdate.setEnabled(true);
         
         populatedetails();
-        populatecombobox();
+        populatecombobox();   
     }
 
     public void populatedetails(){
@@ -54,15 +50,13 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
         txtName.setText(courses.getCourseName());
         txtTotalSeats.setText(String.valueOf(courses.getTotalSeats()));
     }
-    
+      
     public void populatecombobox(){
         cmbProfessorName.removeAllItems();
         for (Courses c : program.getCourses().getCourseList()){
             cmbProfessorName.addItem(c.getProfessor());
         }
     }
-    
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,13 +73,13 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtCRN = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
-        updatebtn = new javax.swing.JButton();
+        btnupdate = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         cmbProfessorName = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         txtTotalSeats = new javax.swing.JTextField();
-        savebtn = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -104,13 +98,13 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
             }
         });
 
-        updatebtn.setBackground(new java.awt.Color(51, 153, 255));
-        updatebtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        updatebtn.setForeground(new java.awt.Color(255, 255, 255));
-        updatebtn.setText("Update");
-        updatebtn.addActionListener(new java.awt.event.ActionListener() {
+        btnupdate.setBackground(new java.awt.Color(51, 153, 255));
+        btnupdate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnupdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnupdate.setText("Update");
+        btnupdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updatebtnActionPerformed(evt);
+                btnupdateActionPerformed(evt);
             }
         });
 
@@ -130,13 +124,13 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Total Seats:");
 
-        savebtn.setBackground(new java.awt.Color(51, 153, 255));
-        savebtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        savebtn.setForeground(new java.awt.Color(255, 255, 255));
-        savebtn.setText("Save");
-        savebtn.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setBackground(new java.awt.Color(51, 153, 255));
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Save");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                savebtnActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -145,56 +139,65 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(264, 264, 264)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(67, 67, 67)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtName)
-                            .addComponent(txtCRN)
-                            .addComponent(cmbProfessorName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtTotalSeats, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(savebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(updatebtn)))
+                        .addGap(264, 264, 264)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(67, 67, 67)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtName)
+                                    .addComponent(txtCRN)
+                                    .addComponent(cmbProfessorName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtTotalSeats, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(51, 51, 51)
+                                .addComponent(btnupdate))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(btnBack)))
                 .addContainerGap(304, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(jLabel1)
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCRN, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cmbProfessorName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtTotalSeats, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updatebtn)
-                    .addComponent(savebtn)
-                    .addComponent(btnBack))
-                .addContainerGap(160, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(jLabel1)
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCRN, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cmbProfessorName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtTotalSeats, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(btnupdate))
+                        .addGap(60, 60, 60)))
+                .addComponent(btnBack)
+                .addGap(56, 56, 56))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -213,19 +216,17 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCRNActionPerformed
 
-    private void updatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatebtnActionPerformed
+    private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
         // TODO add your handling code here:
-         savebtn.setEnabled(true);
-         updatebtn.setEnabled(false);
+         jButton1.setEnabled(true);
+         btnupdate.setEnabled(false);
          txtCRN.setEnabled(true);
          txtName.setEnabled(true);
          cmbProfessorName.setEnabled(true);
-         txtTotalSeats.setEnabled(true); 
-                   
+         txtTotalSeats.setEnabled(true);
+        
 
-        
-        
-    }//GEN-LAST:event_updatebtnActionPerformed
+    }//GEN-LAST:event_btnupdateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
@@ -239,9 +240,11 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userprocesscontainer.getLayout();
         layout.previous(userprocesscontainer);
       
+        
+
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void savebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebtnActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
          if(txtName.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Please enter the details");
@@ -291,26 +294,27 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
           txtName.setEnabled(false);
           cmbProfessorName.setEnabled(false);
           txtTotalSeats.setEnabled(false);  
-          savebtn.setEnabled(false);
-          updatebtn.setEnabled(true);
+          jButton1.setEnabled(false);
+          btnupdate.setEnabled(true);
        
         JOptionPane.showMessageDialog(null, "Program Updated");
-    }//GEN-LAST:event_savebtnActionPerformed
-
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnupdate;
     private javax.swing.JComboBox cmbProfessorName;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton savebtn;
     private javax.swing.JTextField txtCRN;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtTotalSeats;
-    private javax.swing.JButton updatebtn;
     // End of variables declaration//GEN-END:variables
 }

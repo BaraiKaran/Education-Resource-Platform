@@ -9,7 +9,6 @@ import Business.Assignment.AssignmentDirectory;
 import Business.College.Program;
 import Business.Marks.MarksDirectory;
 import Business.Role.TARequest;
-import Business.TimeSlots.TimeSlotsDirectory;
 import Business.UserAccount.UserAccount;
 import java.util.ArrayList;
 
@@ -29,7 +28,6 @@ public class Courses {
     private ArrayList<UserAccount> teachingAssistant;
     private AssignmentDirectory assignment;
     private MarksDirectory marks;
-    
 
     public Courses(int crn, String name, String status, int seats) {
         this.courseName = name;
@@ -41,15 +39,11 @@ public class Courses {
         requests = new ArrayList<TARequest>();
         assignment = new AssignmentDirectory();
         marks = new MarksDirectory();
-       
 
     }
 
     private ArrayList<TARequest> requests;
 
-   
-    
-    
     public ArrayList<TARequest> getRequests() {
         return requests;
     }
@@ -79,8 +73,6 @@ public class Courses {
     public void setMarks(MarksDirectory marks) {
         this.marks = marks;
     }
-
-    
 
     public void removeRequest(TARequest tar) {
         requests.remove(tar);
@@ -183,6 +175,10 @@ public class Courses {
             }
         }
         return false;
+    }
+
+    public void removeStudent(UserAccount ua) {
+        students.remove(ua);
     }
 
 }
