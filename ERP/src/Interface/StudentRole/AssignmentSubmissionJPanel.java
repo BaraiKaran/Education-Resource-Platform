@@ -6,6 +6,7 @@
 package Interface.StudentRole;
 
 import Business.Assignment.Assignment;
+import Business.AssignmentSubmission.Submission;
 import Business.College.Program;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
@@ -15,10 +16,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -41,6 +45,7 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
         this.ua = ua;
         this.program = program;
         populateCourse();
+        populateTable();
     }
 
     /**
@@ -59,6 +64,8 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnBrowseFiles = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblSubmissionDetails = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Assignment Submission");
@@ -101,6 +108,32 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblSubmissionDetails.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Course Name", "Assignment", "Submitted on"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblSubmissionDetails);
+        if (tblSubmissionDetails.getColumnModel().getColumnCount() > 0) {
+            tblSubmissionDetails.getColumnModel().getColumn(0).setResizable(false);
+            tblSubmissionDetails.getColumnModel().getColumn(1).setResizable(false);
+            tblSubmissionDetails.getColumnModel().getColumn(2).setResizable(false);
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,8 +153,11 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cmbAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBrowseFiles))))
-                .addContainerGap(313, Short.MAX_VALUE))
+                            .addComponent(btnBrowseFiles)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,9 +176,30 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(btnBrowseFiles))
-                .addContainerGap(375, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(247, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblSubmissionDetails.getModel();
+        model.setRowCount(0);
+        Object[] row = new Object[5];
+        for (Courses course : program.getCourses().getCourseList()) {
+            for (Assignment as : course.getAssignment().getAssignmentDirectory()) {
+                for (Submission s : as.getSubmissionDirectory().getSubmission()) {
+                    if (ua.getId() == s.getStudent().getId()) {
+                        row[0] = course;
+                        row[1] = as.getTitle();
+                        row[2] = s.getSubmittedOn();
+                        model.addRow(row);
+                    }
+                }
+            }
+        }
+
+    }
 
     public void populateCourse() {
         cmbCourse.removeAllItems();
@@ -227,9 +284,18 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
         Path destPath = dest.toPath();
         try {
             Files.copy(SourcePath, destPath);
+
         } catch (IOException ex) {
             Logger.getLogger(AssignmentSubmissionJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        Assignment as = (Assignment) cmbAssignment.getSelectedItem();
+        Date d = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        String e = formatter.format(d);
+        //active.setEndTime(e);
+        as.getSubmissionDirectory().addSubmission(e, spath, ua);
+        populateTable();
 
     }//GEN-LAST:event_btnBrowseFilesActionPerformed
 
@@ -241,5 +307,7 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblSubmissionDetails;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
  */
 package Business.Assignment;
 
+import Business.AssignmentSubmission.SubmissionDirectory;
 import Business.Feeds.FeedsDirectory;
 import Business.TimeSlots.TimeSlotsDirectory;
 
@@ -20,27 +21,34 @@ public class Assignment {
     private FeedsDirectory feeds;
     private static int count = 1;
     private TimeSlotsDirectory slots;
-    
-    
-    public Assignment(String name , String problem) {
+    private SubmissionDirectory submissionDirectory;
+
+    public Assignment(String name, String problem) {
         feeds = new FeedsDirectory();
         assignmentId = count;
         title = name;
         problemStatement = problem;
-         slots = new TimeSlotsDirectory();
-         
+        slots = new TimeSlotsDirectory();
+        submissionDirectory = new SubmissionDirectory();
         count++;
     }
 
-     public TimeSlotsDirectory getSlots() {
+    public TimeSlotsDirectory getSlots() {
         return slots;
+    }
+
+    public SubmissionDirectory getSubmissionDirectory() {
+        return submissionDirectory;
+    }
+
+    public void setSubmissionDirectory(SubmissionDirectory submissionDirectory) {
+        this.submissionDirectory = submissionDirectory;
     }
 
     public void setSlots(TimeSlotsDirectory slots) {
         this.slots = slots;
     }
 
-    
     public String getTitle() {
         return title;
     }
@@ -56,9 +64,7 @@ public class Assignment {
     public void setFeeds(FeedsDirectory feeds) {
         this.feeds = feeds;
     }
-    
-    
-    
+
     public int getAssignmentId() {
         return assignmentId;
     }
@@ -74,9 +80,9 @@ public class Assignment {
     public void setProblemStatement(String problemStatement) {
         this.problemStatement = problemStatement;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.title;
     }
 
