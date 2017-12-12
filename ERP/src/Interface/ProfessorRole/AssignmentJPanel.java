@@ -6,18 +6,15 @@
 package Interface.ProfessorRole;
 
 import Business.Assignment.*;
-
 import Business.College.Program;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
-import Business.Role.StudentRole;
-import Business.Role.TARequest;
 import Business.UserAccount.UserAccount;
 import Business.Validations;
 import java.awt.CardLayout;
+import java.io.File;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -44,7 +41,7 @@ public class AssignmentJPanel extends javax.swing.JPanel {
         populateCombo();
     }
 
-    public void populateCombo(){
+    public void populateCombo() {
         cmbCousreName.removeAllItems();
         //CourseDirectory cd = program.getCourses();
         for (Program pd : organization.getPD().getDirectory()) {
@@ -55,7 +52,6 @@ public class AssignmentJPanel extends javax.swing.JPanel {
             }
         }
     }
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -195,7 +191,7 @@ public class AssignmentJPanel extends javax.swing.JPanel {
                 }
             }
         }
-        */
+         */
     }//GEN-LAST:event_cmbCousreNameActionPerformed
 
     private void cmbCousreNamePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbCousreNamePropertyChange
@@ -208,35 +204,35 @@ public class AssignmentJPanel extends javax.swing.JPanel {
         if (txtAn.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "announcement cannot be blank.");
             return;
-        } 
-        
-        if(txtTitle.getText().trim().isEmpty()){
+        }
+
+        if (txtTitle.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please enter title");
             return;
         }
-        
-         if(Validations.isTextLong(txtTitle.getText())) {
-                JOptionPane.showMessageDialog(null, "Title cannot exceed 20 characters");
-                return;
-            }
-            
-        Courses cr = (Courses)cmbCousreName.getSelectedItem();
-        
-        Assignment as = cr.getAssignment().addAssignment(txtTitle.getText(),txtAn.getText());
-        
-        for(UserAccount ua : cr.getStudents()){
-           
-            ua.createFeeds("Professor "+userAccount.getEmployee().getName()+" released new Assignment "+as.getTitle());
-            
+
+        if (Validations.isTextLong(txtTitle.getText())) {
+            JOptionPane.showMessageDialog(null, "Title cannot exceed 20 characters");
+            return;
         }
-        for(UserAccount ua : cr.getTeachingAssistant()){
-             ua.createFeeds("Professor "+userAccount.getEmployee().getName()+" released new Assignment "+as.getTitle());
-            
+
+        Courses cr = (Courses) cmbCousreName.getSelectedItem();
+
+        Assignment as = cr.getAssignment().addAssignment(txtTitle.getText(), txtAn.getText());
+
+        for (UserAccount ua : cr.getStudents()) {
+
+            ua.createFeeds("Professor " + userAccount.getEmployee().getName() + " released new Assignment " + as.getTitle());
+
         }
-        
-        
+        for (UserAccount ua : cr.getTeachingAssistant()) {
+            ua.createFeeds("Professor " + userAccount.getEmployee().getName() + " released new Assignment " + as.getTitle());
+
+        }
+        new File("C:\\Assignment_submission\\" + String.valueOf(cmbCousreName.getSelectedItem()) + "\\" + txtTitle.getText()).mkdir();
+
         JOptionPane.showMessageDialog(null, "Submitted successfully");
-        
+
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed

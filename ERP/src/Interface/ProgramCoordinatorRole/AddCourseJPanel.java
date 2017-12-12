@@ -15,6 +15,7 @@ import Business.UserAccount.UserAccountDirectory;
 import Business.Validations;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.io.File;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -201,12 +202,12 @@ public class AddCourseJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Total seats has to be an integer value.");
                 return;
             }
-            
-            if(Validations.isTextLong(coursename)) {
+
+            if (Validations.isTextLong(coursename)) {
                 JOptionPane.showMessageDialog(null, "Course name cannot exceed 20 characters");
                 return;
             }
-            
+
             String status = "Initiated";
             Courses cc = program.getCourses().createCourse(crn, coursename, status, totalSeats);
             UserAccount account = (UserAccount) cmbProfessorName.getSelectedItem();
@@ -214,6 +215,8 @@ public class AddCourseJPanel extends javax.swing.JPanel {
             cc.setProfessor(account);
             cc.setProgram(program);
             program.getProgramDirector().createFeeds(userAccount.getEmployee().getName() + " added new course " + cc.getCourseName() + " to program " + program.getName());
+            new File("C:\\Assignment_submission\\" + coursename).mkdir();
+
             JOptionPane.showMessageDialog(null, "Course Requested");
         }
     }//GEN-LAST:event_btnCreateActionPerformed

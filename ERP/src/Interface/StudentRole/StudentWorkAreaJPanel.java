@@ -48,8 +48,8 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         }
 
         populateTable();
-        
-        tblFeeds.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
+
+        tblFeeds.getTableHeader().setFont(new Font("Tahoma", Font.CENTER_BASELINE, 18));
 
     }
 
@@ -83,6 +83,7 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         btnRegisterForCourses = new javax.swing.JButton();
         btnTime = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -125,6 +126,15 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(51, 153, 255));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Submit Assignment");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,7 +147,8 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnRegisterForCourses, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -150,7 +161,9 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(btnRegisterForCourses, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTime, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -172,23 +185,30 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimeActionPerformed
         // TODO add your handling code here:
-         if (!(program instanceof Program)) {
+        if (!(program instanceof Program)) {
             JOptionPane.showMessageDialog(null, "Please add program and courses");
             return;
         }
-         
-        
 
         TimeSlotJPanel panel = new TimeSlotJPanel(userProcessContainer, ua, organization, program);
         userProcessContainer.add("StudentCourseRegistrationJPanel", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-        
+
     }//GEN-LAST:event_btnTimeActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        AssignmentSubmissionJPanel panel = new AssignmentSubmissionJPanel(userProcessContainer, ua, organization, program);
+        userProcessContainer.add("AssignmentSubmissionJPanel", panel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegisterForCourses;
     private javax.swing.JButton btnTime;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblFeeds;
