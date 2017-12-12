@@ -85,6 +85,7 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         btnTime = new javax.swing.JButton();
         btnSubmitAssignment = new javax.swing.JButton();
         btnCheckGrades = new javax.swing.JButton();
+        btnViewAssignments = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -145,6 +146,15 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnViewAssignments.setBackground(new java.awt.Color(51, 153, 255));
+        btnViewAssignments.setForeground(new java.awt.Color(255, 255, 255));
+        btnViewAssignments.setText("View Assignment Statements ");
+        btnViewAssignments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewAssignmentsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,7 +169,8 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
                             .addComponent(btnRegisterForCourses, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSubmitAssignment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCheckGrades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnCheckGrades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnViewAssignments, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -174,9 +185,11 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(btnTime, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSubmitAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(btnCheckGrades, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(btnViewAssignments, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -226,11 +239,20 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btnCheckGradesActionPerformed
 
+    private void btnViewAssignmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAssignmentsActionPerformed
+        // TODO add your handling code here:
+        ViewAssignmentJPanel panel = new ViewAssignmentJPanel(userProcessContainer, ua, organization, program);
+        userProcessContainer.add("ViewAssignmentJPanel", panel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnViewAssignmentsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCheckGrades;
     private javax.swing.JButton btnRegisterForCourses;
     private javax.swing.JButton btnSubmitAssignment;
     private javax.swing.JButton btnTime;
+    private javax.swing.JButton btnViewAssignments;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblFeeds;
