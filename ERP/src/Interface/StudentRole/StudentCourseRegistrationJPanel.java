@@ -274,12 +274,16 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
                 for (Courses c : cd.getCourseList()) {
                     if (number != 0) {
                         if (c.getCrnNumber() == number) {
-                            c.RegisterCourse(userAccount);
-                            int seats = c.getTotalSeats();
-                            coursenames += c.getCourseName() + ",";
-                            seats -= 1;
-                            c.setTotalSeats(seats);
-                            registered = true;
+                            Boolean register = c.RegisterCourse(userAccount);
+                            if (register) {
+                                int seats = c.getTotalSeats();
+                                coursenames += c.getCourseName() + ",";
+                                seats -= 1;
+                                c.setTotalSeats(seats);
+                                registered = true;
+                            } else {
+                                JOptionPane.showMessageDialog(null, "You are already registered for this course");
+                            }
                         }
 
                     }
@@ -288,8 +292,9 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
             if (registered) {
                 populateTable();
                 JOptionPane.showMessageDialog(null, "You have successfully registered for entered courses.");
+                userAccount.createFeeds("Successfully Registered for course " + coursenames.substring(0, coursenames.length() - 1));
             }
-            userAccount.createFeeds("Successfully Registered for course " + coursenames.substring(0, coursenames.length() - 1));
+
         }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
