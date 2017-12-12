@@ -9,6 +9,8 @@ import Business.College.Program;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
 import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -34,6 +36,9 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         this.userAccount = userAccount;
 
         populateTable();
+        
+        tblProgDirectorBoard.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
+
     }
 
     /**
@@ -51,6 +56,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         btnApprove = new javax.swing.JButton();
         Searchbycrn = new javax.swing.JButton();
         crntextfield = new javax.swing.JTextField();
+        backbtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -58,6 +64,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Welcome Program Director");
 
+        tblProgDirectorBoard.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblProgDirectorBoard.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -77,6 +84,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblProgDirectorBoard.setRowHeight(20);
         jScrollPane1.setViewportView(tblProgDirectorBoard);
         if (tblProgDirectorBoard.getColumnModel().getColumnCount() > 0) {
             tblProgDirectorBoard.getColumnModel().getColumn(0).setResizable(false);
@@ -87,6 +95,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         }
 
         btnApprove.setBackground(new java.awt.Color(51, 153, 255));
+        btnApprove.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnApprove.setForeground(new java.awt.Color(255, 255, 255));
         btnApprove.setText("Approve");
         btnApprove.addActionListener(new java.awt.event.ActionListener() {
@@ -95,7 +104,11 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
             }
         });
 
+        Searchbycrn.setBackground(new java.awt.Color(51, 153, 255));
+        Searchbycrn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Searchbycrn.setForeground(new java.awt.Color(255, 255, 255));
         Searchbycrn.setText("Search by CRN:");
+        Searchbycrn.setToolTipText("");
         Searchbycrn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SearchbycrnActionPerformed(evt);
@@ -103,6 +116,17 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         });
 
         crntextfield.setBackground(new java.awt.Color(240, 240, 240));
+
+        backbtn.setBackground(new java.awt.Color(51, 153, 255));
+        backbtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        backbtn.setForeground(new java.awt.Color(255, 255, 255));
+        backbtn.setText("<<Back");
+        backbtn.setToolTipText("");
+        backbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -115,12 +139,14 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(120, 120, 120)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backbtn)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Searchbycrn)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnApprove, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Searchbycrn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(27, 27, 27)
-                        .addComponent(crntextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnApprove)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(crntextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -133,10 +159,12 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Searchbycrn)
-                    .addComponent(crntextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(crntextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addComponent(btnApprove)
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addComponent(backbtn)
+                .addContainerGap(131, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -162,6 +190,13 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         populateTable();
     }//GEN-LAST:event_SearchbycrnActionPerformed
+
+    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backbtnActionPerformed
 
     public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tblProgDirectorBoard.getModel();
@@ -190,6 +225,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Searchbycrn;
+    private javax.swing.JButton backbtn;
     private javax.swing.JButton btnApprove;
     private javax.swing.JTextField crntextfield;
     private javax.swing.JLabel jLabel2;

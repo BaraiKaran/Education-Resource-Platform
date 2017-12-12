@@ -11,6 +11,7 @@ import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -36,6 +37,9 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         this.userAccount = userAccount;
         this.organization = (CollegeOrganization) org;
         populateTable();
+        
+        tblProgramCoordinator.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
+
 
     }
 
@@ -56,6 +60,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         btnDeleteCourse = new javax.swing.JButton();
         Searchbycrn = new javax.swing.JButton();
         crntextfield = new javax.swing.JTextField();
+        backbtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -63,6 +68,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Welcome Program Coordinator");
 
+        tblProgramCoordinator.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblProgramCoordinator.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -82,6 +88,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblProgramCoordinator.setRowHeight(20);
         jScrollPane1.setViewportView(tblProgramCoordinator);
         if (tblProgramCoordinator.getColumnModel().getColumnCount() > 0) {
             tblProgramCoordinator.getColumnModel().getColumn(0).setResizable(false);
@@ -92,6 +99,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         }
 
         btnAddCourse.setBackground(new java.awt.Color(51, 153, 255));
+        btnAddCourse.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnAddCourse.setForeground(new java.awt.Color(255, 255, 255));
         btnAddCourse.setText("Add Course");
         btnAddCourse.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +109,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         });
 
         btnUpdateCourse.setBackground(new java.awt.Color(51, 153, 255));
+        btnUpdateCourse.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnUpdateCourse.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdateCourse.setText("Update Course");
         btnUpdateCourse.addActionListener(new java.awt.event.ActionListener() {
@@ -110,9 +119,13 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         });
 
         btnDeleteCourse.setBackground(new java.awt.Color(51, 153, 255));
+        btnDeleteCourse.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnDeleteCourse.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteCourse.setText("Delete Course");
 
+        Searchbycrn.setBackground(new java.awt.Color(51, 153, 255));
+        Searchbycrn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Searchbycrn.setForeground(new java.awt.Color(255, 255, 255));
         Searchbycrn.setText("Search by CRN:");
         Searchbycrn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,6 +135,16 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
 
         crntextfield.setBackground(new java.awt.Color(240, 240, 240));
 
+        backbtn.setBackground(new java.awt.Color(51, 153, 255));
+        backbtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        backbtn.setForeground(new java.awt.Color(255, 255, 255));
+        backbtn.setText("<<Back");
+        backbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -130,22 +153,24 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAddCourse)
-                .addGap(62, 62, 62)
-                .addComponent(btnUpdateCourse)
-                .addGap(60, 60, 60)
-                .addComponent(btnDeleteCourse)
-                .addGap(221, 221, 221))
             .addGroup(layout.createSequentialGroup()
                 .addGap(151, 151, 151)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Searchbycrn)
-                        .addGap(27, 27, 27)
-                        .addComponent(crntextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnAddCourse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Searchbycrn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(crntextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnUpdateCourse)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnDeleteCourse))))
+                    .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -153,18 +178,20 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Searchbycrn)
-                    .addComponent(crntextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(crntextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddCourse)
                     .addComponent(btnUpdateCourse)
-                    .addComponent(btnDeleteCourse))
-                .addContainerGap(206, Short.MAX_VALUE))
+                    .addComponent(btnDeleteCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(127, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -212,8 +239,16 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         populateTable();
     }//GEN-LAST:event_SearchbycrnActionPerformed
 
+    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backbtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Searchbycrn;
+    private javax.swing.JButton backbtn;
     private javax.swing.JButton btnAddCourse;
     private javax.swing.JButton btnDeleteCourse;
     private javax.swing.JButton btnUpdateCourse;

@@ -12,6 +12,7 @@ import Business.Organization.Organization;
 import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,6 +36,9 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         this.organization = (CollegeOrganization) organization;
         this.userAccount = ua;
         populateTable();
+        
+        tblTADetails.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
+
 
     }
 
@@ -64,6 +68,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         jLabel2.setText("Welcome Professor");
 
         btnAssignTA.setBackground(new java.awt.Color(51, 153, 255));
+        btnAssignTA.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnAssignTA.setForeground(new java.awt.Color(255, 255, 255));
         btnAssignTA.setText("Assign TA");
         btnAssignTA.addActionListener(new java.awt.event.ActionListener() {
@@ -72,6 +77,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblTADetails.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblTADetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -88,9 +94,11 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblTADetails.setRowHeight(20);
         jScrollPane1.setViewportView(tblTADetails);
 
         btnAnouncement.setBackground(new java.awt.Color(51, 153, 255));
+        btnAnouncement.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnAnouncement.setForeground(new java.awt.Color(255, 255, 255));
         btnAnouncement.setText("Assignment");
         btnAnouncement.addActionListener(new java.awt.event.ActionListener() {
@@ -99,6 +107,8 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
             }
         });
 
+        Searchbyname.setBackground(new java.awt.Color(51, 153, 255));
+        Searchbyname.setForeground(new java.awt.Color(255, 255, 255));
         Searchbyname.setText("Search by Name:");
         Searchbyname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +119,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         nametextfield.setBackground(new java.awt.Color(240, 240, 240));
 
         btnAnouncement1.setBackground(new java.awt.Color(51, 153, 255));
+        btnAnouncement1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnAnouncement1.setForeground(new java.awt.Color(255, 255, 255));
         btnAnouncement1.setText("Announcement");
         btnAnouncement1.addActionListener(new java.awt.event.ActionListener() {
@@ -118,6 +129,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         });
 
         jButton1.setBackground(new java.awt.Color(51, 153, 255));
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("View Timesheets");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -137,17 +149,17 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(92, 92, 92)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAssignTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                     .addComponent(btnAnouncement1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(btnAnouncement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAssignTA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Searchbyname)
-                        .addGap(27, 27, 27)
-                        .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)
+                        .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(58, 58, 58))
         );
         layout.setVerticalGroup(
@@ -158,22 +170,18 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAssignTA)
-                        .addGap(26, 26, 26)
-                        .addComponent(btnAnouncement, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAnouncement1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnAssignTA, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAnouncement, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)
+                        .addComponent(btnAnouncement1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Searchbyname)
-                            .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(263, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Searchbyname, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nametextfield, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
+                .addContainerGap(258, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

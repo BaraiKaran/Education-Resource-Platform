@@ -10,6 +10,8 @@ import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.Role.StudentRole;
 import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -37,6 +39,12 @@ public class EnrollStudents extends javax.swing.JPanel {
 
         populateTable();
         populateEnroll();
+        
+        tblStudents.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
+        
+        tblEnrolled.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
+
+
     }
 
     public void populateTable() {
@@ -90,6 +98,7 @@ public class EnrollStudents extends javax.swing.JPanel {
         btnEnroll = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblEnrolled = new javax.swing.JTable();
+        backbtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -97,6 +106,7 @@ public class EnrollStudents extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Enroll Students");
 
+        tblStudents.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblStudents.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -105,9 +115,11 @@ public class EnrollStudents extends javax.swing.JPanel {
                 "Name", "Username"
             }
         ));
+        tblStudents.setRowHeight(20);
         jScrollPane1.setViewportView(tblStudents);
 
         btnEnroll.setBackground(new java.awt.Color(51, 153, 255));
+        btnEnroll.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnEnroll.setForeground(new java.awt.Color(255, 255, 255));
         btnEnroll.setText("Enroll");
         btnEnroll.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +128,7 @@ public class EnrollStudents extends javax.swing.JPanel {
             }
         });
 
+        tblEnrolled.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblEnrolled.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -124,7 +137,18 @@ public class EnrollStudents extends javax.swing.JPanel {
                 "Name", "ID", "Program"
             }
         ));
+        tblEnrolled.setRowHeight(20);
         jScrollPane2.setViewportView(tblEnrolled);
+
+        backbtn.setBackground(new java.awt.Color(51, 153, 255));
+        backbtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        backbtn.setForeground(new java.awt.Color(255, 255, 255));
+        backbtn.setText("<<Back");
+        backbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -135,10 +159,12 @@ public class EnrollStudents extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEnroll)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEnroll, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -148,11 +174,13 @@ public class EnrollStudents extends javax.swing.JPanel {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnEnroll)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(19, 19, 19)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(99, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -177,7 +205,16 @@ public class EnrollStudents extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnEnrollActionPerformed
 
+    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+       
+    }//GEN-LAST:event_backbtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backbtn;
     private javax.swing.JButton btnEnroll;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -11,6 +11,7 @@ import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
+import Business.Validations;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -80,7 +81,7 @@ public class UpdateUserAccountJPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("New Organizations");
+        jLabel2.setText("Update User Account Details");
 
         saveBtn.setBackground(new java.awt.Color(51, 153, 255));
         saveBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -226,6 +227,10 @@ public class UpdateUserAccountJPanel extends javax.swing.JPanel {
             return;
         }
         
+         if(Validations.isTextLong(txtName.getText())) {
+                JOptionPane.showMessageDialog(null, "Organization name cannot exceed 20 characters");
+                return;
+            }
         
         
         Employee emp = (Employee)employeeJComboBox.getSelectedItem();

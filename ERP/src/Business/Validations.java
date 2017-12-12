@@ -19,12 +19,13 @@ public class Validations {
         return false;
     }
 
- public static boolean isTextLong(String coursename){
+ public static boolean isTextLong(String name){
      
-     if(coursename.length() > 20) {
+     if(name.length() > 20) {
          return true;
      }
      return false;
  }   
     
+ 
 }

@@ -16,6 +16,7 @@ import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -46,6 +47,9 @@ public class ProgramCoordWorkAreaJPanel extends javax.swing.JPanel {
         }
 
         populateTable();
+        
+        tblFeeds.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
+
     }
 
    
@@ -81,6 +85,8 @@ public class ProgramCoordWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFeeds = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Welcome Program Coordinator");
@@ -105,6 +111,7 @@ public class ProgramCoordWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblFeeds.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblFeeds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -116,6 +123,7 @@ public class ProgramCoordWorkAreaJPanel extends javax.swing.JPanel {
                 "Notifications", "Time"
             }
         ));
+        tblFeeds.setRowHeight(20);
         jScrollPane1.setViewportView(tblFeeds);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -160,6 +168,7 @@ public class ProgramCoordWorkAreaJPanel extends javax.swing.JPanel {
     private void manageOrganizationJButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrganizationJButton1ActionPerformed
         // TODO add your handling code here:
         {
+        
         EnrollStudents panel = new EnrollStudents(userProcessContainer, organization, program, userAccount);
         userProcessContainer.add("EnrollStudents", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();

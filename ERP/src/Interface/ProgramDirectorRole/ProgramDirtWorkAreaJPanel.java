@@ -11,6 +11,7 @@ import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -41,6 +42,9 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
         }
 
         populateTable();
+        
+        tblFeeds.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
+
     }
 
     public void populateTable() {
@@ -87,6 +91,7 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblFeeds.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblFeeds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -98,6 +103,7 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
                 "Notifications", "Time"
             }
         ));
+        tblFeeds.setRowHeight(20);
         jScrollPane1.setViewportView(tblFeeds);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
