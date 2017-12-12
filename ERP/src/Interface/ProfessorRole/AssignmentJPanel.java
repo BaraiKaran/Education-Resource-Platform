@@ -9,10 +9,14 @@ import Business.Assignment.*;
 import Business.College.Program;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
+import Business.TrayIconDemo;
 import Business.UserAccount.UserAccount;
 import Business.Validations;
+import java.awt.AWTException;
 import java.awt.CardLayout;
+import java.awt.SystemTray;
 import java.io.File;
+import java.net.MalformedURLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -230,8 +234,23 @@ public class AssignmentJPanel extends javax.swing.JPanel {
 
         }
         new File("C:\\Assignment_submission\\" + String.valueOf(cmbCousreName.getSelectedItem()) + "\\" + txtTitle.getText()).mkdir();
-
-        JOptionPane.showMessageDialog(null, "Submitted successfully");
+        
+        
+        /* Code to show windows notification */
+         if (SystemTray.isSupported()) {
+            TrayIconDemo td = new TrayIconDemo();
+            try{
+            td.displayTray(as.getTitle(),"Submitted Successfully");
+            }catch(AWTException e){
+                
+            }catch(MalformedURLException e){
+                
+            }
+        } else {
+            System.err.println("System tray not supported!");
+        }
+        /* */
+        //JOptionPane.showMessageDialog(null, "Submitted successfully");
 
     }//GEN-LAST:event_btnSubmitActionPerformed
 

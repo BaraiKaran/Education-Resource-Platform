@@ -16,6 +16,7 @@ public class Submission {
     private String submittedOn;
     private UserAccount student;
     private String path;
+    private int marks;
 
     public Submission(String submittedon, String path, UserAccount useraccount) {
         this.submittedOn = submittedon;
@@ -23,6 +24,15 @@ public class Submission {
         this.student = useraccount;
     }
 
+    public int getMarks() {
+        return marks;
+    }
+
+    public void setMarks(int marks) {
+        this.marks = marks;
+    }
+
+    
     public String getSubmittedOn() {
         return submittedOn;
     }

@@ -22,6 +22,11 @@ import Business.Role.StudentRole;
 import Business.Role.SystemAdminRole;
 import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
+import com.sbix.jnotify.NPosition;
+import com.sbix.jnotify.NoticeWindow;
+import java.awt.AWTException;
+import java.awt.SystemTray;
+import java.net.MalformedURLException;
 
 /**
  *
@@ -31,6 +36,7 @@ public class ConfigureABusiness {
 
     public static EcoSystem Configure() {
 
+            new NoticeWindow("This is message", NPosition.TOP_RIGHT);
         EcoSystem ecosystem = new EcoSystem();
 
         Network usa = ecosystem.createAndAddNetwork();
