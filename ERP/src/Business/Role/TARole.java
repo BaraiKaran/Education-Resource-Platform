@@ -12,7 +12,10 @@ import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import Interface.TARole.TAWorkAreaJPanel;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
@@ -23,7 +26,12 @@ public class TARole extends Role {
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system, Network network) {
-        return new TAWorkAreaJPanel(userProcessContainer, organization, account);
+        try {
+            return new TAWorkAreaJPanel(userProcessContainer, organization, account);
+        } catch (ParseException ex) {
+            Logger.getLogger(TARole.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
