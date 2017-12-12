@@ -15,6 +15,15 @@ public class TAHours {
     private String endTime;
     private String date;
     private long timeDuration;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getStartTime() {
         return startTime;
@@ -46,6 +55,11 @@ public class TAHours {
 
     public void setTimeDuration(long timeDuration) {
         this.timeDuration = timeDuration;
+    }
+
+    @Override
+    public String toString() {
+        return status;
     }
 
 }

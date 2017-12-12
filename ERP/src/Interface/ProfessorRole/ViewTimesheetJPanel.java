@@ -8,9 +8,11 @@ package Interface.ProfessorRole;
 import Business.College.Program;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
+import Business.Role.TAHours;
+import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
-import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -51,9 +53,8 @@ public class ViewTimesheetJPanel extends javax.swing.JPanel {
         cmbTANames = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTimesheetDetails = new javax.swing.JTable();
-        backbtn = new javax.swing.JButton();
+        btnApprove = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(900, 600));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -73,29 +74,41 @@ public class ViewTimesheetJPanel extends javax.swing.JPanel {
             }
         });
 
-        tblTimesheetDetails.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblTimesheetDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Course Name", "Date", "Start Time", "End Time", "Hours worked", "Status"
             }
-        ));
-        tblTimesheetDetails.setRowHeight(20);
-        jScrollPane1.setViewportView(tblTimesheetDetails);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
-        backbtn.setBackground(new java.awt.Color(51, 153, 255));
-        backbtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        backbtn.setForeground(new java.awt.Color(255, 255, 255));
-        backbtn.setText("<<Back");
-        backbtn.setToolTipText("");
-        backbtn.addActionListener(new java.awt.event.ActionListener() {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblTimesheetDetails);
+        if (tblTimesheetDetails.getColumnModel().getColumnCount() > 0) {
+            tblTimesheetDetails.getColumnModel().getColumn(0).setResizable(false);
+            tblTimesheetDetails.getColumnModel().getColumn(1).setResizable(false);
+            tblTimesheetDetails.getColumnModel().getColumn(2).setResizable(false);
+            tblTimesheetDetails.getColumnModel().getColumn(3).setResizable(false);
+            tblTimesheetDetails.getColumnModel().getColumn(4).setResizable(false);
+            tblTimesheetDetails.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        btnApprove.setBackground(new java.awt.Color(51, 153, 255));
+        btnApprove.setForeground(new java.awt.Color(255, 255, 255));
+        btnApprove.setText("Approve");
+        btnApprove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backbtnActionPerformed(evt);
+                btnApproveActionPerformed(evt);
             }
         });
 
@@ -105,38 +118,54 @@ public class ViewTimesheetJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(207, 207, 207)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(31, 31, 31)
-                            .addComponent(cmbTANames, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(333, 333, 333)
-                            .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
+                        .addGap(333, 333, 333)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(236, 236, 236)
+                        .addComponent(jLabel2)
+                        .addGap(28, 28, 28)
+                        .addComponent(cmbTANames, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(241, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(45, 45, 45)
+                .addComponent(jLabel1)
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbTANames, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                    .addComponent(jLabel2)
+                    .addComponent(cmbTANames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(61, 61, 61)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(backbtn)
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addGap(87, 87, 87)
+                .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(171, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblTimesheetDetails.getModel();
+        model.setRowCount(0);
+        UserAccount u = (UserAccount) cmbTANames.getSelectedItem();
+        TARole role = (TARole) u.getRole();
+        Object[] row = new Object[6];
+        for (TAHours r : role.getTahours()) {
+            row[0] = role.getCourse();
+            row[1] = r.getDate();
+            row[2] = r.getStartTime();
+            row[3] = r.getEndTime();
+            row[4] = (r.getTimeDuration() / 60000);
+            row[5] = r;
+            model.addRow(row);
+        }
+    }
 
     private void cmbTANamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTANamesActionPerformed
         // TODO add your handling code here:
@@ -144,7 +173,7 @@ public class ViewTimesheetJPanel extends javax.swing.JPanel {
         Object obj = evt.getSource();
         if (obj == cmbTANames) {
             tblTimesheetDetails.setVisible(true);
-
+            populateTable();
         }
 
     }//GEN-LAST:event_cmbTANamesActionPerformed
@@ -153,12 +182,24 @@ public class ViewTimesheetJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbTANamesPropertyChange
 
-    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
+    private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
         // TODO add your handling code here:
-        userProcessContainer.remove(this);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
-    }//GEN-LAST:event_backbtnActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tblTimesheetDetails.getModel();
+        int selected = tblTimesheetDetails.getSelectedRow();
+        if (selected >= 0) {
+            TAHours hrs = (TAHours) tblTimesheetDetails.getValueAt(selected, 5);
+            if (hrs.getStatus().equals("Submitted")) {
+                hrs.setStatus("Approved");
+
+                UserAccount u = (UserAccount) cmbTANames.getSelectedItem();
+                u.createFeeds("TA hours for " + tblTimesheetDetails.getValueAt(selected, 1) + " has been approved.");
+
+                //program.getProgramCoordinator().createFeeds("Program Director " + userAccount.getEmployee().getName() + " accepted course " + c.getCourseName());
+            }
+
+        }
+        populateTable();
+    }//GEN-LAST:event_btnApproveActionPerformed
 
     public void populateTAdropdown() {
         cmbTANames.removeAllItems();
@@ -175,7 +216,7 @@ public class ViewTimesheetJPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backbtn;
+    private javax.swing.JButton btnApprove;
     private javax.swing.JComboBox cmbTANames;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
