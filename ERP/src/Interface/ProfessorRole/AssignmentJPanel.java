@@ -220,31 +220,35 @@ public class AssignmentJPanel extends javax.swing.JPanel {
             return;
         }
 
-        Courses cr = (Courses) cmbCousreName.getSelectedItem();
+        Courses c = (Courses) cmbCousreName.getSelectedItem();
+        for (Assignment a : c.getAssignment().getAssignmentDirectory()) {
+            if (a.getTitle().toLowerCase().equals(txtTitle.getText().toLowerCase())) {
+                JOptionPane.showMessageDialog(null, "Assignment title has to be unique");
+                return;
+            }
+        }
 
+        Courses cr = (Courses) cmbCousreName.getSelectedItem();
         Assignment as = cr.getAssignment().addAssignment(txtTitle.getText(), txtAn.getText());
 
         for (UserAccount ua : cr.getStudents()) {
-
             ua.createFeeds("Professor " + userAccount.getEmployee().getName() + " released new Assignment " + as.getTitle());
-
         }
         for (UserAccount ua : cr.getTeachingAssistant()) {
             ua.createFeeds("Professor " + userAccount.getEmployee().getName() + " released new Assignment " + as.getTitle());
 
         }
         new File("C:\\Assignment_submission\\" + String.valueOf(cmbCousreName.getSelectedItem()) + "\\" + txtTitle.getText()).mkdir();
-        
-        
+
         /* Code to show windows notification */
-         if (SystemTray.isSupported()) {
+        if (SystemTray.isSupported()) {
             TrayIconDemo td = new TrayIconDemo();
-            try{
-            td.displayTray(as.getTitle(),"Submitted Successfully");
-            }catch(AWTException e){
-                
-            }catch(MalformedURLException e){
-                
+            try {
+                td.displayTray(as.getTitle(), "Submitted Successfully");
+            } catch (AWTException e) {
+
+            } catch (MalformedURLException e) {
+
             }
         } else {
             System.err.println("System tray not supported!");

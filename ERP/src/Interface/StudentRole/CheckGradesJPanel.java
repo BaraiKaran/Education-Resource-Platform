@@ -10,19 +10,8 @@ import Business.AssignmentSubmission.Submission;
 import Business.College.Program;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
+import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,24 +19,23 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author karan
  */
-public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
+public class CheckGradesJPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form AssignmentSubmissionJPanel
+     * Creates new form CheckGradesJPanel
      */
     JPanel userProcessContainer;
     CollegeOrganization organization;
     UserAccount ua;
     Program program;
 
-    AssignmentSubmissionJPanel(JPanel userProcessContainer, UserAccount ua, CollegeOrganization organization, Program program) {
+    public CheckGradesJPanel(JPanel userProcessContainer, UserAccount ua, Organization organization, Program program) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.organization = (CollegeOrganization) organization;
         this.ua = ua;
         this.program = program;
-        populateCourse();
-        populateTable();
+        this.organization = (CollegeOrganization) organization;
+        populateCourses();
     }
 
     /**
@@ -62,15 +50,13 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cmbCourse = new javax.swing.JComboBox();
-        cmbAssignment = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        btnBrowseFiles = new javax.swing.JButton();
+        cmbAssignment = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSubmissionDetails = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Assignment Submission");
+        jLabel1.setText("Assignment Grades");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setText("Course :");
@@ -86,6 +72,9 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setText("Assignment :");
+
         cmbAssignment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbAssignmentActionPerformed(evt);
@@ -97,32 +86,19 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setText("Assignment :");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("Submit:");
-
-        btnBrowseFiles.setText("Browse & Upload");
-        btnBrowseFiles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBrowseFilesActionPerformed(evt);
-            }
-        });
-
         tblSubmissionDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Course Name", "Assignment", "Submitted on"
+                "Course Name", "Assignment", "Submitted on", "Marks"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -130,11 +106,6 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(tblSubmissionDetails);
-        if (tblSubmissionDetails.getColumnModel().getColumnCount() > 0) {
-            tblSubmissionDetails.getColumnModel().getColumn(0).setResizable(false);
-            tblSubmissionDetails.getColumnModel().getColumn(1).setResizable(false);
-            tblSubmissionDetails.getColumnModel().getColumn(2).setResizable(false);
-        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -143,30 +114,29 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(310, 310, 310)
+                        .addGap(333, 333, 333)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(139, 139, 139)
+                        .addGap(305, 305, 305)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel7))
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBrowseFiles)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(174, Short.MAX_VALUE))
+                            .addComponent(cmbAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 149, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(122, 122, 122))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(39, 39, 39)
                 .addComponent(jLabel1)
-                .addGap(78, 78, 78)
+                .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(cmbCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -174,45 +144,11 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(cmbAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(btnBrowseFiles))
-                .addGap(50, 50, 50)
+                .addGap(83, 83, 83)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addContainerGap(221, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    public void populateTable() {
-        DefaultTableModel model = (DefaultTableModel) tblSubmissionDetails.getModel();
-        model.setRowCount(0);
-        Object[] row = new Object[5];
-        for (Courses course : program.getCourses().getCourseList()) {
-            for (Assignment as : course.getAssignment().getAssignmentDirectory()) {
-                for (Submission s : as.getSubmissionDirectory().getSubmission()) {
-                    if (ua.getId() == s.getStudent().getId()) {
-                        row[0] = course;
-                        row[1] = as.getTitle();
-                        row[2] = s.getSubmittedOn();
-                        model.addRow(row);
-                    }
-                }
-            }
-        }
-
-    }
-
-    public void populateCourse() {
-        cmbCourse.removeAllItems();
-        for (Courses c : program.getCourses().getCourseList()) {
-            for (UserAccount user : c.getStudents()) {
-                if (ua.getId() == user.getId()) {
-                    cmbCourse.addItem(c);
-                }
-            }
-        }
-    }
 
     private void cmbCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCourseActionPerformed
         // TODO add your handling code here:
@@ -225,8 +161,18 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
                 cmbAssignment.addItem(as);
             }
         }
-
     }//GEN-LAST:event_cmbCourseActionPerformed
+
+    public void populateCourses() {
+        cmbCourse.removeAllItems();
+        for (Courses c : program.getCourses().getCourseList()) {
+            for (UserAccount user : c.getStudents()) {
+                if (ua.getId() == user.getId()) {
+                    cmbCourse.addItem(c);
+                }
+            }
+        }
+    }
 
     private void cmbCoursePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbCoursePropertyChange
         // TODO add your handling code here:
@@ -234,7 +180,7 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
 
     private void cmbAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAssignmentActionPerformed
         // TODO add your handling code here:
-
+        populateTable();
         /*        Object obj = evt.getSource();
         if (obj == cmbCousreName) {
             cmbStudentsName.removeAllItems();
@@ -252,64 +198,36 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
          */
     }//GEN-LAST:event_cmbAssignmentActionPerformed
 
+    public void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblSubmissionDetails.getModel();
+        model.setRowCount(0);
+        Object[] row = new Object[5];
+        for (Courses course : program.getCourses().getCourseList()) {
+            for (Assignment as : course.getAssignment().getAssignmentDirectory()) {
+                for (Submission s : as.getSubmissionDirectory().getSubmission()) {
+                    if (ua.getId() == s.getStudent().getId()) {
+                        if (course.getCourseName().equals(String.valueOf(cmbCourse.getSelectedItem()))) {
+                            row[0] = course;
+                            row[1] = as.getTitle();
+                            row[2] = s.getSubmittedOn();
+                            row[3] = s.getMarks();
+                            model.addRow(row);
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
     private void cmbAssignmentPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbAssignmentPropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbAssignmentPropertyChange
 
-    private void btnBrowseFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseFilesActionPerformed
-
-        FileWriter fw = null;
-
-        // TODO add your handling code here:
-        JFileChooser chooser = new JFileChooser();
-        chooser.showOpenDialog(null);
-        File f = chooser.getSelectedFile();
-
-        String filename = f.getAbsolutePath();
-
-        String ext = "";
-        String spath = "";
-        int i = filename.lastIndexOf('.');
-        if (i > 0) {
-            ext = filename.substring(i + 1);
-        }
-
-        Path SourcePath = f.toPath();
-        if (ext.equals("pdf")) {
-            spath = "C:\\Assignment_Submission\\" + String.valueOf(cmbCourse.getSelectedItem()) + "\\" + String.valueOf(cmbAssignment.getSelectedItem()) + "\\" + ua.getId() + ".pdf";
-        } else if (ext.equals("docx")) {
-            spath = "C:\\Assignment_Submission\\" + String.valueOf(cmbCourse.getSelectedItem()) + "\\" + String.valueOf(cmbAssignment.getSelectedItem()) + "\\" + ua.getId() + ".docx";
-        } else if (ext.equals("zip")) {
-            spath = "C:\\Assignment_Submission\\" + String.valueOf(cmbCourse.getSelectedItem()) + "\\" + String.valueOf(cmbAssignment.getSelectedItem()) + "\\" + ua.getId() + ".zip";
-        }
-        File dest = new File(spath);
-        Path destPath = dest.toPath();
-        try {
-            Files.copy(SourcePath, destPath);
-
-        } catch (FileAlreadyExistsException e) {
-            JOptionPane.showMessageDialog(null, "You have already uploaded the assignment");
-            return;
-        } catch (IOException ex) {
-            Logger.getLogger(AssignmentSubmissionJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        Assignment as = (Assignment) cmbAssignment.getSelectedItem();
-        Date d = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        String e = formatter.format(d);
-        //active.setEndTime(e);
-        as.getSubmissionDirectory().addSubmission(e, spath, ua);
-        populateTable();
-
-    }//GEN-LAST:event_btnBrowseFilesActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBrowseFiles;
     private javax.swing.JComboBox cmbAssignment;
     private javax.swing.JComboBox cmbCourse;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;

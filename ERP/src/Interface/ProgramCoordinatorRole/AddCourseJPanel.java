@@ -203,6 +203,11 @@ public class AddCourseJPanel extends javax.swing.JPanel {
                 return;
             }
 
+            if (totalSeats < 0) {
+                JOptionPane.showMessageDialog(null, "Total seats cannot be negative.");
+                return;
+            }
+
             if (Validations.isTextLong(coursename)) {
                 JOptionPane.showMessageDialog(null, "Course name cannot exceed 20 characters");
                 return;
