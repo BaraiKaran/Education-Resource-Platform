@@ -14,7 +14,6 @@ import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Font;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -39,12 +38,11 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         this.userAccount = ua;
         populateTable();
         populateFeeds();
-        tblTADetails.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
-
+        tblTADetails.getTableHeader().setFont(new Font("Tahoma", Font.CENTER_BASELINE, 18));
 
     }
-    
-     public void populateFeeds() {
+
+    public void populateFeeds() {
 
         DefaultTableModel model = (DefaultTableModel) tblFeeds.getModel();
         model.setRowCount(0);
@@ -83,6 +81,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblFeeds = new javax.swing.JTable();
         btnGrade = new javax.swing.JButton();
+        btnGrade1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -206,6 +205,16 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnGrade1.setBackground(new java.awt.Color(51, 153, 255));
+        btnGrade1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnGrade1.setForeground(new java.awt.Color(255, 255, 255));
+        btnGrade1.setText("Students");
+        btnGrade1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrade1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -232,15 +241,14 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGrade1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -267,7 +275,8 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGrade1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(65, 65, 65)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -308,8 +317,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
     private void btnAssignTAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignTAActionPerformed
         // TODO add your handling code here:
-        
-        
+
         AssignTAJPanel JPanel = new AssignTAJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
         userProcessContainer.add("AssignTAJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -319,8 +327,6 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
     private void btnAnouncementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncementActionPerformed
         // TODO add your handling code here:
 
-        
-        
         AssignmentJPanel JPanel = new AssignmentJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
         userProcessContainer.add("AssignmentJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -334,8 +340,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
     private void btnAnouncement1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncement1ActionPerformed
         // TODO add your handling code here:
-        
-        
+
         AnnouncementJPanel JPanel = new AnnouncementJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
         userProcessContainer.add("AnnouncementJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -344,8 +349,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        
+
         ViewTimesheetJPanel JPanel = new ViewTimesheetJPanel(userProcessContainer, program, userAccount, organization);
         userProcessContainer.add("ViewTimesheetJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -354,9 +358,8 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
     private void btnAssignRAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignRAActionPerformed
         // TODO add your handling code here:
-        
-        
-         AssignRAJPanel JPanel = new AssignRAJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
+
+        AssignRAJPanel JPanel = new AssignRAJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
         userProcessContainer.add("AssignRAJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -364,8 +367,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
-        
+
         ViewRATimesheetJPanel JPanel = new ViewRATimesheetJPanel(userProcessContainer, program, userAccount, organization);
         userProcessContainer.add("ViewRATimesheetJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -374,16 +376,22 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
     private void btnGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGradeActionPerformed
         // TODO add your handling code here:
-        
-        
-        
-        
+
         GradeJPanel JPanel = new GradeJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
         userProcessContainer.add("GradeJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-        
+
     }//GEN-LAST:event_btnGradeActionPerformed
+
+    private void btnGrade1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrade1ActionPerformed
+        // TODO add your handling code here:
+
+        StudentsJPanel JPanel = new StudentsJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
+        userProcessContainer.add("StudentsJPanel", JPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+    }//GEN-LAST:event_btnGrade1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Searchbyname;
@@ -392,6 +400,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnAssignRA;
     private javax.swing.JButton btnAssignTA;
     private javax.swing.JButton btnGrade;
+    private javax.swing.JButton btnGrade1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;

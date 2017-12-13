@@ -5,12 +5,10 @@
  */
 package Interface.StudentRole;
 
-import Interface.TARole.*;
 import Business.Assignment.Assignment;
 import Business.College.Program;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
-import Business.Role.StudentRole;
 import Business.TimeSlots.TimeSlots;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -33,7 +31,6 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
     CollegeOrganization organization;
     UserAccount userAccount;
     Program program;
- 
 
     public TimeSlotJPanel(JPanel userProcessContainer, UserAccount userAccount, CollegeOrganization organization, Program program) {
 
@@ -41,37 +38,36 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
         this.organization = (CollegeOrganization) organization;
         this.userAccount = userAccount;
         this.program = program;
-        
+
         initComponents();
         populateCourse();
-        
-        tblSlots.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
 
-        
+        tblSlots.getTableHeader().setFont(new Font("Tahoma", Font.CENTER_BASELINE, 18));
+
     }
-    public void populateCombo(){
+
+    public void populateCombo() {
         cmbAssignment.removeAllItems();
-        Courses course = (Courses)cmbCourse.getSelectedItem();
-        for(Assignment as : course.getAssignment().getAssignmentDirectory()){
+        Courses course = (Courses) cmbCourse.getSelectedItem();
+        for (Assignment as : course.getAssignment().getAssignmentDirectory()) {
             cmbAssignment.addItem(as);
         }
     }
-    public void populateCourse(){
+
+    public void populateCourse() {
         cmbCourse.removeAllItems();
-        
-        for(Courses as : program.getCourses().getCourseList()){
+
+        for (Courses as : program.getCourses().getCourseList()) {
             cmbCourse.addItem(as);
         }
-        
-      
+
     }
-    
-    public void populateTable(Assignment as){
-        DefaultTableModel dtm  = (DefaultTableModel)tblSlots.getModel();
+
+    public void populateTable(Assignment as) {
+        DefaultTableModel dtm = (DefaultTableModel) tblSlots.getModel();
         dtm.setRowCount(0);
-        
-        
-        for(TimeSlots ts : as.getSlots().getSlots()){
+        Boolean flag = false;
+        for (TimeSlots ts : as.getSlots().getSlots()) {
             Object[] row = new Object[7];
             row[0] = ts;
             row[1] = as.getTitle();
@@ -79,20 +75,26 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
             row[3] = ts.getStart();
             row[4] = ts.getEnd();
             row[5] = ts.getStatus();
-           if(ts.getStudent() instanceof UserAccount){
-               row[6] = ts.getStudent();
-               if(ts.getStudent().getId() == userAccount.getId()){
-                   btnSubmit.setEnabled(false);
-                   txtDate.setText(ts.getDate());
-                   txtEnd.setText(ts.getEnd());
-                   txtStart.setText(ts.getStart());
-               }
-           }else{
-               row[6] = "NA";
-           }
-           dtm.addRow(row);
+
+            if (ts.getStudent() instanceof UserAccount) {
+                row[6] = ts.getStudent();
+                if (ts.getStudent().getId() == userAccount.getId()) {
+                    flag = true;
+                    btnSubmit.setEnabled(false);
+                    txtDate.setText(ts.getDate());
+                    txtEnd.setText(ts.getEnd());
+                    txtStart.setText(ts.getStart());
+                }
+            } else {
+                row[6] = "NA";
+            }
+            dtm.addRow(row);
+        }
+        if (!flag) {
+            btnSubmit.setEnabled(true);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -287,40 +289,40 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
 
-       int selected = tblSlots.getSelectedRow();
-       if(selected >= 0){
-           
-        Assignment as = (Assignment)cmbAssignment.getSelectedItem();
-        TimeSlots ts = (TimeSlots)tblSlots.getValueAt(selected, 0);
-        if(ts.getStatus().equals("Booked")){
-            JOptionPane.showMessageDialog(null, "Slot already booked");
-            return;
+        int selected = tblSlots.getSelectedRow();
+        if (selected >= 0) {
+
+            Assignment as = (Assignment) cmbAssignment.getSelectedItem();
+            TimeSlots ts = (TimeSlots) tblSlots.getValueAt(selected, 0);
+            if (ts.getStatus().equals("Booked")) {
+                JOptionPane.showMessageDialog(null, "Slot already booked");
+                return;
+            }
+
+            ts.setStatus("Booked");
+            ts.setStudent(userAccount);
+            txtDate.setText(ts.getDate());
+            txtEnd.setText(ts.getEnd());
+            txtStart.setText(ts.getStart());
+            JOptionPane.showMessageDialog(null, "Booked Successfully");
+
+            populateTable(as);
+        } else {
+            JOptionPane.showMessageDialog(null, "Select a row first");
         }
-            
-        ts.setStatus("Booked");
-        ts.setStudent(userAccount);
-        txtDate.setText(ts.getDate());
-        txtEnd.setText(ts.getEnd());
-        txtStart.setText(ts.getStart());
-        JOptionPane.showMessageDialog(null, "Booked Successfully");
-      
-        populateTable(as);
-       }else{
-           JOptionPane.showMessageDialog(null, "Select a row first");
-       }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         int selected = tblSlots.getSelectedRow();
-        if(selected >=0){
-            Assignment as = (Assignment)cmbAssignment.getSelectedItem();
-            TimeSlots ts = (TimeSlots)tblSlots.getValueAt(selected,0);
+        if (selected >= 0) {
+            Assignment as = (Assignment) cmbAssignment.getSelectedItem();
+            TimeSlots ts = (TimeSlots) tblSlots.getValueAt(selected, 0);
             as.getSlots().removeTimeSlots(ts);
-              
+
             populateTable(as);
         }
-        
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void cmbAssignmentPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbAssignmentPropertyChange
@@ -330,9 +332,9 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
     private void cmbAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAssignmentActionPerformed
         // TODO add your handling code here:
 
-        Assignment as = (Assignment)cmbAssignment.getSelectedItem();
+        Assignment as = (Assignment) cmbAssignment.getSelectedItem();
         System.out.println(as.getTitle());
-       populateTable(as);
+        populateTable(as);
         /*        Object obj = evt.getSource();
         if (obj == cmbCousreName) {
             cmbStudentsName.removeAllItems();
@@ -347,14 +349,13 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
                 }
             }
         }
-        */
+         */
     }//GEN-LAST:event_cmbAssignmentActionPerformed
 
     private void cmbCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCourseActionPerformed
         // TODO add your handling code here:
         populateCombo();
-        
-        
+
     }//GEN-LAST:event_cmbCourseActionPerformed
 
     private void cmbCoursePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbCoursePropertyChange
@@ -367,7 +368,7 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         StudentWorkAreaJPanel panel = (StudentWorkAreaJPanel) component;
-        panel.populateTable(); 
+        panel.populateTable();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backbtnActionPerformed

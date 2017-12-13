@@ -4,6 +4,7 @@
  */
 package Interface;
 
+import Business.ConfigureABusiness;
 import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
@@ -28,8 +29,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
     public MainJFrame() {
         initComponents();
-        // system = ConfigureABusiness.Configure();
-        system = dB4OUtil.retrieveSystem();
+        system = ConfigureABusiness.Configure();
+        //system = dB4OUtil.retrieveSystem();
     }
 
     /**
@@ -209,7 +210,7 @@ public class MainJFrame extends javax.swing.JFrame {
         container.add("blank", blankJP);
         CardLayout crdLyt = (CardLayout) container.getLayout();
         crdLyt.next(container);
-        dB4OUtil.storeSystem(system);
+        //dB4OUtil.storeSystem(system);
     }//GEN-LAST:event_logoutJButtonActionPerformed
 
     /**

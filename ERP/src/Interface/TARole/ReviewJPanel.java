@@ -211,7 +211,7 @@ public class ReviewJPanel extends javax.swing.JPanel {
             TimeSlots timeslot = (TimeSlots) tblSlots.getValueAt(selected, 0);
             Assignment assignment = (Assignment) cmbAssignment.getSelectedItem();
             AReviewJPanel JPanel = new AReviewJPanel(userProcessContainer, program, userAccount, organization, course, timeslot, assignment);
-            userProcessContainer.add("ReviewJPanel", JPanel);
+            userProcessContainer.add("AReviewJPanel", JPanel);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.next(userProcessContainer);
         } else {
