@@ -29,6 +29,7 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
     private Courses courses;
        
     public UpdateCourseJPanel(JPanel userProcessContainer, Program program, UserAccount userAccount, Courses course) {
+        initComponents();
         this.userprocesscontainer = userProcessContainer;
         this.program = program;
         this.userAccount = userAccount;
@@ -264,11 +265,14 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "CRN Number has to be an integer value.");
                 return;
             }
-                for (Courses c : program.getCourses().getCourseList()) {
+            
+            if(courses.getCrnNumber() != Integer.parseInt(txtCRN.getText())){
+            for (Courses c : program.getCourses().getCourseList()) {
                 if (c.getCrnNumber() == Integer.parseInt(txtCRN.getText())) {
                     JOptionPane.showMessageDialog(null, "CRN number already exists.");
                     return;
                 }
+            }
             }
 
                 String coursename = txtName.getText().trim();

@@ -14,6 +14,7 @@ import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Font;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -307,6 +308,11 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
     private void btnAssignTAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignTAActionPerformed
         // TODO add your handling code here:
+        
+        if(!(program instanceof Program)){
+            JOptionPane.showMessageDialog(null, "Program not added");
+            return;
+        }
         AssignTAJPanel JPanel = new AssignTAJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
         userProcessContainer.add("AssignTAJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -316,6 +322,11 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
     private void btnAnouncementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncementActionPerformed
         // TODO add your handling code here:
 
+        
+        if(!(program instanceof Program)){
+            JOptionPane.showMessageDialog(null, "Program not added");
+            return;
+        }
         AssignmentJPanel JPanel = new AssignmentJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
         userProcessContainer.add("AssignmentJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -329,6 +340,11 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
     private void btnAnouncement1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncement1ActionPerformed
         // TODO add your handling code here:
+        
+        if(!(program instanceof Program)){
+            JOptionPane.showMessageDialog(null, "Program not added");
+            return;
+        }
         AnnouncementJPanel JPanel = new AnnouncementJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
         userProcessContainer.add("AnnouncementJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -337,6 +353,11 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
+        if(!(program instanceof Program)){
+            JOptionPane.showMessageDialog(null, "Program not added");
+            return;
+        }
         ViewTimesheetJPanel JPanel = new ViewTimesheetJPanel(userProcessContainer, program, userAccount, organization);
         userProcessContainer.add("ViewTimesheetJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -345,6 +366,11 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
     private void btnAssignRAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignRAActionPerformed
         // TODO add your handling code here:
+        
+        if(!(program instanceof Program)){
+            JOptionPane.showMessageDialog(null, "Program not added");
+            return;
+        }
          AssignRAJPanel JPanel = new AssignRAJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
         userProcessContainer.add("AssignRAJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -353,6 +379,11 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        
+        if(!(program instanceof Program)){
+            JOptionPane.showMessageDialog(null, "Program not added");
+            return;
+        }
         ViewRATimesheetJPanel JPanel = new ViewRATimesheetJPanel(userProcessContainer, program, userAccount, organization);
         userProcessContainer.add("ViewRATimesheetJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -361,6 +392,12 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
 
     private void btnGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGradeActionPerformed
         // TODO add your handling code here:
+        
+        
+        if(!(program instanceof Program)){
+            JOptionPane.showMessageDialog(null, "Program not added");
+            return;
+        }
         
         GradeJPanel JPanel = new GradeJPanel(userProcessContainer, program, userAccount, organization, userAccount.getUsername());
         userProcessContainer.add("GradeJPanel", JPanel);

@@ -61,4 +61,9 @@ public class TARequest {
     public void setUa(UserAccount ua) {
         this.ua = ua;
     }
+    
+    @Override
+    public String toString(){
+        return ua.getEmployee().getName();
+    }
 }

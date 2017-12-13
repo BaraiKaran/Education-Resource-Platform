@@ -5,6 +5,8 @@
  */
 package Interface.AdministrativeRole;
 
+import Business.College.Program;
+import Business.Courses.Courses;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
@@ -13,6 +15,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -43,7 +46,10 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     }
 
     public void plotgraph() {
-
+ if(!(enterprise instanceof Enterprise)){
+            JOptionPane.showMessageDialog(null, "Please add Universities");
+            return;
+        }
         int orgcount = 0;
         int empcount = 0;
         int usrcount = 0;
@@ -232,6 +238,13 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void userJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userJButtonActionPerformed
         // TODO add your handling code here:
+        
+          if(!(enterprise instanceof Enterprise)){
+            JOptionPane.showMessageDialog(null, "Please add Universities");
+            return;
+        }
+       
+        
         ManageUserAccountJPanel muajp = new ManageUserAccountJPanel(userProcessContainer, enterprise);
         userProcessContainer.add("ManageUserAccountJPanel", muajp);
 
@@ -241,6 +254,10 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void manageEmployeeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageEmployeeJButtonActionPerformed
 
+         if(!(enterprise instanceof Enterprise)){
+            JOptionPane.showMessageDialog(null, "Please add Universities");
+            return;
+        }
         ManageEmployeeJPanel manageEmployeeJPanel = new ManageEmployeeJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
         userProcessContainer.add("manageEmployeeJPanel", manageEmployeeJPanel);
 
@@ -250,7 +267,10 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_manageEmployeeJButtonActionPerformed
 
     private void manageOrganizationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrganizationJButtonActionPerformed
-
+ if(!(enterprise instanceof Enterprise)){
+            JOptionPane.showMessageDialog(null, "Please add Universities");
+            return;
+        }
         ManageOrganizationJPanel manageOrganizationJPanel = new ManageOrganizationJPanel(userProcessContainer, enterprise.getOrganizationDirectory());
         userProcessContainer.add("manageOrganizationJPanel", manageOrganizationJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();

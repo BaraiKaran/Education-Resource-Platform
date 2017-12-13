@@ -11,6 +11,7 @@ import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.Role.ProfessorRole;
 import Business.Role.RARequest;
+import Business.Role.RARole;
 import Business.Role.TARequest;
 import Business.Role.TARole;
 import Business.UserAccount.UserAccount;
@@ -50,7 +51,7 @@ public class ManageRARJPanel extends javax.swing.JPanel {
     public void populateCombo() {
         cmbStudentsName.removeAllItems();
         for (UserAccount ua : org.getUserAccountDirectory().getUserAccountList()) {
-            if (ua.getRole() instanceof TARole) {
+            if (ua.getRole() instanceof RARole) {
                 cmbStudentsName.addItem(ua);
             }
         }
@@ -111,7 +112,7 @@ public class ManageRARJPanel extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Manage TA Requests");
+        jLabel2.setText("Manage RA Requests");
 
         btnApprove.setBackground(new java.awt.Color(51, 153, 255));
         btnApprove.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -146,7 +147,7 @@ public class ManageRARJPanel extends javax.swing.JPanel {
                 {null, null}
             },
             new String [] {
-                "TA", "Status"
+                "RA", "Status"
             }
         ));
         tblTARequest.setRowHeight(20);

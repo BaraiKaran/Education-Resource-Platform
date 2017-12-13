@@ -277,6 +277,17 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
     private void btnDeleteCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCourseActionPerformed
         // TODO add your handling code here:
         
+       int selected = tblProgramCoordinator.getSelectedRow();
+       if(selected >=0){
+           Courses cr = (Courses)tblProgramCoordinator.getValueAt(selected,1);
+           program.getCourses().removeCourse(cr);
+           JOptionPane.showMessageDialog(null, "Deleted successfully");
+           populateTable();
+       }else{
+           JOptionPane.showMessageDialog(null, "Please select a row");
+       }
+        
+        
     }//GEN-LAST:event_btnDeleteCourseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

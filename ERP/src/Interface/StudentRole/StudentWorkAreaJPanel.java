@@ -242,6 +242,11 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnSubmitAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitAssignmentActionPerformed
         // TODO add your handling code here:
+        
+        if(!(program instanceof Program)){
+            JOptionPane.showMessageDialog(null, "Please add program and courses");
+            return;
+        }
         AssignmentSubmissionJPanel panel = new AssignmentSubmissionJPanel(userProcessContainer, ua, organization, program);
         userProcessContainer.add("AssignmentSubmissionJPanel", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -250,6 +255,11 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnCheckGradesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckGradesActionPerformed
         // TODO add your handling code here:
+        
+        if(!(program instanceof Program)){
+            JOptionPane.showMessageDialog(null, "Please add program and courses");
+            return;
+        }
         CheckGradesJPanel panel = new CheckGradesJPanel(userProcessContainer, ua, organization, program);
         userProcessContainer.add("CheckGradesJPanel", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -258,6 +268,10 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnViewAssignmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewAssignmentsActionPerformed
         // TODO add your handling code here:
+        if(!(program instanceof Program)){
+            JOptionPane.showMessageDialog(null, "Please add program and courses");
+            return;
+        }
         ViewAssignmentJPanel panel = new ViewAssignmentJPanel(userProcessContainer, ua, organization, program);
         userProcessContainer.add("ViewAssignmentJPanel", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -266,6 +280,10 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnActiveRegistrationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActiveRegistrationActionPerformed
         // TODO add your handling code here:
+        if(!(program instanceof Program)){
+            JOptionPane.showMessageDialog(null, "Please add program and courses");
+            return;
+        }
         ActiveRegistrationJPanel panel = new ActiveRegistrationJPanel(userProcessContainer, ua, organization, program);
         userProcessContainer.add("ActiveRegistrationJPanel", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();

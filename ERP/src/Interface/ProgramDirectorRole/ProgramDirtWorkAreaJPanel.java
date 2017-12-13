@@ -12,6 +12,7 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Font;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -135,6 +136,11 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
 
     private void manageOrganizationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrganizationJButtonActionPerformed
 
+        if(!(program instanceof Program)){
+            JOptionPane.showMessageDialog(null, "Program not added");
+            return;
+        }
+        
         ManageCourseJPanel panel = new ManageCourseJPanel(userProcessContainer, program, userAccount);
         userProcessContainer.add("ManageCourseJPanel", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();

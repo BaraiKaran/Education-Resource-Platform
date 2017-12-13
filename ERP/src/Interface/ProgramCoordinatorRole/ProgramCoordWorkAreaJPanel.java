@@ -17,6 +17,7 @@ import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Font;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -159,6 +160,12 @@ public class ProgramCoordWorkAreaJPanel extends javax.swing.JPanel {
 
     private void manageOrganizationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrganizationJButtonActionPerformed
 
+        
+        if(!(program instanceof Program)){
+            JOptionPane.showMessageDialog(null, "Program not added");
+            return;
+        }
+        
         ManageCourseJPanel panel = new ManageCourseJPanel(userProcessContainer, program, userAccount, organization);
         userProcessContainer.add("ManageCourseJPanel", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -168,6 +175,11 @@ public class ProgramCoordWorkAreaJPanel extends javax.swing.JPanel {
     private void manageOrganizationJButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrganizationJButton1ActionPerformed
         // TODO add your handling code here:
         {
+        
+        if(!(program instanceof Program)){
+            JOptionPane.showMessageDialog(null, "Program not added");
+            return;
+        }
         
         EnrollStudents panel = new EnrollStudents(userProcessContainer, organization, program, userAccount);
         userProcessContainer.add("EnrollStudents", panel);
