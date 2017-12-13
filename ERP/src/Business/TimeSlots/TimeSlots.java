@@ -13,7 +13,7 @@ import Business.UserAccount.UserAccount;
  * @author krunal
  */
 public class TimeSlots {
-    
+
     private Assignment assignment;
     private String date;
     private String start;
@@ -22,16 +22,16 @@ public class TimeSlots {
     private UserAccount student;
     private UserAccount TA;
 
-    public TimeSlots(String start,String end,String date,String status,UserAccount TA){
+    public TimeSlots(String start, String end, String date, String status, UserAccount TA) {
         this.start = start;
         this.end = end;
         this.date = date;
         this.status = status;
-       
+
         this.TA = TA;
-        
+
     }
-    
+
     public Assignment getAssignment() {
         return assignment;
     }
@@ -87,7 +87,10 @@ public class TimeSlots {
     public void setTA(UserAccount TA) {
         this.TA = TA;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "TS " + getStart() + "-" + getEnd();
+    }
+
 }

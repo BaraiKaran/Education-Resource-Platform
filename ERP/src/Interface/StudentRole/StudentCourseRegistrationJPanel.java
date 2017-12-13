@@ -250,52 +250,58 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
 
-        if (Validations.isTextFieldEmpty(txtEnterCrn1.getText()) && Validations.isTextFieldEmpty(txtEnterCrn2.getText()) && Validations.isTextFieldEmpty(txtEnterCrn3.getText()) && Validations.isTextFieldEmpty(txtEnterCrn4.getText())) {
+        try {
+            if (Validations.isTextFieldEmpty(txtEnterCrn1.getText()) && Validations.isTextFieldEmpty(txtEnterCrn2.getText()) && Validations.isTextFieldEmpty(txtEnterCrn3.getText()) && Validations.isTextFieldEmpty(txtEnterCrn4.getText())) {
 
-            JOptionPane.showMessageDialog(null, "You must atleast enter one CRN number.");
+                JOptionPane.showMessageDialog(null, "You must atleast enter one CRN number.");
 
-        } else {
-            String coursenames = "";
-            Boolean registered = false;
-            ArrayList<Integer> crnNumbers = new ArrayList<Integer>();
-            if (!txtEnterCrn1.getText().trim().isEmpty()) {
-                crnNumbers.add(Integer.parseInt(txtEnterCrn1.getText()));
-            }
-            if (!txtEnterCrn2.getText().trim().isEmpty()) {
-                crnNumbers.add(Integer.parseInt(txtEnterCrn2.getText()));
-            }
-            if (!txtEnterCrn3.getText().trim().isEmpty()) {
-                crnNumbers.add(Integer.parseInt(txtEnterCrn3.getText()));
-            }
-            if (!txtEnterCrn4.getText().trim().isEmpty()) {
-                crnNumbers.add(Integer.parseInt(txtEnterCrn4.getText()));
-            }
-            CourseDirectory cd = program.getCourses();
-            for (Integer number : crnNumbers) {
-                for (Courses c : cd.getCourseList()) {
-                    if (number != 0) {
-                        if (c.getCrnNumber() == number) {
-                            Boolean register = c.RegisterCourse(userAccount);
-                            if (register) {
-                                int seats = c.getTotalSeats();
-                                coursenames += c.getCourseName() + ",";
-                                seats -= 1;
-                                c.setTotalSeats(seats);
-                                registered = true;
-                            } else {
-                                JOptionPane.showMessageDialog(null, "You are already registered for this course");
+            } else {
+                String coursenames = "";
+                Boolean registered = false;
+                ArrayList<Integer> crnNumbers = new ArrayList<Integer>();
+                if (!txtEnterCrn1.getText().trim().isEmpty()) {
+                    crnNumbers.add(Integer.parseInt(txtEnterCrn1.getText()));
+                }
+                if (!txtEnterCrn2.getText().trim().isEmpty()) {
+                    crnNumbers.add(Integer.parseInt(txtEnterCrn2.getText()));
+                }
+                if (!txtEnterCrn3.getText().trim().isEmpty()) {
+                    crnNumbers.add(Integer.parseInt(txtEnterCrn3.getText()));
+                }
+                if (!txtEnterCrn4.getText().trim().isEmpty()) {
+                    crnNumbers.add(Integer.parseInt(txtEnterCrn4.getText()));
+                }
+                CourseDirectory cd = program.getCourses();
+                for (Integer number : crnNumbers) {
+                    for (Courses c : cd.getCourseList()) {
+                        if (number != 0) {
+                            if (c.getCrnNumber() == number) {
+                                Boolean register = c.RegisterCourse(userAccount);
+                                if (register) {
+                                    int seats = c.getTotalSeats();
+                                    coursenames += c.getCourseName() + ",";
+                                    seats -= 1;
+                                    c.setTotalSeats(seats);
+                                    registered = true;
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "You are already registered for this course");
+                                }
                             }
-                        }
 
+                        }
                     }
                 }
-            }
-            if (registered) {
-                populateTable();
-                JOptionPane.showMessageDialog(null, "You have successfully registered for entered courses.");
-                userAccount.createFeeds("Successfully Registered for course " + coursenames.substring(0, coursenames.length() - 1));
-            }
+                if (registered) {
+                    populateTable();
+                    JOptionPane.showMessageDialog(null, "You have successfully registered for entered courses.");
+                    userAccount.createFeeds("Successfully Registered for course " + coursenames.substring(0, coursenames.length() - 1));
+                }
 
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "CRN number cannot contain any character or special character");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Invalid input, please verify");
         }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
@@ -315,12 +321,12 @@ public class StudentCourseRegistrationJPanel extends javax.swing.JPanel {
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
         // TODO add your handling code here:
-        
+
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         StudentWorkAreaJPanel panel = (StudentWorkAreaJPanel) component;
-        panel.populateTable(); 
+        panel.populateTable();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
 
