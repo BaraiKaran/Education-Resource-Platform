@@ -216,6 +216,7 @@ public class StudentsJPanel extends javax.swing.JPanel {
 
     private void cmbStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbStudentsActionPerformed
         // TODO add your handling code here:
+
         DefaultCategoryDataset dcd = new DefaultCategoryDataset();
         Courses cr = (Courses) cmbCousreName.getSelectedItem();
         UserAccount uu = (UserAccount) cmbStudents.getSelectedItem();
