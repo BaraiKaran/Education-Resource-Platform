@@ -26,11 +26,11 @@ public class AssignmentDirectory {
     public void setAssignmentDirectory(ArrayList<Assignment> assignmentDirectory) {
         this.assignmentDirectory = assignmentDirectory;
     }
-    
-    public Assignment addAssignment(String name,String problem){
-        Assignment as = new Assignment(name,problem);
+
+    public Assignment addAssignment(String name, String problem, int maxScore) {
+        Assignment as = new Assignment(name, problem, maxScore);
         assignmentDirectory.add(as);
         return as;
     }
-   
+
 }

@@ -22,15 +22,25 @@ public class Assignment {
     private static int count = 1;
     private TimeSlotsDirectory slots;
     private SubmissionDirectory submissionDirectory;
+    private int maxScore;
 
-    public Assignment(String name, String problem) {
+    public Assignment(String name, String problem, int maxScore) {
         feeds = new FeedsDirectory();
         assignmentId = count;
         title = name;
+        this.maxScore = maxScore;
         problemStatement = problem;
         slots = new TimeSlotsDirectory();
         submissionDirectory = new SubmissionDirectory();
         count++;
+    }
+
+    public int getMaxScore() {
+        return maxScore;
+    }
+
+    public void setMaxScore(int maxScore) {
+        this.maxScore = maxScore;
     }
 
     public TimeSlotsDirectory getSlots() {

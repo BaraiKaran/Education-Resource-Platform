@@ -19,13 +19,19 @@ public class Validations {
         return false;
     }
 
- public static boolean isTextLong(String name){
-     
-     if(name.length() > 20) {
-         return true;
-     }
-     return false;
- }   
-    
- 
+    public static boolean isTextLong(String name) {
+
+        if (name.length() > 20) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isNumberNegative(int num) {
+        if (num < 0) {
+            return true;
+        }
+        return false;
+    }
+
 }

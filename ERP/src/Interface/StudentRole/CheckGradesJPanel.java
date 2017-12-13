@@ -91,17 +91,17 @@ public class CheckGradesJPanel extends javax.swing.JPanel {
 
         tblSubmissionDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Course Name", "Assignment", "Submitted on", "Marks"
+                "Course Name", "Assignment", "Submitted on", "Marks", "Out of"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -223,6 +223,7 @@ public class CheckGradesJPanel extends javax.swing.JPanel {
                             row[1] = as.getTitle();
                             row[2] = s.getSubmittedOn();
                             row[3] = s.getMarks();
+                            row[4] = as.getMaxScore();
                             model.addRow(row);
                         }
                     }
