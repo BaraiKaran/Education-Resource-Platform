@@ -5,6 +5,7 @@
  */
 package Interface.AdministrativeRole;
 
+import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Organization.Organization;
 import Business.Role.Role;
@@ -27,12 +28,13 @@ public class UpdateUserAccountJPanel extends javax.swing.JPanel {
     private Organization org;
     private UserAccount ua;
     private JPanel userProcessContainer;
-
-    public UpdateUserAccountJPanel(JPanel userProcessContainer, Organization org, UserAccount ua) {
+    private EcoSystem system;
+    public UpdateUserAccountJPanel(JPanel userProcessContainer, Organization org, UserAccount ua,EcoSystem system) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.org = org;
         this.ua = ua;
+        this.system = system;
 
         saveBtn.setEnabled(false);
         txtName.setEnabled(false);

@@ -5,7 +5,10 @@
  */
 package Interface.AdministrativeRole;
 
+import Business.EcoSystem;
 import Business.Employee.Employee;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
@@ -26,11 +29,12 @@ public class NewUserAccountJPanel extends javax.swing.JPanel {
      */
     private Organization org;
     private JPanel userProcessContainer;
-
-    public NewUserAccountJPanel(JPanel userProcessContainer, Organization org) {
+    private EcoSystem system;
+    public NewUserAccountJPanel(JPanel userProcessContainer, Organization org,EcoSystem system) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.org = org;
+        this.system = system;
         populateEmployeeComboBox(org);
         populateRoleComboBox(org);
         // populateCombo();
@@ -241,7 +245,18 @@ public class NewUserAccountJPanel extends javax.swing.JPanel {
         }
         Employee emp = (Employee) employeeJComboBox.getSelectedItem();
         Role role = (Role) roleJComboBox.getSelectedItem();
-
+        for(Network nt : system.getNetworkList()){
+            for(Enterprise ep : nt.getEnterpriseDirectory().getEnterpriseList()){
+                for(Organization org : ep.getOrganizationDirectory().getOrganizationList()){
+                    for(UserAccount uorg : org.getUserAccountDirectory().getUserAccountList()){
+                        if(txtName.getText().equals(uorg.getUsername())){
+                            JOptionPane.showMessageDialog(null, "Please provide a unique user name");
+                            return;
+                        }
+                    }
+                }
+            }
+        }
         UserAccount ua = org.getUserAccountDirectory().createUserAccount(txtName.getText(), String.valueOf(txtCPassword.getPassword()), emp, role);
         JOptionPane.showMessageDialog(null, "User Account created successfully");
 

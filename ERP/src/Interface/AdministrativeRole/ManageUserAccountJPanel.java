@@ -4,6 +4,7 @@
  */
 package Interface.AdministrativeRole;
 
+import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
@@ -25,11 +26,12 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private Enterprise enterprise;
-
-    public ManageUserAccountJPanel(JPanel userProcessContainer, Enterprise enterprise) {
+    private EcoSystem system;
+    public ManageUserAccountJPanel(JPanel userProcessContainer, Enterprise enterprise,EcoSystem system) {
         initComponents();
         this.enterprise = enterprise;
         this.userProcessContainer = userProcessContainer;
+        this.system = system;
         popOrganizationComboBox();
         
         userJTable.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
@@ -269,7 +271,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
             return;
         }
 
-        NewUserAccountJPanel JPanel = new NewUserAccountJPanel(userProcessContainer, organization);
+        NewUserAccountJPanel JPanel = new NewUserAccountJPanel(userProcessContainer, organization,system);
         userProcessContainer.add("NewUserAccountJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -282,7 +284,7 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         if (selected >= 0) {
             UserAccount ua = (UserAccount) userJTable.getValueAt(selected, 0);
             Organization organization = (Organization) organizationJComboBox.getSelectedItem();
-            UpdateUserAccountJPanel JPanel = new UpdateUserAccountJPanel(userProcessContainer, organization, ua);
+            UpdateUserAccountJPanel JPanel = new UpdateUserAccountJPanel(userProcessContainer, organization, ua,system);
             userProcessContainer.add("UpdateOrganizationJPanel", JPanel);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.next(userProcessContainer);

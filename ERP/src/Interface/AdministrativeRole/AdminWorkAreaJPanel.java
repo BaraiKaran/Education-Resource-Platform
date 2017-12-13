@@ -7,6 +7,7 @@ package Interface.AdministrativeRole;
 
 import Business.College.Program;
 import Business.Courses.Courses;
+import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
@@ -33,14 +34,16 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
 
     JPanel userProcessContainer;
     Enterprise enterprise;
+    EcoSystem system;
 
     /**
      * Creates new form AdminWorkAreaJPanel
      */
-    public AdminWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise) {
+    public AdminWorkAreaJPanel(JPanel userProcessContainer, Enterprise enterprise,EcoSystem system) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.enterprise = enterprise;
+        this.system = system;
         valueLabel.setText(enterprise.getName());
         plotgraph();
     }
@@ -245,7 +248,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
         }
        
         
-        ManageUserAccountJPanel muajp = new ManageUserAccountJPanel(userProcessContainer, enterprise);
+        ManageUserAccountJPanel muajp = new ManageUserAccountJPanel(userProcessContainer, enterprise,system);
         userProcessContainer.add("ManageUserAccountJPanel", muajp);
 
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
