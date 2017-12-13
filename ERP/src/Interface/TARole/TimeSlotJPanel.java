@@ -9,7 +9,6 @@ import Business.Assignment.Assignment;
 import Business.College.Program;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
-import Business.Role.StudentRole;
 import Business.TimeSlots.TimeSlots;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -42,41 +41,44 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
         this.program = program;
         this.course = course;
         initComponents();
-        
-        populateCombo();
-        
-        tblSlots.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
 
+        populateCombo();
+
+        tblSlots.getTableHeader().setFont(new Font("Tahoma", Font.CENTER_BASELINE, 18));
+
+        populateCmbStart();
+        populatecmbEnd();
     }
-    public void populateCombo(){
+
+    public void populateCombo() {
         cmbAssignment.removeAllItems();
         System.out.println(course.getCourseName());
-        for(Assignment as : course.getAssignment().getAssignmentDirectory()){
+        for (Assignment as : course.getAssignment().getAssignmentDirectory()) {
             cmbAssignment.addItem(as);
         }
     }
-    
-    public void populateTable(Assignment as){
-        DefaultTableModel dtm  = (DefaultTableModel)tblSlots.getModel();
+
+    public void populateTable(Assignment as) {
+        DefaultTableModel dtm = (DefaultTableModel) tblSlots.getModel();
         dtm.setRowCount(0);
-        
-        
-        for(TimeSlots ts : as.getSlots().getSlots()){
+
+        for (TimeSlots ts : as.getSlots().getSlots()) {
             Object[] row = new Object[6];
             row[0] = as.getTitle();
             row[1] = ts.getDate();
             row[2] = ts.getStart();
             row[3] = ts.getEnd();
             row[4] = ts.getStatus();
-           if(ts.getStudent() instanceof UserAccount){
-               row[5] = ts.getStudent();
-               
-           }else{
-               row[5] = "NA";
-           }
-           dtm.addRow(row);
+            if (ts.getStudent() instanceof UserAccount) {
+                row[5] = ts.getStudent();
+
+            } else {
+                row[5] = "NA";
+            }
+            dtm.addRow(row);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -96,10 +98,10 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtDate = new javax.swing.JTextField();
-        txtStart = new javax.swing.JTextField();
-        txtEnd = new javax.swing.JTextField();
         btnDelete = new javax.swing.JButton();
         backbtn = new javax.swing.JButton();
+        cmbStartTime = new javax.swing.JComboBox<>();
+        cmbEndTime = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -155,12 +157,6 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setText("End Time :");
 
-        txtStart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtStartActionPerformed(evt);
-            }
-        });
-
         btnDelete.setBackground(new java.awt.Color(51, 153, 255));
         btnDelete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
@@ -181,6 +177,10 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
                 backbtnActionPerformed(evt);
             }
         });
+
+        cmbStartTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cmbEndTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -210,11 +210,11 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
                                 .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtStart, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                                .addComponent(txtDate))
-                            .addComponent(btnSubmit))
+                            .addComponent(btnSubmit)
+                            .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cmbEndTime, javax.swing.GroupLayout.Alignment.LEADING, 0, 96, Short.MAX_VALUE)
+                                .addComponent(cmbStartTime, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -240,42 +240,54 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtDate)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtStart, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmit)
                     .addComponent(backbtn))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
 
-       if(txtStart.getText().isEmpty() || txtEnd.getText().isEmpty() || txtDate.getText().isEmpty()){
-           JOptionPane.showMessageDialog(null, "Please fill in all the details");
-           return;
-       }
-       Assignment as = (Assignment)cmbAssignment.getSelectedItem();
-       TimeSlots ts = as.getSlots().addTimeSlot(txtStart.getText(),txtEnd.getText(),txtDate.getText(), "Empty", userAccount);
-       ts.setAssignment(as); 
-       JOptionPane.showMessageDialog(null, "Submitted Successfully");
-      
+        /*if (txtStart.getText().isEmpty() || txtEnd.getText().isEmpty() || txtDate.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill in all the details");
+            return;
+        }
+         */
+        String s = (String) cmbStartTime.getSelectedItem();
+        s = s.replace(":", "");
+        int st = Integer.parseInt(s);
+
+        String e = (String) cmbEndTime.getSelectedItem();
+        e = e.replace(":", "");
+        int et = Integer.parseInt(e);
+        if (et < st) {
+            JOptionPane.showMessageDialog(null, "End time cannot be less then start time");
+            return;
+        }
+
+        Assignment as = (Assignment) cmbAssignment.getSelectedItem();
+        TimeSlots ts = as.getSlots().addTimeSlot(String.valueOf(cmbStartTime.getSelectedItem()), String.valueOf(cmbEndTime.getSelectedItem()), txtDate.getText(), "Empty", userAccount);
+        ts.setAssignment(as);
+        JOptionPane.showMessageDialog(null, "Submitted Successfully");
         populateTable(as);
-       
+
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void cmbAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAssignmentActionPerformed
         // TODO add your handling code here:
-        
-        Assignment as = (Assignment)cmbAssignment.getSelectedItem();
+
+        Assignment as = (Assignment) cmbAssignment.getSelectedItem();
         populateTable(as);
         /*        Object obj = evt.getSource();
         if (obj == cmbCousreName) {
@@ -291,7 +303,7 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
                 }
             }
         }
-        */
+         */
     }//GEN-LAST:event_cmbAssignmentActionPerformed
 
     private void cmbAssignmentPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbAssignmentPropertyChange
@@ -301,20 +313,15 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         int selected = tblSlots.getSelectedRow();
-        if(selected >=0){
-            Assignment as = (Assignment)cmbAssignment.getSelectedItem();
-            TimeSlots ts = (TimeSlots)tblSlots.getValueAt(selected,0);
+        if (selected >= 0) {
+            Assignment as = (Assignment) cmbAssignment.getSelectedItem();
+            TimeSlots ts = (TimeSlots) tblSlots.getValueAt(selected, 0);
             as.getSlots().removeTimeSlots(ts);
-              
+
             populateTable(as);
         }
-        
-    }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void txtStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStartActionPerformed
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_txtStartActionPerformed
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
         // TODO add your handling code here:
@@ -322,17 +329,93 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         TAWorkAreaJPanel panel = (TAWorkAreaJPanel) component;
-        panel.populateTable(); 
+        panel.populateTable();
         panel.populateFeeds();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backbtnActionPerformed
+
+    public void populateCmbStart() {
+        cmbStartTime.removeAllItems();
+        cmbStartTime.addItem("10:00");
+        cmbStartTime.addItem("10:15");
+        cmbStartTime.addItem("10:30");
+        cmbStartTime.addItem("10:45");
+        cmbStartTime.addItem("11:00");
+        cmbStartTime.addItem("11:15");
+        cmbStartTime.addItem("11:30");
+        cmbStartTime.addItem("11:45");
+        cmbStartTime.addItem("12:00");
+        cmbStartTime.addItem("12:15");
+        cmbStartTime.addItem("12:30");
+        cmbStartTime.addItem("12:45");
+        cmbStartTime.addItem("13:00");
+        cmbStartTime.addItem("13:15");
+        cmbStartTime.addItem("13:30");
+        cmbStartTime.addItem("13:45");
+        cmbStartTime.addItem("14:00");
+        cmbStartTime.addItem("14:15");
+        cmbStartTime.addItem("14:30");
+        cmbStartTime.addItem("14:45");
+        cmbStartTime.addItem("15:00");
+        cmbStartTime.addItem("15:15");
+        cmbStartTime.addItem("15:30");
+        cmbStartTime.addItem("15:45");
+        cmbStartTime.addItem("16:00");
+        cmbStartTime.addItem("16:15");
+        cmbStartTime.addItem("16:30");
+        cmbStartTime.addItem("16:45");
+        cmbStartTime.addItem("17:00");
+        cmbStartTime.addItem("17:15");
+        cmbStartTime.addItem("17:30");
+        cmbStartTime.addItem("17:45");
+        cmbStartTime.addItem("18:00");
+    }
+
+    public void populatecmbEnd() {
+        cmbEndTime.removeAllItems();
+        cmbEndTime.addItem("10:00");
+        cmbEndTime.addItem("10:15");
+        cmbEndTime.addItem("10:30");
+        cmbEndTime.addItem("10:45");
+        cmbEndTime.addItem("11:00");
+        cmbEndTime.addItem("11:15");
+        cmbEndTime.addItem("11:30");
+        cmbEndTime.addItem("11:45");
+        cmbEndTime.addItem("12:00");
+        cmbEndTime.addItem("12:15");
+        cmbEndTime.addItem("12:30");
+        cmbEndTime.addItem("12:45");
+        cmbEndTime.addItem("13:00");
+        cmbEndTime.addItem("13:15");
+        cmbEndTime.addItem("13:30");
+        cmbEndTime.addItem("13:45");
+        cmbEndTime.addItem("14:00");
+        cmbEndTime.addItem("14:15");
+        cmbEndTime.addItem("14:30");
+        cmbEndTime.addItem("14:45");
+        cmbEndTime.addItem("15:00");
+        cmbEndTime.addItem("15:15");
+        cmbEndTime.addItem("15:30");
+        cmbEndTime.addItem("15:45");
+        cmbEndTime.addItem("16:00");
+        cmbEndTime.addItem("16:15");
+        cmbEndTime.addItem("16:30");
+        cmbEndTime.addItem("16:45");
+        cmbEndTime.addItem("17:00");
+        cmbEndTime.addItem("17:15");
+        cmbEndTime.addItem("17:30");
+        cmbEndTime.addItem("17:45");
+        cmbEndTime.addItem("18:00");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backbtn;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox cmbAssignment;
+    private javax.swing.JComboBox<String> cmbEndTime;
+    private javax.swing.JComboBox<String> cmbStartTime;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -341,7 +424,5 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblSlots;
     private javax.swing.JTextField txtDate;
-    private javax.swing.JTextField txtEnd;
-    private javax.swing.JTextField txtStart;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,9 +6,7 @@
 package Interface.AdministrativeRole;
 
 import Business.Employee.Employee;
-import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
-import Business.Organization.OrganizationDirectory;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
 import Business.Validations;
@@ -29,13 +27,13 @@ public class UpdateUserAccountJPanel extends javax.swing.JPanel {
     private Organization org;
     private UserAccount ua;
     private JPanel userProcessContainer;
-    
-    public UpdateUserAccountJPanel(JPanel userProcessContainer,Organization org,UserAccount ua) {
+
+    public UpdateUserAccountJPanel(JPanel userProcessContainer, Organization org, UserAccount ua) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.org = org;
         this.ua = ua;
-        
+
         saveBtn.setEnabled(false);
         txtName.setEnabled(false);
         updateBtn.setEnabled(true);
@@ -43,16 +41,32 @@ public class UpdateUserAccountJPanel extends javax.swing.JPanel {
         txtCPassword.setEnabled(false);
         roleJComboBox.setEnabled(false);
         employeeJComboBox.setEnabled(false);
-     
-       populateDetails();
+
+        populateDetails();
+        populateEmployeeComboBox(org);
+        populateRoleComboBox(org);
+
     }
-    
-    public void populateDetails(){
+
+    public void populateDetails() {
         txtName.setText(ua.getUsername());
     }
-    
-    
-    
+
+    public void populateEmployeeComboBox(Organization organization) {
+        employeeJComboBox.removeAllItems();
+
+        for (Employee employee : organization.getEmployeeDirectory().getEmployeeList()) {
+            employeeJComboBox.addItem(employee);
+        }
+    }
+
+    private void populateRoleComboBox(Organization organization) {
+        roleJComboBox.removeAllItems();
+        for (Role role : organization.getSupportedRole()) {
+            roleJComboBox.addItem(role);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,12 +84,13 @@ public class UpdateUserAccountJPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         employeeJComboBox = new javax.swing.JComboBox();
-        txtCPassword = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
+        txtCPassword = new javax.swing.JPasswordField();
+        lblPasswordError = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -120,7 +135,7 @@ public class UpdateUserAccountJPanel extends javax.swing.JPanel {
         jLabel4.setText("Confirm Password :");
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Pasword :");
+        jLabel3.setText("Password :");
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Username :");
@@ -136,32 +151,35 @@ public class UpdateUserAccountJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(backJButton)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtCPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(employeeJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(roleJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(412, 412, 412)
                                 .addComponent(saveBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(updateBtn)))
+                                .addComponent(updateBtn))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtCPassword))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtPassword))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(employeeJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(roleJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(56, 56, 56)
+                                .addComponent(lblPasswordError)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -175,13 +193,14 @@ public class UpdateUserAccountJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPasswordError))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,64 +224,67 @@ public class UpdateUserAccountJPanel extends javax.swing.JPanel {
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
 
         userProcessContainer.remove(this);
-        
-         Component[] componentArray = userProcessContainer.getComponents();
+
+        Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
-        ManageEmployeeJPanel panel = (ManageEmployeeJPanel) component;
-        panel.populateTable(org); 
-        
+        ManageUserAccountJPanel panel = (ManageUserAccountJPanel) component;
+        panel.popData(org);
+
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
-       
-          if(txtName.getText().equals("")){
+
+        if (String.valueOf(txtPassword.getPassword()).length() < 6) {
+            lblPasswordError.setText("Password length should be of atleast 6 characters");
+            return;
+        }
+
+        if (txtName.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please enter the details");
             return;
         }
-        if(!txtCPassword.getText().equals(txtCPassword.getText())){
+        if (!String.valueOf(txtPassword.getPassword()).equals(String.valueOf(txtCPassword.getPassword()))) {
             JOptionPane.showMessageDialog(null, "Password do not match");
             return;
         }
-        
-         if(Validations.isTextLong(txtName.getText())) {
-                JOptionPane.showMessageDialog(null, "Organization name cannot exceed 20 characters");
-                return;
-            }
-        
-        
-        Employee emp = (Employee)employeeJComboBox.getSelectedItem();
-        Role role = (Role)roleJComboBox.getSelectedItem();
+
+        if (Validations.isTextLong(txtName.getText())) {
+            JOptionPane.showMessageDialog(null, "Organization name cannot exceed 20 characters");
+            return;
+        }
+
+        Employee emp = (Employee) employeeJComboBox.getSelectedItem();
+        Role role = (Role) roleJComboBox.getSelectedItem();
         ua.setUsername(txtName.getText());
-        ua.setPassword(txtCPassword.getText());
+        ua.setPassword(String.valueOf(txtCPassword.getPassword()));
         ua.setRole(role);
         ua.setEmployee(emp);
-         saveBtn.setEnabled(false);
+        saveBtn.setEnabled(false);
         txtName.setEnabled(false);
         updateBtn.setEnabled(true);
-       txtPassword.setEnabled(false);
+        txtPassword.setEnabled(false);
         txtCPassword.setEnabled(false);
         roleJComboBox.setEnabled(false);
         employeeJComboBox.setEnabled(false);
         JOptionPane.showMessageDialog(null, "User Account Updated");
-        
+
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         // TODO add your handling code here:
-        
+
         saveBtn.setEnabled(true);
         txtName.setEnabled(true);
         updateBtn.setEnabled(false);
-      txtPassword.setEnabled(true);
+        txtPassword.setEnabled(true);
         txtCPassword.setEnabled(true);
         roleJComboBox.setEnabled(true);
         employeeJComboBox.setEnabled(true);
-        
-    }//GEN-LAST:event_updateBtnActionPerformed
 
+    }//GEN-LAST:event_updateBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backJButton;
@@ -273,11 +295,12 @@ public class UpdateUserAccountJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel lblPasswordError;
     private javax.swing.JComboBox roleJComboBox;
     private javax.swing.JButton saveBtn;
-    private javax.swing.JTextField txtCPassword;
+    private javax.swing.JPasswordField txtCPassword;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtPassword;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 }
