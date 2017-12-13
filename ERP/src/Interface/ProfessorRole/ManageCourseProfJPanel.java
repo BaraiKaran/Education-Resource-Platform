@@ -199,7 +199,7 @@ public class ManageCourseProfJPanel extends javax.swing.JPanel {
         btnGrade.setBackground(new java.awt.Color(51, 153, 255));
         btnGrade.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnGrade.setForeground(new java.awt.Color(255, 255, 255));
-        btnGrade.setText("Assign TA");
+        btnGrade.setText("Grade Students");
         btnGrade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGradeActionPerformed(evt);

@@ -232,9 +232,9 @@ public class AReviewJPanel extends javax.swing.JPanel {
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
-        TAWorkAreaJPanel panel = (TAWorkAreaJPanel) component;
-        panel.populateTable();
-        panel.populateFeeds();
+        ReviewJPanel panel = (ReviewJPanel) component;
+        panel.populateCombo();
+        
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
 
