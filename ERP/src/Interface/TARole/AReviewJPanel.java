@@ -14,7 +14,6 @@ import Business.TimeSlots.TimeSlots;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Component;
-import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -27,7 +26,6 @@ public class AReviewJPanel extends javax.swing.JPanel {
     /**
      * Creates new form AReviewJPanel
      */
-    
     private JPanel userProcessContainer;
     private CollegeOrganization organization;
     private UserAccount userAccount;
@@ -36,40 +34,39 @@ public class AReviewJPanel extends javax.swing.JPanel {
     private TimeSlots timeslot;
     private Assignment assignment;
     private Submission submission;
-    
-    
+
     public AReviewJPanel() {
         initComponents();
     }
 
-    public AReviewJPanel(JPanel userProcessContainer, Program program, UserAccount userAccount, CollegeOrganization organization, Courses course, TimeSlots timeslot,Assignment assignment) {
+    public AReviewJPanel(JPanel userProcessContainer, Program program, UserAccount userAccount, CollegeOrganization organization, Courses course, TimeSlots timeslot, Assignment assignment) {
         initComponents();
-         this.userProcessContainer = userProcessContainer;
+        this.userProcessContainer = userProcessContainer;
         this.organization = (CollegeOrganization) organization;
         this.userAccount = userAccount;
         this.program = program;
         this.course = course;
         this.timeslot = timeslot;
-        
+
         this.assignment = assignment;
-        for(Submission sb : this.assignment.getSubmissionDirectory().getSubmission()){
-            if(sb.getStudent().getId() == this.timeslot.getStudent().getId()){
+        for (Submission sb : this.assignment.getSubmissionDirectory().getSubmission()) {
+            if (sb.getStudent().getId() == this.timeslot.getStudent().getId()) {
                 this.submission = sb;
                 System.out.println(sb.getPath());
             }
         }
-        
+
         populatedata();
-        
+
     }
 
-    
-    public void populatedata(){
+    public void populatedata() {
         lblSb.setText(submission.getPath());
         lbAs.setText(assignment.getTitle());
         lbSt.setText(submission.getStudent().getEmployee().getName());
+        lblMaxMarks.setText(String.valueOf(assignment.getMaxScore()));
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,6 +87,8 @@ public class AReviewJPanel extends javax.swing.JPanel {
         txtMarks = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        lblMaxMarks = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -135,6 +134,10 @@ public class AReviewJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setText("Maximum Marks:");
+
+        lblMaxMarks.setText("jLabel5");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,7 +162,11 @@ public class AReviewJPanel extends javax.swing.JPanel {
                                     .addComponent(txtMarks)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnSubmit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblMaxMarks)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -182,37 +189,46 @@ public class AReviewJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(lbSt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblMaxMarks))
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMarks, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(50, 50, 50)
                 .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(54, 54, 54)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
-        
-        if(txtMarks.getText().isEmpty()){
+
+        if (txtMarks.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please enter marks");
             return;
         }
-        try{
-        submission.setMarks(Integer.parseInt(txtMarks.getText()));
-        }catch(NumberFormatException e){
+
+        if (Integer.parseInt(txtMarks.getText()) > Integer.parseInt(lblMaxMarks.getText())) {
+            JOptionPane.showMessageDialog(null, "entered marks cannot be greater than maximum marks.");
+            return;
+        }
+
+        try {
+            submission.setMarks(Integer.parseInt(txtMarks.getText()));
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Please enter only interger values");
         }
-        
-        System.out.println(submission.getMarks());
+
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
@@ -221,20 +237,21 @@ public class AReviewJPanel extends javax.swing.JPanel {
         panel.populateFeeds();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
 
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel lbAs;
     private javax.swing.JLabel lbSt;
+    private javax.swing.JLabel lblMaxMarks;
     private javax.swing.JLabel lblSb;
     private javax.swing.JTextField txtMarks;
     // End of variables declaration//GEN-END:variables

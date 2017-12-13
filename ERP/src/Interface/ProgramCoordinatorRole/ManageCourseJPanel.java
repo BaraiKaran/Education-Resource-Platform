@@ -260,7 +260,9 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
 
     private void SearchbycrnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchbycrnActionPerformed
         // TODO add your handling code here:
+
         populateTable();
+
     }//GEN-LAST:event_SearchbycrnActionPerformed
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
