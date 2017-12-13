@@ -14,6 +14,7 @@ import Business.UserAccount.UserAccount;
 import Business.Validations;
 import java.awt.AWTException;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.SystemTray;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -288,6 +289,12 @@ public class AssignmentJPanel extends javax.swing.JPanel {
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
         // TODO add your handling code here:
         userProcessContainer.remove(this);
+        
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        ManageCourseProfJPanel panel = (ManageCourseProfJPanel) component;
+        panel.populateTable();
+        panel.populateFeeds();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backbtnActionPerformed
