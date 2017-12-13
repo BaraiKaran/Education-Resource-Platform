@@ -51,11 +51,9 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
         this.program = program;
         populateCourse();
         populateTable();
-        
-        tblSubmissionDetails.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
 
-        
-        
+        tblSubmissionDetails.getTableHeader().setFont(new Font("Tahoma", Font.CENTER_BASELINE, 18));
+
     }
 
     /**
@@ -124,6 +122,7 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblSubmissionDetails.setAutoCreateRowSorter(true);
         tblSubmissionDetails.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblSubmissionDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

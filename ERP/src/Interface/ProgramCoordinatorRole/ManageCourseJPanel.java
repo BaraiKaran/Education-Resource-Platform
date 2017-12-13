@@ -68,6 +68,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Welcome Program Coordinator");
 
+        tblProgramCoordinator.setAutoCreateRowSorter(true);
         tblProgramCoordinator.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblProgramCoordinator.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -248,8 +249,8 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         int selected = tblProgramCoordinator.getSelectedRow();
         if (selected >= 0) {
             Courses course = (Courses) tblProgramCoordinator.getValueAt(selected, 1);
-            UpdateCourseJPanel JPanel = new UpdateCourseJPanel(userProcessContainer,program,userAccount,course);
-            userProcessContainer.add("Updatecoursepanel",JPanel);
+            UpdateCourseJPanel JPanel = new UpdateCourseJPanel(userProcessContainer, program, userAccount, course);
+            userProcessContainer.add("Updatecoursepanel", JPanel);
             CardLayout cardlayout = (CardLayout) userProcessContainer.getLayout();
             cardlayout.next(userProcessContainer);
         } else {
@@ -264,30 +265,29 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
         // TODO add your handling code here:
-       
-        userProcessContainer.remove(this);  
+
+        userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         ProgramCoordWorkAreaJPanel panel = (ProgramCoordWorkAreaJPanel) component;
-        panel.populateTable(); 
+        panel.populateTable();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backbtnActionPerformed
 
     private void btnDeleteCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCourseActionPerformed
         // TODO add your handling code here:
-        
-       int selected = tblProgramCoordinator.getSelectedRow();
-       if(selected >=0){
-           Courses cr = (Courses)tblProgramCoordinator.getValueAt(selected,1);
-           program.getCourses().removeCourse(cr);
-           JOptionPane.showMessageDialog(null, "Deleted successfully");
-           populateTable();
-       }else{
-           JOptionPane.showMessageDialog(null, "Please select a row");
-       }
-        
-        
+
+        int selected = tblProgramCoordinator.getSelectedRow();
+        if (selected >= 0) {
+            Courses cr = (Courses) tblProgramCoordinator.getValueAt(selected, 1);
+            program.getCourses().removeCourse(cr);
+            JOptionPane.showMessageDialog(null, "Deleted successfully");
+            populateTable();
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a row");
+        }
+
     }//GEN-LAST:event_btnDeleteCourseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

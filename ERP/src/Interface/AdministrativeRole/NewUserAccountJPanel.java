@@ -30,7 +30,8 @@ public class NewUserAccountJPanel extends javax.swing.JPanel {
     private Organization org;
     private JPanel userProcessContainer;
     private EcoSystem system;
-    public NewUserAccountJPanel(JPanel userProcessContainer, Organization org,EcoSystem system) {
+
+    public NewUserAccountJPanel(JPanel userProcessContainer, Organization org, EcoSystem system) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.org = org;
@@ -245,11 +246,11 @@ public class NewUserAccountJPanel extends javax.swing.JPanel {
         }
         Employee emp = (Employee) employeeJComboBox.getSelectedItem();
         Role role = (Role) roleJComboBox.getSelectedItem();
-        for(Network nt : system.getNetworkList()){
-            for(Enterprise ep : nt.getEnterpriseDirectory().getEnterpriseList()){
-                for(Organization org : ep.getOrganizationDirectory().getOrganizationList()){
-                    for(UserAccount uorg : org.getUserAccountDirectory().getUserAccountList()){
-                        if(txtName.getText().equals(uorg.getUsername())){
+        for (Network nt : system.getNetworkList()) {
+            for (Enterprise ep : nt.getEnterpriseDirectory().getEnterpriseList()) {
+                for (Organization org : ep.getOrganizationDirectory().getOrganizationList()) {
+                    for (UserAccount uorg : org.getUserAccountDirectory().getUserAccountList()) {
+                        if (txtName.getText().equals(uorg.getUsername())) {
                             JOptionPane.showMessageDialog(null, "Please provide a unique user name");
                             return;
                         }
@@ -258,6 +259,7 @@ public class NewUserAccountJPanel extends javax.swing.JPanel {
             }
         }
         UserAccount ua = org.getUserAccountDirectory().createUserAccount(txtName.getText(), String.valueOf(txtCPassword.getPassword()), emp, role);
+        lblPasswordError.setText("");
         JOptionPane.showMessageDialog(null, "User Account created successfully");
 
     }//GEN-LAST:event_saveBtnActionPerformed
