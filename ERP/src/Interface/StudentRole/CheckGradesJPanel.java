@@ -12,6 +12,7 @@ import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
+import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,6 +37,10 @@ public class CheckGradesJPanel extends javax.swing.JPanel {
         this.program = program;
         this.organization = (CollegeOrganization) organization;
         populateCourses();
+        
+        tblSubmissionDetails.getTableHeader().setFont(new Font("Tahoma", Font.CENTER_BASELINE, 18));
+
+        
     }
 
     /**
@@ -89,6 +94,7 @@ public class CheckGradesJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblSubmissionDetails.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblSubmissionDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -108,6 +114,7 @@ public class CheckGradesJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblSubmissionDetails.setRowHeight(20);
         jScrollPane1.setViewportView(tblSubmissionDetails);
 
         jButton1.setBackground(new java.awt.Color(51, 153, 255));

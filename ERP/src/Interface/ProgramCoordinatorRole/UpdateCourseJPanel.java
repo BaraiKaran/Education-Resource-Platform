@@ -5,6 +5,15 @@
  */
 package Interface.ProgramCoordinatorRole;
 
+import Business.College.Program;
+import Business.Courses.Courses;
+import Business.UserAccount.UserAccount;
+import Business.Validations;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author aakas
@@ -14,11 +23,41 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
     /**
      * Creates new form UpdateCourseJPanel
      */
-    public UpdateCourseJPanel() {
-        initComponents();
-
+    private JPanel userprocesscontainer;
+    private Program program;
+    private UserAccount userAccount;
+    private Courses courses;
+       
+    public UpdateCourseJPanel(JPanel userProcessContainer, Program program, UserAccount userAccount, Courses course) {
+        this.userprocesscontainer = userProcessContainer;
+        this.program = program;
+        this.userAccount = userAccount;
+        this.courses = course;
+        
+        jButton1.setEnabled(false);
+        txtCRN.setEnabled(false);
+        txtName.setEnabled(false);
+        cmbProfessorName.setEnabled(false);
+        txtTotalSeats.setEnabled(false);
+        btnupdate.setEnabled(true);
+        
+        populatedetails();
+        populatecombobox();   
     }
 
+    public void populatedetails(){
+        txtCRN.setText(String.valueOf(courses.getCrnNumber()));
+        txtName.setText(courses.getCourseName());
+        txtTotalSeats.setText(String.valueOf(courses.getTotalSeats()));
+    }
+      
+    public void populatecombobox(){
+        cmbProfessorName.removeAllItems();
+        for (Courses c : program.getCourses().getCourseList()){
+            cmbProfessorName.addItem(c.getProfessor());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,7 +73,7 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtCRN = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
-        btnCreate = new javax.swing.JButton();
+        btnupdate = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         cmbProfessorName = new javax.swing.JComboBox();
@@ -59,13 +98,13 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnCreate.setBackground(new java.awt.Color(51, 153, 255));
-        btnCreate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnCreate.setForeground(new java.awt.Color(255, 255, 255));
-        btnCreate.setText("Update");
-        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+        btnupdate.setBackground(new java.awt.Color(51, 153, 255));
+        btnupdate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnupdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnupdate.setText("Update");
+        btnupdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateActionPerformed(evt);
+                btnupdateActionPerformed(evt);
             }
         });
 
@@ -121,7 +160,7 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
                                 .addGap(9, 9, 9)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(51, 51, 51)
-                                .addComponent(btnCreate))))
+                                .addComponent(btnupdate))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(btnBack)))
@@ -155,7 +194,7 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
-                            .addComponent(btnCreate))
+                            .addComponent(btnupdate))
                         .addGap(60, 60, 60)))
                 .addComponent(btnBack)
                 .addGap(56, 56, 56))
@@ -177,23 +216,95 @@ public class UpdateCourseJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCRNActionPerformed
 
-    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+    private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
         // TODO add your handling code here:
+         jButton1.setEnabled(true);
+         btnupdate.setEnabled(false);
+         txtCRN.setEnabled(true);
+         txtName.setEnabled(true);
+         cmbProfessorName.setEnabled(true);
+         txtTotalSeats.setEnabled(true);
+        
 
-    }//GEN-LAST:event_btnCreateActionPerformed
+    }//GEN-LAST:event_btnupdateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
+        userprocesscontainer.remove(this);
+        
+        Component[] componentArray = userprocesscontainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        ManageCourseJPanel panel = (ManageCourseJPanel) component;
+        panel.populateTable(); 
+        
+        CardLayout layout = (CardLayout) userprocesscontainer.getLayout();
+        layout.previous(userprocesscontainer);
+      
+        
 
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+         if(txtName.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Please enter the details");
+            return;
+        }
+             if(Validations.isTextLong(txtName.getText())) {
+                JOptionPane.showMessageDialog(null, "Program name cannot exceed 20 characters");
+                return;
+            }
+          if (Validations.isTextFieldEmpty(txtCRN.getText()) && Validations.isTextFieldEmpty(txtName.getText())) {
+            JOptionPane.showMessageDialog(null, "CRN Number and/or Course name cannot be blank!");
+        } else {
+            int crn, totalSeats;
+            try {
+                crn = Integer.parseInt(txtCRN.getText());
+            } catch (NumberFormatException num) {
+                JOptionPane.showMessageDialog(null, "CRN Number has to be an integer value.");
+                return;
+            }
+                for (Courses c : program.getCourses().getCourseList()) {
+                if (c.getCrnNumber() == Integer.parseInt(txtCRN.getText())) {
+                    JOptionPane.showMessageDialog(null, "CRN number already exists.");
+                    return;
+                }
+            }
+
+                String coursename = txtName.getText().trim();
+            try {
+                totalSeats = Integer.parseInt(txtTotalSeats.getText());
+            } catch (NumberFormatException num) {
+                JOptionPane.showMessageDialog(null, "Total seats has to be an integer value.");
+                return;
+            }
+
+            if (totalSeats < 0) {
+                JOptionPane.showMessageDialog(null, "Total seats cannot be negative.");
+                return;
+            }   
+          }
+          courses.setCrnNumber(Integer.parseInt(txtCRN.getText()));
+          courses.setCourseName(txtName.getText());
+          courses.setTotalSeats(Integer.parseInt(txtTotalSeats.getText()));
+          UserAccount prof = (UserAccount)cmbProfessorName.getSelectedItem();
+          courses.setProfessor(prof);
+        
+          txtCRN.setEnabled(false);
+          txtName.setEnabled(false);
+          cmbProfessorName.setEnabled(false);
+          txtTotalSeats.setEnabled(false);  
+          jButton1.setEnabled(false);
+          btnupdate.setEnabled(true);
+       
+        JOptionPane.showMessageDialog(null, "Program Updated");
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnupdate;
     private javax.swing.JComboBox cmbProfessorName;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

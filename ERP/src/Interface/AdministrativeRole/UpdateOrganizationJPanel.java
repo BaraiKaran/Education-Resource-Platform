@@ -33,10 +33,10 @@ public class UpdateOrganizationJPanel extends javax.swing.JPanel {
         this.directory = directory;
         this.org = org;
         
-        saveBtn.setEnabled(false);
-        txtName.setEnabled(false);
-        updateBtn.setEnabled(true);
-        organizationJComboBox.setEnabled(false);
+       saveBtn.setEnabled(false);
+       txtName.setEnabled(false);
+       updateBtn.setEnabled(true);
+       organizationJComboBox.setEnabled(false);
        populateCombo();
        populateDetails();
     }

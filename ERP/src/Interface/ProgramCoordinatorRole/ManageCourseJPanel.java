@@ -121,6 +121,11 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         btnDeleteCourse.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnDeleteCourse.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteCourse.setText("Delete Course");
+        btnDeleteCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteCourseActionPerformed(evt);
+            }
+        });
 
         Searchbycrn.setBackground(new java.awt.Color(51, 153, 255));
         Searchbycrn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -219,7 +224,7 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
                 }
             }
             row[0] = c.getCrnNumber();
-            row[1] = c.getCourseName();
+            row[1] = c;
             row[2] = c.getApprovalStatus();
             row[3] = program;
             row[4] = c.getProfessor();
@@ -239,6 +244,16 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
 
     private void btnUpdateCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCourseActionPerformed
         // TODO add your handling code here:
+        int selected = tblProgramCoordinator.getSelectedRow();
+        if (selected >= 0) {
+            Courses course = (Courses) tblProgramCoordinator.getValueAt(selected, 1);
+            UpdateCourseJPanel JPanel = new UpdateCourseJPanel(userProcessContainer,program,userAccount,course);
+            userProcessContainer.add("Updatecoursepanel",JPanel);
+            CardLayout cardlayout = (CardLayout) userProcessContainer.getLayout();
+            cardlayout.next(userProcessContainer);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a row");
+        }
     }//GEN-LAST:event_btnUpdateCourseActionPerformed
 
     private void SearchbycrnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchbycrnActionPerformed
@@ -252,6 +267,11 @@ public class ManageCourseJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backbtnActionPerformed
+
+    private void btnDeleteCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCourseActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnDeleteCourseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Searchbycrn;

@@ -4,6 +4,7 @@
  */
 package Interface.AdministrativeRole;
 
+import Business.Organization.CollegeOrganization;
 import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
 import java.awt.CardLayout;
@@ -245,7 +246,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selected = organizationJTable.getSelectedRow();
         if (selected >= 0) {
-            Organization org = (Organization) organizationJTable.getValueAt(selected, 0);
+            Organization org = (Organization) organizationJTable.getValueAt(selected, 1);
             UpdateOrganizationJPanel JPanel = new UpdateOrganizationJPanel(userProcessContainer, directory, org);
             userProcessContainer.add("UpdateOrganizationJPanel", JPanel);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -260,7 +261,7 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selected = organizationJTable.getSelectedRow();
         if (selected >= 0) {
-            Organization org = (Organization) organizationJTable.getValueAt(selected, 0);
+            Organization org = (Organization) organizationJTable.getValueAt(selected, 1);
             directory.removeOrganization(org);
             JOptionPane.showMessageDialog(null, "Successfully deleted organization");
             populateTable();

@@ -35,4 +35,7 @@ public class EnterpriseDirectory {
         return enterprise;
     }
     
+    public void deleteEnterprise(Enterprise name) {
+        enterpriseList.remove(name);
+    }
 }

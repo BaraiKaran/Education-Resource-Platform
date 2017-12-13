@@ -44,7 +44,7 @@ public class ReviewJPanel extends javax.swing.JPanel {
         this.userAccount = userAccount;
         this.program = program;
         this.course = course;
-         populateCombo();
+        populateCombo();
         
         tblSlots.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
     }
@@ -95,6 +95,9 @@ public class ReviewJPanel extends javax.swing.JPanel {
         tblSlots = new javax.swing.JTable();
         btnStart = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+        setToolTipText("");
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Assignment Review");
@@ -113,6 +116,7 @@ public class ReviewJPanel extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Assignment :");
 
+        tblSlots.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblSlots.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -124,8 +128,12 @@ public class ReviewJPanel extends javax.swing.JPanel {
                 "Time Slot", "Start Time", "End Time", "Date", "Status", "Student"
             }
         ));
+        tblSlots.setRowHeight(20);
         jScrollPane1.setViewportView(tblSlots);
 
+        btnStart.setBackground(new java.awt.Color(51, 153, 255));
+        btnStart.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnStart.setForeground(new java.awt.Color(255, 255, 255));
         btnStart.setText("Start Review");
         btnStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,7 +156,7 @@ public class ReviewJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cmbAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnStart))
+                            .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -164,8 +172,8 @@ public class ReviewJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnStart)
-                .addContainerGap(297, Short.MAX_VALUE))
+                .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(283, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
