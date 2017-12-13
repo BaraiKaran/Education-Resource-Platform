@@ -85,7 +85,7 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
         manageOrganizationJButton.setBackground(new java.awt.Color(51, 153, 255));
         manageOrganizationJButton.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         manageOrganizationJButton.setForeground(new java.awt.Color(255, 255, 255));
-        manageOrganizationJButton.setText("Manage Organization");
+        manageOrganizationJButton.setText("Manage Course");
         manageOrganizationJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageOrganizationJButtonActionPerformed(evt);
