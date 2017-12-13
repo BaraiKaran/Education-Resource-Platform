@@ -15,12 +15,20 @@ import Business.UserAccount.UserAccount;
  */
 public class Marks {
 
-    private int marks;
-    private Assignment assignment;
+    private String marks;
+    
     private UserAccount Student;
     private Courses course;
-    private UserAccount TA;
+    
+    
 
+    
+     
+    public Marks(UserAccount ua,String marks){
+        this.marks = marks;
+        this.Student =ua;
+    } 
+    
     public UserAccount getStudent() {
         return Student;
     }
@@ -37,29 +45,16 @@ public class Marks {
         this.course = course;
     }
 
-    public UserAccount getTA() {
-        return TA;
-    }
-
-    public void setTA(UserAccount TA) {
-        this.TA = TA;
-    }
-
     
-    public int getMarks() {
+    
+    public String getMarks() {
         return marks;
     }
 
-    public void setMarks(int marks) {
+    public void setMarks(String marks) {
         this.marks = marks;
     }
 
-    public Assignment getAssignment() {
-        return assignment;
-    }
-
-    public void setAssignment(Assignment assignment) {
-        this.assignment = assignment;
-    }
+    
 
 }

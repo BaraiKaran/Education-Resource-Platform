@@ -22,6 +22,7 @@ public class Submission {
         this.submittedOn = submittedon;
         this.path = path;
         this.student = useraccount;
+        this.marks = 0;
     }
 
     public int getMarks() {
