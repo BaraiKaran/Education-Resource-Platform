@@ -209,9 +209,11 @@ public class ManageTARJPanel extends javax.swing.JPanel {
             TARequest tar = (TARequest) tblTARequest.getValueAt(selected, 0);
             Courses cr = tar.getCourse();
             Boolean flag = cr.AssignTA(ua);
+            
             if (flag) {
                 JOptionPane.showMessageDialog(null, "TA Account asssigned");
-
+                TARole role = (TARole)ua.getRole();
+                role.setCourse(cr);
                 cr.removeRequest(tar);
                 populateTable();
             } else {
