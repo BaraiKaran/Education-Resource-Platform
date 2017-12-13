@@ -12,6 +12,7 @@ import Business.Organization.CollegeOrganization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -222,9 +223,13 @@ public class ViewAssignmentJPanel extends javax.swing.JPanel {
 
     private void cmbAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAssignmentActionPerformed
         // TODO add your handling code here:
-        Assignment a = (Assignment) cmbAssignment.getSelectedItem();
-        txtMaximumScore.setText(String.valueOf(a.getMaxScore()));
-        txtProblemStatement.setText(a.getTitle());
+        try {
+            Assignment a = (Assignment) cmbAssignment.getSelectedItem();
+            txtMaximumScore.setText(String.valueOf(a.getMaxScore()));
+            txtProblemStatement.setText(a.getTitle());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Maximum score field cannot contain character or special characters");
+        }
     }//GEN-LAST:event_cmbAssignmentActionPerformed
 
     private void cmbAssignmentPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbAssignmentPropertyChange
@@ -233,7 +238,7 @@ public class ViewAssignmentJPanel extends javax.swing.JPanel {
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
         // TODO add your handling code here:
-       
+
         userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];

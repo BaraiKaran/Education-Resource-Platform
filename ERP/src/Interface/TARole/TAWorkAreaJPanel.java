@@ -159,6 +159,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblTAHours.setAutoCreateRowSorter(true);
         tblTAHours.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
