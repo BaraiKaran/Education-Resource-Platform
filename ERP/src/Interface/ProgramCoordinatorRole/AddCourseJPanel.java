@@ -202,6 +202,11 @@ public class AddCourseJPanel extends javax.swing.JPanel {
                 }
             }
 
+            if (Integer.parseInt(txtTotalSeats.getText()) > 1000) {
+                JOptionPane.showMessageDialog(null, "Maximum total seats per course has to be less than or equal to 1000");
+                return;
+            }
+
             String coursename = txtName.getText().trim();
             try {
                 totalSeats = Integer.parseInt(txtTotalSeats.getText());

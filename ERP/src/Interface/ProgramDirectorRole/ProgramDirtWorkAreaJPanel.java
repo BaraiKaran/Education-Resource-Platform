@@ -33,7 +33,7 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
     public ProgramDirtWorkAreaJPanel(JPanel userProcessContainer, Organization org, UserAccount ua) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.organization = (CollegeOrganization)org;
+        this.organization = (CollegeOrganization) org;
         this.userAccount = ua;
         for (Program prog : this.organization.getPD().getDirectory()) {
             if (prog.getProgramDirector().getId() == userAccount.getId()) {
@@ -43,8 +43,8 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
         }
 
         populateTable();
-        
-        tblFeeds.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
+
+        tblFeeds.getTableHeader().setFont(new Font("Tahoma", Font.CENTER_BASELINE, 18));
 
     }
 
@@ -92,6 +92,7 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblFeeds.setAutoCreateRowSorter(true);
         tblFeeds.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblFeeds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -136,11 +137,11 @@ public class ProgramDirtWorkAreaJPanel extends javax.swing.JPanel {
 
     private void manageOrganizationJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageOrganizationJButtonActionPerformed
 
-        if(!(program instanceof Program)){
+        if (!(program instanceof Program)) {
             JOptionPane.showMessageDialog(null, "Program not added");
             return;
         }
-        
+
         ManageCourseJPanel panel = new ManageCourseJPanel(userProcessContainer, program, userAccount);
         userProcessContainer.add("ManageCourseJPanel", panel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();

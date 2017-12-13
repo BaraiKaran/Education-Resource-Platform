@@ -44,11 +44,10 @@ public class AssignTAJPanel extends javax.swing.JPanel {
         populateStudents();
         populateTable();
         populateRequest();
-        
-        tblTA.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
-        
-        tblTARequest.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
 
+        tblTA.getTableHeader().setFont(new Font("Tahoma", Font.CENTER_BASELINE, 18));
+
+        tblTARequest.getTableHeader().setFont(new Font("Tahoma", Font.CENTER_BASELINE, 18));
 
     }
 
@@ -98,7 +97,7 @@ public class AssignTAJPanel extends javax.swing.JPanel {
     }
 
     public void populateStudents() {
-         cmbStudentsName.removeAllItems();
+        cmbStudentsName.removeAllItems();
         /*for(Program pd : organization.getPD().getDirectory()){
         for (Courses c : pd.getCourses().getCourseList()) {
             for (UserAccount ua : c.getStudents()) {
@@ -181,6 +180,7 @@ public class AssignTAJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblTA.setAutoCreateRowSorter(true);
         tblTA.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblTA.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -196,6 +196,7 @@ public class AssignTAJPanel extends javax.swing.JPanel {
         tblTA.setRowHeight(20);
         jScrollPane1.setViewportView(tblTA);
 
+        tblTARequest.setAutoCreateRowSorter(true);
         tblTARequest.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblTARequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -320,7 +321,7 @@ for(Program pd : organization.getPD().getDirectory()){
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
         // TODO add your handling code here:
         userProcessContainer.remove(this);
-        
+
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         ManageCourseProfJPanel panel = (ManageCourseProfJPanel) component;

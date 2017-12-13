@@ -6,8 +6,6 @@
 package Interface.TARole;
 
 import Business.College.Program;
-import Interface.TARole.ClockLabel;
-        
 import Business.Courses.Courses;
 import Business.Feeds.Feeds;
 import Business.Organization.CollegeOrganization;
@@ -20,7 +18,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +35,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
     /**
      * Creates new form TAWorkAreaJPanel
      */
-    JPanel userProcessContainer; 
+    JPanel userProcessContainer;
     CollegeOrganization organization;
     UserAccount userAccount;
     Program program;
@@ -51,59 +48,53 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         this.userAccount = account;
         TARole role = (TARole) userAccount.getRole();
         this.course = role.getCourse();
-        
-        
-        
+
         if (role.getTaHours()) {
             btnStartTAHours.setEnabled(false);
-           
-        TAHours active = role.getActive();
-              Date d = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        String e = formatter.format(d);
-         long diff = d. getTime() - formatter.parse(active.getStartTime()).getTime();
-        int h =0 ;
-        int m = 0;
-        int tt = 0;
-        int seconds = (int) (diff/1000); 
-        h = seconds/(60*60);
-        if(h > 0){
-            seconds -= h*60*60;
-        }
-        m = seconds/(60);
-        if(m > 0){
-            seconds -= m*60;
-        }
-        
-       // ClockLabel dateLable = new ClockLabel("date");
-            
-            
-            
-        ClockLabel timeLable = new ClockLabel("time",h,m,seconds); 
-       // ClockLabel dayLable = new ClockLabel("day");
- 
-    JFrame.setDefaultLookAndFeelDecorated(true);
-    JFrame f = new JFrame("Digital Clock");
-    f.setSize(300,150);
-   // f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    f.setLayout(new GridLayout(1, 1));
- 
-   // f.add(dateLable);
-    f.add(timeLable);
-    //f.add(dayLable);
- 
-    f.getContentPane().setBackground(Color.black);
- 
-    f.setVisible(true);
-            
+
+            TAHours active = role.getActive();
+            Date d = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+            String e = formatter.format(d);
+            long diff = d.getTime() - formatter.parse(active.getStartTime()).getTime();
+            int h = 0;
+            int m = 0;
+            int tt = 0;
+            int seconds = (int) (diff / 1000);
+            h = seconds / (60 * 60);
+            if (h > 0) {
+                seconds -= h * 60 * 60;
+            }
+            m = seconds / (60);
+            if (m > 0) {
+                seconds -= m * 60;
+            }
+
+            // ClockLabel dateLable = new ClockLabel("date");
+            ClockLabel timeLable = new ClockLabel("time", h, m, seconds);
+            // ClockLabel dayLable = new ClockLabel("day");
+
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            JFrame f = new JFrame("Digital Clock");
+            f.setSize(300, 150);
+            // f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            f.setLayout(new GridLayout(1, 1));
+
+            // f.add(dateLable);
+            f.add(timeLable);
+            //f.add(dayLable);
+
+            f.getContentPane().setBackground(Color.black);
+
+            f.setVisible(true);
+
         } else {
             btnEndTAHours.setEnabled(false);
-            
+
         }
         populateTable();
         populateFeeds();
     }
-    
 
     public void populateFeeds() {
 
@@ -198,6 +189,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblFeeds.setAutoCreateRowSorter(true);
         tblFeeds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -335,25 +327,25 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         active.setStartTime(s);
         btnStartTAHours.setEnabled(false);
         btnEndTAHours.setEnabled(true);
-        
-       // ClockLabel dateLable = new ClockLabel("date");
-    ClockLabel timeLable = new ClockLabel("time",0,0,0); 
-    //ClockLabel dayLable = new ClockLabel("day");
- 
-    JFrame.setDefaultLookAndFeelDecorated(true);
-    JFrame f = new JFrame("Digital Clock");
-    f.setSize(300,150);
-    //f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
-    f.setLayout(new GridLayout(1, 1));
- 
-  //  f.add(dateLable);
-    f.add(timeLable);
-   // f.add(dayLable);
- 
-    f.getContentPane().setBackground(Color.black);
- 
-    f.setVisible(true);
-        
+
+        // ClockLabel dateLable = new ClockLabel("date");
+        ClockLabel timeLable = new ClockLabel("time", 0, 0, 0);
+        //ClockLabel dayLable = new ClockLabel("day");
+
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JFrame f = new JFrame("Digital Clock");
+        f.setSize(300, 150);
+        //f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+        f.setLayout(new GridLayout(1, 1));
+
+        //  f.add(dateLable);
+        f.add(timeLable);
+        // f.add(dayLable);
+
+        f.getContentPane().setBackground(Color.black);
+
+        f.setVisible(true);
+
         /*for (Program pd : organization.getPD().getDirectory()) {
             for (Courses c : pd.getCourses().getCourseList()) {
                 for (UserAccount ua : c.getTeachingAssistant()) {
@@ -376,7 +368,6 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
 
             }
         }*/
-
     }//GEN-LAST:event_btnStartTAHoursActionPerformed
 
     private void btnEndTAHoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEndTAHoursActionPerformed
@@ -403,21 +394,21 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         } catch (ParseException ex) {
             Logger.getLogger(TAWorkAreaJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         populateTable();
     }//GEN-LAST:event_btnEndTAHoursActionPerformed
 
     private void btnAnouncementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncementActionPerformed
         // TODO add your handling code here:
-  if(!(program instanceof Program)){
+        if (!(program instanceof Program)) {
             JOptionPane.showMessageDialog(null, "Please add program");
             return;
         }
-        if(!(course instanceof Courses)){
+        if (!(course instanceof Courses)) {
             JOptionPane.showMessageDialog(null, "Please add course");
             return;
         }
-        
+
         AnouncementJPanel JPanel = new AnouncementJPanel(userProcessContainer, program, userAccount, organization, course);
         userProcessContainer.add("AnouncementJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -427,15 +418,15 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnTImeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTImeActionPerformed
         // TODO add your handling code here:
-          if(!(program instanceof Program)){
+        if (!(program instanceof Program)) {
             JOptionPane.showMessageDialog(null, "Please add program");
             return;
         }
-        if(!(course instanceof Courses)){
+        if (!(course instanceof Courses)) {
             JOptionPane.showMessageDialog(null, "Please add course");
             return;
         }
-        
+
         TimeSlotJPanel JPanel = new TimeSlotJPanel(userProcessContainer, program, userAccount, organization, course);
         userProcessContainer.add("TimeSlotJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
@@ -444,41 +435,39 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReviewActionPerformed
         // TODO add your handling code here:
-          if(!(program instanceof Program)){
+        if (!(program instanceof Program)) {
             JOptionPane.showMessageDialog(null, "Please add program");
             return;
         }
-        if(!(course instanceof Courses)){
+        if (!(course instanceof Courses)) {
             JOptionPane.showMessageDialog(null, "Please add course");
             return;
         }
-        
-         ReviewJPanel  JPanel = new ReviewJPanel(userProcessContainer, program, userAccount, organization, course);
+
+        ReviewJPanel JPanel = new ReviewJPanel(userProcessContainer, program, userAccount, organization, course);
         userProcessContainer.add("ReviewJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-        
+
     }//GEN-LAST:event_btnReviewActionPerformed
 
     private void btnAnouncement1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncement1ActionPerformed
         // TODO add your handling code here:
-        
-        if(!(program instanceof Program)){
+
+        if (!(program instanceof Program)) {
             JOptionPane.showMessageDialog(null, "Please add program");
             return;
         }
-        if(!(course instanceof Courses)){
+        if (!(course instanceof Courses)) {
             JOptionPane.showMessageDialog(null, "Please add course");
             return;
         }
-        
-        
-        WorkingHoursJPanel  JPanel = new WorkingHoursJPanel(userProcessContainer, program, userAccount, organization, course);
+
+        WorkingHoursJPanel JPanel = new WorkingHoursJPanel(userProcessContainer, program, userAccount, organization, course);
         userProcessContainer.add("ReviewJPanel", JPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-        
-        
+
     }//GEN-LAST:event_btnAnouncement1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

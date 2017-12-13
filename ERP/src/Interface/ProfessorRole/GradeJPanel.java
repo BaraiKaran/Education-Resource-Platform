@@ -47,18 +47,17 @@ public class GradeJPanel extends javax.swing.JPanel {
         this.uname = username;
         populateCourses();
         populateGrade();
-       // populateStudents();
+        // populateStudents();
         //populateTable();
         //populateRequest();
-        
-        tblTA.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
-        
-        tblTARequest.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
 
+        tblTA.getTableHeader().setFont(new Font("Tahoma", Font.CENTER_BASELINE, 18));
+
+        tblTARequest.getTableHeader().setFont(new Font("Tahoma", Font.CENTER_BASELINE, 18));
 
     }
 
-    public void populateGrade(){
+    public void populateGrade() {
         cmbGrade.removeAllItems();
         cmbGrade.addItem(new String("A"));
         cmbGrade.addItem(new String("A-"));
@@ -66,43 +65,40 @@ public class GradeJPanel extends javax.swing.JPanel {
         cmbGrade.addItem(new String("B"));
         cmbGrade.addItem(new String("C"));
         cmbGrade.addItem(new String("F"));
-        
-        
+
     }
-    
+
     public void populateTable(UserAccount stu) {
         DefaultTableModel model = (DefaultTableModel) tblTA.getModel();
         model.setRowCount(0);
 
         //for (Program pd : .getPD().getDirectory()) {
         Courses cr = (Courses) cmbCousreName.getSelectedItem();
-        
+
         AssignmentDirectory adir = cr.getAssignment();
-        for(Assignment ad : adir.getAssignmentDirectory()){
+        for (Assignment ad : adir.getAssignmentDirectory()) {
             SubmissionDirectory sd = ad.getSubmissionDirectory();
             Boolean flag = false;
             Object[] row = new Object[4];
             row[0] = ad.getTitle();
             row[3] = ad.getMaxScore();
-             for(Submission ss : sd.getSubmission()){
-                if(ss.getStudent().getId() == stu.getId()){
+            for (Submission ss : sd.getSubmission()) {
+                if (ss.getStudent().getId() == stu.getId()) {
                     row[1] = ss.getPath();
                     row[2] = ss.getMarks();
-                    
+
                     flag = true;
                 }
             }
-             if(!flag){
-                 row[1] = "NA";
-                 row[2] = "NA";
-             }
-             
-             model.addRow(row);
+            if (!flag) {
+                row[1] = "NA";
+                row[2] = "NA";
+            }
+
+            model.addRow(row);
         }
-        
-        
-        
-       /* Object[] row = new Object[3];
+
+        /* Object[] row = new Object[3];
         for (UserAccount ua : cr.getTeachingAssistant()) {
 
             row[0] = ua;
@@ -139,36 +135,34 @@ public class GradeJPanel extends javax.swing.JPanel {
                 }
             }
         }
-        
+
     }
 
     public void populateStudents() {
-        
-       
-         
-         DefaultTableModel dtm  = (DefaultTableModel)tblTARequest.getModel();
-         dtm.setRowCount(0);
-         Courses cr = (Courses)cmbCousreName.getSelectedItem();
-         MarksDirectory mdir = cr.getMarks();
+
+        DefaultTableModel dtm = (DefaultTableModel) tblTARequest.getModel();
+        dtm.setRowCount(0);
+        Courses cr = (Courses) cmbCousreName.getSelectedItem();
+        MarksDirectory mdir = cr.getMarks();
         for (UserAccount ua : cr.getStudents()) {
-           
+
             if (ua.getRole() instanceof StudentRole) {
-                 
+
                 Object[] row = new Object[2];
                 row[0] = ua;
                 Boolean flag = false;
-                for(Marks m : mdir.getMarksList()){
-                    if(m.getStudent().getId() == ua.getId()){
+                for (Marks m : mdir.getMarksList()) {
+                    if (m.getStudent().getId() == ua.getId()) {
                         flag = true;
                         row[1] = m.getMarks();
                     }
                 }
-                if(!flag)
+                if (!flag) {
                     row[1] = "Not graded";
-                
-                
+                }
+
                 dtm.addRow(row);
-                
+
             }
         }
 
@@ -225,6 +219,7 @@ public class GradeJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblTA.setAutoCreateRowSorter(true);
         tblTA.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblTA.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -240,6 +235,7 @@ public class GradeJPanel extends javax.swing.JPanel {
         tblTA.setRowHeight(20);
         jScrollPane1.setViewportView(tblTA);
 
+        tblTARequest.setAutoCreateRowSorter(true);
         tblTARequest.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblTARequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -345,10 +341,9 @@ public class GradeJPanel extends javax.swing.JPanel {
 
     private void cmbCousreNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCousreNameActionPerformed
         // TODO add your handling code here:
-        
-      populateStudents();
-        
-        
+
+        populateStudents();
+
     }//GEN-LAST:event_cmbCousreNameActionPerformed
 
     private void cmbCousreNamePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbCousreNamePropertyChange
@@ -360,14 +355,13 @@ public class GradeJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         //CourseDirectory cd = program.getCourses();
         int selected = tblTARequest.getSelectedRow();
-        if(selected >= 0){
-            UserAccount ua = (UserAccount)tblTARequest.getValueAt(selected, 0);
+        if (selected >= 0) {
+            UserAccount ua = (UserAccount) tblTARequest.getValueAt(selected, 0);
             populateTable(ua);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Please select a student");
         }
-        
-        
+
     }//GEN-LAST:event_btnAssignTAActionPerformed
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
@@ -379,9 +373,7 @@ public class GradeJPanel extends javax.swing.JPanel {
 
     private void cmbGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbGradeActionPerformed
         // TODO add your handling code here:
-        
-        
-        
+
     }//GEN-LAST:event_cmbGradeActionPerformed
 
     private void cmbGradePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbGradePropertyChange
@@ -391,23 +383,23 @@ public class GradeJPanel extends javax.swing.JPanel {
     private void btnGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGradeActionPerformed
         // TODO add your handling code here:
         int selected = tblTARequest.getSelectedRow();
-        if(selected >= 0){
-            
+        if (selected >= 0) {
+
             Courses cr = (Courses) cmbCousreName.getSelectedItem();
-            UserAccount ua = (UserAccount)tblTARequest.getValueAt(selected, 0);
-            String grade = (String)cmbGrade.getSelectedItem();
+            UserAccount ua = (UserAccount) tblTARequest.getValueAt(selected, 0);
+            String grade = (String) cmbGrade.getSelectedItem();
             MarksDirectory mdir = cr.getMarks();
-            if(mdir.checkStudent(ua) instanceof Marks){
+            if (mdir.checkStudent(ua) instanceof Marks) {
                 Marks mm = mdir.checkStudent(ua);
                 mm.setMarks(grade);
-            }else{
+            } else {
                 Marks m = mdir.addMarks(ua, grade);
             }
             JOptionPane.showMessageDialog(null, "Graded Successfully");
             populateStudents();
-            ua.createFeeds("You have been graded by the professor for course "+cr.getCourseName());
-        }else{
-            
+            ua.createFeeds("You have been graded by the professor for course " + cr.getCourseName());
+        } else {
+
             JOptionPane.showMessageDialog(null, "Please select a student");
         }
     }//GEN-LAST:event_btnGradeActionPerformed
