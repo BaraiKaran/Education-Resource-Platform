@@ -14,6 +14,7 @@ import Business.Role.StudentRole;
 import Business.TimeSlots.TimeSlots;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -363,6 +364,10 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
         // TODO add your handling code here:
         userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        StudentWorkAreaJPanel panel = (StudentWorkAreaJPanel) component;
+        panel.populateTable(); 
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backbtnActionPerformed

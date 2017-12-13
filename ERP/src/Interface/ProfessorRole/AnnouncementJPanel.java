@@ -14,6 +14,7 @@ import Business.Role.StudentRole;
 import Business.Role.TARequest;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -220,6 +221,12 @@ public class AnnouncementJPanel extends javax.swing.JPanel {
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
         // TODO add your handling code here:
         userProcessContainer.remove(this);
+        
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        ManageCourseProfJPanel panel = (ManageCourseProfJPanel) component;
+        panel.populateTable();
+        panel.populateFeeds();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backbtnActionPerformed

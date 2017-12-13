@@ -160,6 +160,7 @@ public class StudentWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         btnActiveRegistration.setBackground(new java.awt.Color(51, 153, 255));
+        btnActiveRegistration.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnActiveRegistration.setForeground(new java.awt.Color(255, 255, 255));
         btnActiveRegistration.setText("Active Registration");
         btnActiveRegistration.addActionListener(new java.awt.event.ActionListener() {
