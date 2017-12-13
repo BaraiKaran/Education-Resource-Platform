@@ -400,10 +400,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnAnouncementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncementActionPerformed
         // TODO add your handling code here:
-        if (!(program instanceof Program)) {
-            JOptionPane.showMessageDialog(null, "Please add program");
-            return;
-        }
+        
         if (!(course instanceof Courses)) {
             JOptionPane.showMessageDialog(null, "Please add course");
             return;
@@ -418,10 +415,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnTImeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTImeActionPerformed
         // TODO add your handling code here:
-        if (!(program instanceof Program)) {
-            JOptionPane.showMessageDialog(null, "Please add program");
-            return;
-        }
+        
         if (!(course instanceof Courses)) {
             JOptionPane.showMessageDialog(null, "Please add course");
             return;
@@ -435,10 +429,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReviewActionPerformed
         // TODO add your handling code here:
-        if (!(program instanceof Program)) {
-            JOptionPane.showMessageDialog(null, "Please add program");
-            return;
-        }
+        
         if (!(course instanceof Courses)) {
             JOptionPane.showMessageDialog(null, "Please add course");
             return;
@@ -454,10 +445,7 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
     private void btnAnouncement1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnouncement1ActionPerformed
         // TODO add your handling code here:
 
-        if (!(program instanceof Program)) {
-            JOptionPane.showMessageDialog(null, "Please add program");
-            return;
-        }
+        
         if (!(course instanceof Courses)) {
             JOptionPane.showMessageDialog(null, "Please add course");
             return;
