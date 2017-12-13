@@ -147,16 +147,20 @@ public class TAWorkAreaJPanel extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Welcome Teaching Assistant");
 
+        btnStartTAHours.setBackground(new java.awt.Color(51, 153, 255));
         btnStartTAHours.setForeground(new java.awt.Color(255, 255, 255));
         btnStartTAHours.setText("Start TA hours");
+        btnStartTAHours.setToolTipText("");
         btnStartTAHours.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStartTAHoursActionPerformed(evt);
             }
         });
 
+        btnEndTAHours.setBackground(new java.awt.Color(51, 153, 255));
         btnEndTAHours.setForeground(new java.awt.Color(255, 255, 255));
         btnEndTAHours.setText("End TA hours");
+        btnEndTAHours.setToolTipText("");
         btnEndTAHours.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEndTAHoursActionPerformed(evt);

@@ -10,6 +10,7 @@ import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -63,6 +64,7 @@ public class ActiveRegistrationJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Active Registration");
 
+        tblCoursesRegistered.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblCoursesRegistered.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -82,6 +84,7 @@ public class ActiveRegistrationJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblCoursesRegistered.setRowHeight(20);
         jScrollPane1.setViewportView(tblCoursesRegistered);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -147,7 +150,12 @@ public class ActiveRegistrationJPanel extends javax.swing.JPanel {
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
         // TODO add your handling code here:
+        
         userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        StudentWorkAreaJPanel panel = (StudentWorkAreaJPanel) component;
+        panel.populateTable();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backbtnActionPerformed

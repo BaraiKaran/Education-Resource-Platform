@@ -149,6 +149,7 @@ public class RAWorkAreaJPanel extends javax.swing.JPanel {
         tblTAHours.setRowHeight(20);
         jScrollPane1.setViewportView(tblTAHours);
 
+        btnStartTAHours.setBackground(new java.awt.Color(51, 153, 255));
         btnStartTAHours.setForeground(new java.awt.Color(255, 255, 255));
         btnStartTAHours.setText("Start Working hours");
         btnStartTAHours.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +158,7 @@ public class RAWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnEndTAHours.setBackground(new java.awt.Color(51, 153, 255));
         btnEndTAHours.setForeground(new java.awt.Color(255, 255, 255));
         btnEndTAHours.setText("End Working hours");
         btnEndTAHours.addActionListener(new java.awt.event.ActionListener() {

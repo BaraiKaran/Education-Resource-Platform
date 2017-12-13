@@ -11,6 +11,8 @@ import Business.College.Program;
 import Business.Courses.Courses;
 import Business.Organization.CollegeOrganization;
 import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.Font;
 import java.io.File;
 import java.io.FileWriter;
@@ -74,6 +76,7 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
         btnBrowseFiles = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSubmissionDetails = new javax.swing.JTable();
+        backbtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setToolTipText("");
@@ -149,6 +152,17 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
             tblSubmissionDetails.getColumnModel().getColumn(2).setResizable(false);
         }
 
+        backbtn.setBackground(new java.awt.Color(51, 153, 255));
+        backbtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        backbtn.setForeground(new java.awt.Color(255, 255, 255));
+        backbtn.setText("<<Back");
+        backbtn.setToolTipText("");
+        backbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -170,9 +184,11 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
                             .addComponent(cmbAssignment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbCourse, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(131, Short.MAX_VALUE))
+                        .addGap(125, 125, 125)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,9 +210,11 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBrowseFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(385, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addComponent(backbtn)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -321,7 +339,20 @@ public class AssignmentSubmissionJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnBrowseFilesActionPerformed
 
+    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
+        // TODO add your handling code here:
+
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        StudentWorkAreaJPanel panel = (StudentWorkAreaJPanel) component;
+        panel.populateTable();
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_backbtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backbtn;
     private javax.swing.JButton btnBrowseFiles;
     private javax.swing.JComboBox cmbAssignment;
     private javax.swing.JComboBox cmbCourse;
