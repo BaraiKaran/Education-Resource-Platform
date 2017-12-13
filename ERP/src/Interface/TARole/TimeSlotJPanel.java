@@ -119,6 +119,7 @@ public class TimeSlotJPanel extends javax.swing.JPanel {
             }
         });
 
+        tblSlots.setAutoCreateRowSorter(true);
         tblSlots.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblSlots.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

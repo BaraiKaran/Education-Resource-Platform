@@ -26,38 +26,37 @@ public class WorkingHoursJPanel extends javax.swing.JPanel {
     /**
      * Creates new form WorkingHoursJPanel
      */
-       JPanel userProcessContainer;
+    JPanel userProcessContainer;
     CollegeOrganization organization;
     UserAccount userAccount;
     Program program;
     Courses course;
+
     public WorkingHoursJPanel() {
         initComponents();
     }
 
     public WorkingHoursJPanel(JPanel userProcessContainer, Program program, UserAccount userAccount, CollegeOrganization organization, Courses course) {
-        
+
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.organization = (CollegeOrganization) organization;
         this.userAccount = userAccount;
         TARole role = (TARole) userAccount.getRole();
         this.course = role.getCourse();
-       
+
         populateTable();
-        
+
         tblTAHours.getTableHeader().setFont(new Font("Tahoma", Font.CENTER_BASELINE, 18));
 
-        
-        
     }
 
-     public void populateTable() {
+    public void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tblTAHours.getModel();
         model.setRowCount(0);
         TARole role = (TARole) userAccount.getRole();
         Object[] row = new Object[6];
-        
+
         for (TAHours r : role.getTahours()) {
             row[0] = role.getCourse();
             row[1] = r.getDate();
@@ -69,7 +68,7 @@ public class WorkingHoursJPanel extends javax.swing.JPanel {
         }
 
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,6 +89,7 @@ public class WorkingHoursJPanel extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Working Hours");
 
+        tblTAHours.setAutoCreateRowSorter(true);
         tblTAHours.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblTAHours.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -152,17 +152,16 @@ public class WorkingHoursJPanel extends javax.swing.JPanel {
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
         // TODO add your handling code here:
-         userProcessContainer.remove(this);
+        userProcessContainer.remove(this);
         Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         TAWorkAreaJPanel panel = (TAWorkAreaJPanel) component;
-        panel.populateTable(); 
+        panel.populateTable();
         panel.populateFeeds();
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
-        
-    }//GEN-LAST:event_backbtnActionPerformed
 
+    }//GEN-LAST:event_backbtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backbtn;

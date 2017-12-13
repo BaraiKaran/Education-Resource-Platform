@@ -27,13 +27,12 @@ public class ReviewJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ReviewJPanel
      */
-    
     private JPanel userProcessContainer;
     private CollegeOrganization organization;
     private UserAccount userAccount;
     private Program program;
     private Courses course;
-    
+
     public ReviewJPanel() {
         initComponents();
     }
@@ -46,37 +45,36 @@ public class ReviewJPanel extends javax.swing.JPanel {
         this.program = program;
         this.course = course;
         populateCombo();
-        
-        tblSlots.getTableHeader().setFont(new Font("Tahoma",Font.CENTER_BASELINE,18));
+
+        tblSlots.getTableHeader().setFont(new Font("Tahoma", Font.CENTER_BASELINE, 18));
     }
-    
-    public void populateCombo(){
+
+    public void populateCombo() {
         cmbAssignment.removeAllItems();
-        
-        for(Assignment as : course.getAssignment().getAssignmentDirectory()){
+
+        for (Assignment as : course.getAssignment().getAssignmentDirectory()) {
             cmbAssignment.addItem(as);
         }
     }
-    
-    public void populateTable(Assignment as){
-        DefaultTableModel dtm  = (DefaultTableModel)tblSlots.getModel();
+
+    public void populateTable(Assignment as) {
+        DefaultTableModel dtm = (DefaultTableModel) tblSlots.getModel();
         dtm.setRowCount(0);
-        
-        
-        for(TimeSlots ts : as.getSlots().getSlots()){
+
+        for (TimeSlots ts : as.getSlots().getSlots()) {
             Object[] row = new Object[6];
             row[0] = ts;
             row[3] = ts.getDate();
             row[1] = ts.getStart();
             row[2] = ts.getEnd();
             row[4] = ts.getStatus();
-           if(ts.getStudent() instanceof UserAccount){
-               row[5] = ts.getStudent();
-               
-           }else{
-               row[5] = "NA";
-           }
-           dtm.addRow(row);
+            if (ts.getStudent() instanceof UserAccount) {
+                row[5] = ts.getStudent();
+
+            } else {
+                row[5] = "NA";
+            }
+            dtm.addRow(row);
         }
     }
 
@@ -118,6 +116,7 @@ public class ReviewJPanel extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Assignment :");
 
+        tblSlots.setAutoCreateRowSorter(true);
         tblSlots.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblSlots.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -196,9 +195,9 @@ public class ReviewJPanel extends javax.swing.JPanel {
     private void cmbAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAssignmentActionPerformed
         // TODO add your handling code here:
 
-        Assignment as = (Assignment)cmbAssignment.getSelectedItem();
+        Assignment as = (Assignment) cmbAssignment.getSelectedItem();
         populateTable(as);
-        
+
     }//GEN-LAST:event_cmbAssignmentActionPerformed
 
     private void cmbAssignmentPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbAssignmentPropertyChange
@@ -208,14 +207,14 @@ public class ReviewJPanel extends javax.swing.JPanel {
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         // TODO add your handling code here:
         int selected = tblSlots.getSelectedRow();
-        if(selected >= 0){
-        TimeSlots timeslot = (TimeSlots)tblSlots.getValueAt(selected, 0);
-        Assignment assignment = (Assignment)cmbAssignment.getSelectedItem();
-        AReviewJPanel  JPanel = new AReviewJPanel(userProcessContainer, program, userAccount, organization, course,timeslot,assignment);
-        userProcessContainer.add("ReviewJPanel", JPanel); 
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
-        }else{
+        if (selected >= 0) {
+            TimeSlots timeslot = (TimeSlots) tblSlots.getValueAt(selected, 0);
+            Assignment assignment = (Assignment) cmbAssignment.getSelectedItem();
+            AReviewJPanel JPanel = new AReviewJPanel(userProcessContainer, program, userAccount, organization, course, timeslot, assignment);
+            userProcessContainer.add("ReviewJPanel", JPanel);
+            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+        } else {
             JOptionPane.showMessageDialog(null, "Please select a slot");
         }
     }//GEN-LAST:event_btnStartActionPerformed
@@ -232,7 +231,6 @@ public class ReviewJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
 
     }//GEN-LAST:event_backbtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backbtn;
