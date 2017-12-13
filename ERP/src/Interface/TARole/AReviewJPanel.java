@@ -13,7 +13,6 @@ import Business.Organization.CollegeOrganization;
 import Business.TimeSlots.TimeSlots;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
-import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -52,7 +51,7 @@ public class AReviewJPanel extends javax.swing.JPanel {
         for (Submission sb : this.assignment.getSubmissionDirectory().getSubmission()) {
             if (sb.getStudent().getId() == this.timeslot.getStudent().getId()) {
                 this.submission = sb;
-                System.out.println(sb.getPath());
+
             }
         }
 
@@ -220,6 +219,7 @@ public class AReviewJPanel extends javax.swing.JPanel {
 
         try {
             submission.setMarks(Integer.parseInt(txtMarks.getText()));
+            JOptionPane.showMessageDialog(null, "Marks updated successfully");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Please enter only interger values");
         }
@@ -230,11 +230,6 @@ public class AReviewJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         userProcessContainer.remove(this);
-        Component[] componentArray = userProcessContainer.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        ReviewJPanel panel = (ReviewJPanel) component;
-        panel.populateCombo();
-        
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
 

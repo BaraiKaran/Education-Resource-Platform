@@ -4,7 +4,6 @@
  */
 package Interface;
 
-import Business.ConfigureABusiness;
 import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
@@ -29,7 +28,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     public MainJFrame() {
         initComponents();
-        system = ConfigureABusiness.Configure();
+        // system = ConfigureABusiness.Configure();
         system = dB4OUtil.retrieveSystem();
     }
 
