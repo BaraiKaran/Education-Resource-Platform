@@ -20,6 +20,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -44,8 +45,31 @@ public class AssignmentJPanel extends javax.swing.JPanel {
         this.organization = (CollegeOrganization) organization;
         this.uname = username;
         populateCombo();
+        populateTable();
     }
 
+    public void populateTable(){
+        
+        DefaultTableModel dtm = (DefaultTableModel)tblAssignments.getModel();
+        dtm.setRowCount(0);
+       
+        for (Program pd : organization.getPD().getDirectory()) {
+            for (Courses c : pd.getCourses().getCourseList()) {
+                if (c.getProfessor().getUsername().equals(uname) && c.getApprovalStatus().equals("Approved")) {
+                    for(Assignment as : c.getAssignment().getAssignmentDirectory()){
+                    
+                    Object[] row = new Object[3];
+                    row[0] = as;
+                    row[1] = as.getMaxScore();
+                    row[2] = c;
+                    dtm.addRow(row);
+                   }
+                }
+            }
+        }
+        
+    }
+    
     public void populateCombo() {
         cmbCousreName.removeAllItems();
         //CourseDirectory cd = program.getCourses();
@@ -79,6 +103,9 @@ public class AssignmentJPanel extends javax.swing.JPanel {
         backbtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtMaximumScore = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblAssignments = new javax.swing.JTable();
+        btnAssignment = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -133,6 +160,29 @@ public class AssignmentJPanel extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setText("Maximum Score:");
 
+        tblAssignments.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title", "Max Score", "Course"
+            }
+        ));
+        jScrollPane2.setViewportView(tblAssignments);
+
+        btnAssignment.setBackground(new java.awt.Color(51, 153, 255));
+        btnAssignment.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnAssignment.setForeground(new java.awt.Color(255, 255, 255));
+        btnAssignment.setText("Remove Assignment");
+        btnAssignment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignmentActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,57 +190,65 @@ public class AssignmentJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnSubmit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(backbtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
-                            .addComponent(jLabel4)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jLabel5))
-                                .addGap(36, 36, 36)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtTitle)
-                                    .addComponent(cmbCousreName, 0, 171, Short.MAX_VALUE)
-                                    .addComponent(txtMaximumScore))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(jLabel5))
+                                        .addGap(36, 36, 36)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtTitle)
+                                            .addComponent(cmbCousreName, 0, 171, Short.MAX_VALUE)
+                                            .addComponent(txtMaximumScore))))
+                                .addGap(0, 44, Short.MAX_VALUE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAssignment)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbCousreName, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(31, 31, 31))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtMaximumScore, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)))
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbCousreName, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMaximumScore, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(btnSubmit)
-                .addGap(45, 45, 45)
-                .addComponent(backbtn)
-                .addGap(81, 81, 81))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(165, 165, 165)
+                .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -257,8 +315,16 @@ public class AssignmentJPanel extends javax.swing.JPanel {
         }
 
         Courses cr = (Courses) cmbCousreName.getSelectedItem();
-        Assignment as = cr.getAssignment().addAssignment(txtTitle.getText(), txtAn.getText(), Integer.parseInt(txtMaximumScore.getText()));
-
+        int marks = 0;
+        try{
+         marks = Integer.parseInt(txtMaximumScore.getText());
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Please enter only digits in Max score");
+            return;
+        }
+        
+        Assignment as = cr.getAssignment().addAssignment(txtTitle.getText(), txtAn.getText(), marks);
+        
         for (UserAccount ua : cr.getStudents()) {
             ua.createFeeds("Professor " + userAccount.getEmployee().getName() + " released new Assignment " + as.getTitle());
         }
@@ -268,7 +334,7 @@ public class AssignmentJPanel extends javax.swing.JPanel {
         }
         new File("C:\\Assignment_submission\\" + String.valueOf(cmbCousreName.getSelectedItem()) + "\\" + txtTitle.getText()).mkdir();
 
-        /* Code to show windows notification */
+        /* Code to show windows notification 
         if (SystemTray.isSupported()) {
             TrayIconDemo td = new TrayIconDemo();
             try {
@@ -281,9 +347,10 @@ public class AssignmentJPanel extends javax.swing.JPanel {
         } else {
             System.err.println("System tray not supported!");
         }
+        */
         /* */
-        //JOptionPane.showMessageDialog(null, "Submitted successfully");
-
+        JOptionPane.showMessageDialog(null, "Submitted successfully");
+        populateTable();
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
@@ -299,8 +366,25 @@ public class AssignmentJPanel extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backbtnActionPerformed
 
+    private void btnAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignmentActionPerformed
+        // TODO add your handling code here:
+        int selected = tblAssignments.getSelectedRow();
+        if(selected >= 0){
+            Courses cr = (Courses) tblAssignments.getValueAt(selected, 2);
+            Assignment as = (Assignment)tblAssignments.getValueAt(selected, 0);
+            cr.getAssignment().removeAssignment(as);
+            JOptionPane.showMessageDialog(null, "Deleted successfully");
+            populateTable();
+        }else{
+            JOptionPane.showMessageDialog(null, "Please select a row");
+        }
+        
+        
+    }//GEN-LAST:event_btnAssignmentActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backbtn;
+    private javax.swing.JButton btnAssignment;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox cmbCousreName;
     private javax.swing.JLabel jLabel1;
@@ -309,6 +393,8 @@ public class AssignmentJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tblAssignments;
     private javax.swing.JTextArea txtAn;
     private javax.swing.JTextField txtMaximumScore;
     private javax.swing.JTextField txtTitle;

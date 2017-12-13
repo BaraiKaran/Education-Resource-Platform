@@ -57,7 +57,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jSplitPane1.setPreferredSize(new java.awt.Dimension(900, 600));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         loginJButton.setBackground(new java.awt.Color(51, 153, 255));
         loginJButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -68,8 +68,10 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("User Name");
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Password");
 
         logoutJButton.setBackground(new java.awt.Color(51, 153, 255));

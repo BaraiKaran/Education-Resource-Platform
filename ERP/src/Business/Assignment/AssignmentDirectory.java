@@ -32,5 +32,8 @@ public class AssignmentDirectory {
         assignmentDirectory.add(as);
         return as;
     }
-
+    
+    public void removeAssignment(Assignment a){
+        assignmentDirectory.remove(a);
+    }
 }

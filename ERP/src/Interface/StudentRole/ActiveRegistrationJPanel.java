@@ -7,7 +7,10 @@ package Interface.StudentRole;
 
 import Business.College.Program;
 import Business.Courses.Courses;
+import Business.Marks.Marks;
+import Business.Marks.MarksDirectory;
 import Business.Organization.CollegeOrganization;
+import Business.Role.StudentRole;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -67,17 +70,17 @@ public class ActiveRegistrationJPanel extends javax.swing.JPanel {
         tblCoursesRegistered.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblCoursesRegistered.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "CRN Number", "Course Name"
+                "CRN Number", "Course Name", "Grade"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -120,14 +123,20 @@ public class ActiveRegistrationJPanel extends javax.swing.JPanel {
                         .addGap(329, 329, 329)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addContainerGap()
+                        .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(344, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(backbtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnDropCourse, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(225, Short.MAX_VALUE))
+                            .addComponent(btnDropCourse))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,11 +147,11 @@ public class ActiveRegistrationJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDropCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
                 .addComponent(backbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(230, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -164,6 +173,13 @@ public class ActiveRegistrationJPanel extends javax.swing.JPanel {
         {
             if (selected >= 0) {
                 Courses c = (Courses) tblCoursesRegistered.getValueAt(selected, 1);
+                String grade = (String)tblCoursesRegistered.getValueAt(selected, 2);
+                
+                if(!grade.equals("Not graded")){
+                    JOptionPane.showMessageDialog(null , "You cannot drop this course now");
+                    return;
+                }
+                
                 c.removeStudent(userAccount);
                 c.setTotalSeats(c.getTotalSeats() + 1);
                 populateTable();
@@ -185,6 +201,29 @@ public class ActiveRegistrationJPanel extends javax.swing.JPanel {
                 if (userAccount.getId() == user.getId()) {
                     row[0] = c.getCrnNumber();
                     row[1] = c;
+                    
+                     MarksDirectory mdir = c.getMarks();
+        
+           
+            if (user.getRole() instanceof StudentRole) {
+                 
+                
+                Boolean flag = false;
+                for(Marks m : mdir.getMarksList()){
+                    if(m.getStudent().getId() == user.getId()){
+                        flag = true;
+                        row[2] = m.getMarks();
+                    }
+                }
+                if(!flag)
+                    row[2] = "Not graded";
+                
+                
+               
+                
+            }
+        
+                    
                     model.addRow(row);
                 }
             }

@@ -405,6 +405,7 @@ public class GradeJPanel extends javax.swing.JPanel {
             }
             JOptionPane.showMessageDialog(null, "Graded Successfully");
             populateStudents();
+            ua.createFeeds("You have been graded by the professor for course "+cr.getCourseName());
         }else{
             
             JOptionPane.showMessageDialog(null, "Please select a student");
